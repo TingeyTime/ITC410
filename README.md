@@ -17,3 +17,23 @@ I would like a user to have 3 separate task lists: inbox, upcoming, daily. The t
 ## Notes
 
 This will be used for general notes about the week. It would be cool to use a Markdown WYSIWYG editor for this, but if that becomes to difficult a simple text editor will suffice.
+
+# DDD
+
+## Events
+
+## Commands
+
+## Entities
+
+### Account
+
+### Calendar
+
+### Task List
+
+### Notes
+
+## Value Objects
+
+### Notes
