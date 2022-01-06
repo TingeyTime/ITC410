@@ -22,18 +22,70 @@ This will be used for general notes about the week. It would be cool to use a Ma
 
 ## Events
 
+- user account created
+- user account deleted
+- user logged in
+- user logged out
+- task added
+- task completed
+- task moved
+- task loaded
+- task modified
+- task deleted
+- event created
+- event moved
+- event deleted
+- notes modified
+
 ## Commands
+
+- createUserAccount
+- deletedUserAccount
+- logInUser
+- logOutUser
+- addTask
+- completeTask
+- moveTask
+- loadTask
+- modifyTask
+- deleteTask
+- createEvent
+- moveEvent
+- deleteEvent
+- modifyNotes
 
 ## Entities
 
 ### Account
 
-### Calendar
+- user id (unique)
+- name
+- password
+- sessionInfo
+
+### Calendar Event
+
+- event id (unique)
+- title
+- description
+- date object? (You said we'll talk about this in class)
 
 ### Task List
 
-### Notes
+- name
+- tasks
+
+### Task
+
+- task id (unique)
+- title
+- description
+- duration
+- complete
 
 ## Value Objects
 
 ### Notes
+
+- data (the file's raw data)
+- user id
