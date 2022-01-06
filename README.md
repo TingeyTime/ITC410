@@ -68,11 +68,12 @@ This will be used for general notes about the week. It would be cool to use a Ma
 - event id (unique)
 - title
 - description
-- date object? (You said we'll talk about this in class)
+- date object
 
 ### Task List
 
 - name
+- position
 - tasks
 
 ### Task
