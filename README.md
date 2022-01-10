@@ -63,12 +63,13 @@ This will be used for general notes about the week. It would be cool to use a Ma
 - password
 - sessionInfo
 
-### Calendar Event
+### Event
 
 - event id (unique)
 - title
 - description
-- date object
+- start
+- end
 
 ### Task List
 
@@ -90,3 +91,129 @@ This will be used for general notes about the week. It would be cool to use a Ma
 
 - data (the file's raw data)
 - user id
+
+# REST Design
+
+| Description | URL Fragment | HTTP Method | Path Parameters | Representations |
+| ----------- | ------------ | ----------- | --------------- | --------------- |
+| create account | `/accounts` | POST | | Create Account |
+| delete account | `/accounts/{accountId}` | DELETE | `accountId` | |
+| log in | `/accounts/{accountId}/login` | PUT | `accountId` | Account Log In |
+| log out | `/accounts/{accountId}/logout` | PUT | `accountId` | |
+| get tasks | `/tasks` | GET | | Get Tasks |
+| add task | `/tasks` | POST | | Set Task |
+| edit task | `/tasks/{taskId}` | PUT | `taskId` | Set Task |
+| delete task | `/tasks/{taskId}` | DELETE | `taskId` | |
+| get events | `/events/` | GET | `eventId` | Get Events |
+| add event | `/events/` | POST | `eventId` | Set Event |
+| edit event | `/events/{eventId}` | EDIT | `eventId` | Set Event |
+| delete event | `/events/{eventId}` | DELETE | `eventId` | |
+| upload notes | `/notes` | POST | | Note |
+| download notes | `/notes` | GET | | Note |
+| delete notes | `/notes` | DELETE | | |
+
+## Representations
+
+### Create Account
+
+```json
+{
+    "username": "username",
+    "name": "First Name",
+    "password": "a-password"
+}
+```
+
+### Account Log In
+
+```json
+{
+    "password": "a-password"
+}
+```
+
+### Get Tasks
+
+```json
+[
+    {
+        "taskId": "001",
+        "title": "Write in Journal",
+        "description": "Daily Notes",
+        "duration": "T00:20:00",
+        "complete": null
+    },
+    {
+        "taskId": "002",
+        "title": "Clean desk",
+        "description": "Find a place for everything",
+        "duration": "T00:15:00",
+        "complete": null
+    }
+    {
+        "taskId": "003",
+        "title": "Finish Homework",
+        "description": "Chemistry",
+        "duration": "T02:00:00",
+        "complete": null
+    }
+]
+```
+
+### Set Task
+
+```json
+{
+    "title": "Write in Journal",
+    "description": "Daily Notes",
+    "duration": "T00:20:00",
+    "complete": null
+}
+```
+
+### Note
+
+```bin
+00101010101001010100100100100100100101001010100101010010101001010
+```
+
+### Get Events
+
+```json
+[
+    {
+        "taskId": "001",
+        "title": "Write in Journal",
+        "description": "Daily Notes",
+        "start": "2022-01-10T22:00:00",
+        "end": "2022-01-10T22:20:00",
+    },
+    {
+        "taskId": "002",
+        "title": "Clean desk",
+        "description": "Find a place for everything",
+        "start": "2022-01-10T17:30:00",
+        "end": "2022-01-10T17:45:00",
+    }
+    {
+        "taskId": "003",
+        "title": "Finish Homework",
+        "description": "Chemistry",
+        "start": "2022-01-10T18:00:00",
+        "end": "2022-01-10T20:00:00",
+    }
+]
+```
+
+### Set Event
+
+```json
+[
+    {
+        "title": "Write in Journal",
+        "description": "Daily Notes",
+        "start": "2022-01-10T22:00:00",
+        "end": "2022-01-10T22:20:00",
+    }
+]
+```
