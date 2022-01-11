@@ -73,8 +73,8 @@ This will be used for general notes about the week. It would be cool to use a Ma
 
 ### Task List
 
+- list id (unique)
 - name
-- position
 - tasks
 
 ### Task
@@ -94,18 +94,24 @@ This will be used for general notes about the week. It would be cool to use a Ma
 
 # REST Design
 
+## Endpoints
+
 | Description | URL Fragment | HTTP Method | Path Parameters | Representations |
 | ----------- | ------------ | ----------- | --------------- | --------------- |
 | create account | `/accounts` | POST | | Create Account |
 | delete account | `/accounts/{accountId}` | DELETE | `accountId` | |
 | log in | `/accounts/{accountId}/login` | PUT | `accountId` | Account Log In |
 | log out | `/accounts/{accountId}/logout` | PUT | `accountId` | |
+| get task lists | `/taskLists` | GET | | Get Task Lists |
+| add task list | `/taskLists` | POST | `taskListId` | Set Task List |
+| edit task list | `/taskLists/{taskListId}` | PUT | `taskListId` | Set Task List |
+| delete task lists | `/taskLists/{taskListId}` | DELETE | `taskListId` | |
 | get tasks | `/tasks` | GET | | Get Tasks |
 | add task | `/tasks` | POST | | Set Task |
 | edit task | `/tasks/{taskId}` | PUT | `taskId` | Set Task |
 | delete task | `/tasks/{taskId}` | DELETE | `taskId` | |
-| get events | `/events/` | GET | `eventId` | Get Events |
-| add event | `/events/` | POST | `eventId` | Set Event |
+| get events | `/events/` | GET | | Get Events |
+| add event | `/events/` | POST | | Set Event |
 | edit event | `/events/{eventId}` | EDIT | `eventId` | Set Event |
 | delete event | `/events/{eventId}` | DELETE | `eventId` | |
 | upload notes | `/notes` | POST | | Note |
@@ -129,6 +135,52 @@ This will be used for general notes about the week. It would be cool to use a Ma
 ```json
 {
     "password": "a-password"
+}
+```
+
+### Get Task Lists
+
+```json
+{
+    "listId": "001",
+    "name": "Weekly Todo",
+    "tasks": [
+        "001",
+        "002",
+        "003"
+    ]
+},
+{
+    "listId": "002",
+    "name": "Daily Todo",
+    "tasks": [
+        "004",
+        "005",
+        "006"
+    ]
+},
+{
+    "listId": "003",
+    "name": "Goals",
+    "tasks": [
+        "007",
+        "008",
+        "009"
+    ]
+}
+```
+
+### Set Task List
+
+```json
+{
+    "listId": "001",
+    "name": "Weekly Todo",
+    "tasks": [
+        "001",
+        "002",
+        "003"
+    ]
 }
 ```
 
