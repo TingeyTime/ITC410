@@ -236,8 +236,8 @@ This will be used for general notes about the week. It would be cool to use a Ma
 
 ### Note
 
-```bin
-00101010101001010100100100100100100101001010100101010010101001010
+```txt
+This is my note
 ```
 
 ### Get Events
