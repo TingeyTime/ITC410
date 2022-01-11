@@ -26,6 +26,9 @@ This will be used for general notes about the week. It would be cool to use a Ma
 - user account deleted
 - user logged in
 - user logged out
+- task list created
+- task list modified
+- task list deleted
 - task added
 - task completed
 - task moved
@@ -43,6 +46,9 @@ This will be used for general notes about the week. It would be cool to use a Ma
 - deletedUserAccount
 - logInUser
 - logOutUser
+- createTaskList
+- moveTaskList
+- deleteTaskList
 - addTask
 - completeTask
 - moveTask
@@ -76,6 +82,7 @@ This will be used for general notes about the week. It would be cool to use a Ma
 - list id (unique)
 - name
 - tasks
+- completed
 
 ### Task
 
@@ -148,7 +155,8 @@ This will be used for general notes about the week. It would be cool to use a Ma
         "001",
         "002",
         "003"
-    ]
+    ],
+    "completed": null
 },
 {
     "listId": "002",
@@ -157,7 +165,8 @@ This will be used for general notes about the week. It would be cool to use a Ma
         "004",
         "005",
         "006"
-    ]
+    ],
+    "completed": null
 },
 {
     "listId": "003",
@@ -166,7 +175,8 @@ This will be used for general notes about the week. It would be cool to use a Ma
         "007",
         "008",
         "009"
-    ]
+    ],
+    "completed": null
 }
 ```
 
@@ -180,7 +190,8 @@ This will be used for general notes about the week. It would be cool to use a Ma
         "001",
         "002",
         "003"
-    ]
+    ],
+    "completed": null
 }
 ```
 
