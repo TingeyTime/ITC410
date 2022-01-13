@@ -1,0 +1,72 @@
+openapi: "3.0.0"
+info:
+  title: Weekly Planning API
+  version: v1
+path:
+  /accounts:
+    post:
+      tags:
+        - Accounts
+      summary: Create an account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: 
+                - username
+                - name
+                - password
+              properties:
+                username:
+                  type: string
+                name:
+                  type: string
+                password:
+                  type: string
+                  format: password
+            example:
+              username: username
+              name: name
+              password: a-password
+      responses:
+        201:
+          description: Account created.
+        420:
+          description: Account password too chill.
+  /accounts/{accountId}:
+    parameters:
+      - name: accountId
+        in: path
+        required: true
+    delete:
+      tags:
+        - Accounts
+      summary: Delete an account.
+      responses:
+        204:
+          description: Account deleted.
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        taskId:
+          type: string
+          readOnly: true
+        title:
+          type: string
+        description:
+          type: string
+        duration:
+          type: string
+          format: date-time
+        complete:
+          type: string
+          format: date-time
+          nullable: true
+    Tasks:
+      type: array
+      items:
+        $ref: '#/components/schemas/Task'

@@ -132,7 +132,7 @@ This will be used for general notes about the week. It would be cool to use a Ma
 ```json
 {
     "username": "username",
-    "name": "First Name",
+    "name": "name",
     "password": "a-password"
 }
 ```
