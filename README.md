@@ -218,7 +218,7 @@ This will be used for general notes about the week. It would be cool to use a Ma
         "taskId": "003",
         "title": "Finish Homework",
         "description": "Chemistry",
-        "duration": "00",
+        "duration": "120",
         "complete": null
     }
 ]
