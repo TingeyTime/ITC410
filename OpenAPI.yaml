@@ -7,7 +7,7 @@ paths:
     post:
       tags:
         - Accounts
-      summary: Create an account
+      summary: Create an account.
       requestBody:
         required: true
         content:
@@ -49,8 +49,103 @@ paths:
       responses:
         204:
           description: Account deleted.
+  /accounts/{accountId}/login:
+    parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      tags:
+        - Accounts
+      summary: Login to an account.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                  format: password
+              example:
+                username: username
+                password: a-password
+      responses:
+        201:
+          description: Successful login
+  /accounts/{accountId}/logout:
+    parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      tags:
+        - Accounts
+      summary: Logout of an account.
+      responses:
+        205:
+          description: Successful logout
+  /taskLists:
+    get:
+      tags:
+        - Task Lists
+      summary: Get task lists.
+      responses:
+        200:
+          description: OK
+          content:
+          application/json:
+            $ref: '#/components/schemas/TaskLists'
+    post:
+      tags:
+        - Task Lists
+      summary: Add task list.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            $ref: '#/components/schemas/TaskList'
+      responses:
+        201:
+          description: Task list created.
+  /taskLists/{taskListId}:
+  /tasks:
+  /tasks/{taskId}:
+  /events:
+  /events/{eventId}:
+  /notes:
 components:
   schemas:
+    TaskList:
+      type: object
+      properties:
+        listId:
+          type: string
+          readOnly: true
+        title:
+          type: string
+        tasks:
+          type: array
+          items:
+            - type: string
+        completed:
+          type: string
+          format: date-time
+          nullable: true
+    TaskLists:
+      type: array
+        items:
+          $ref: '#/components/schemas/TaskList'
     Task:
       type: object
       properties:
@@ -62,8 +157,7 @@ components:
         description:
           type: string
         duration:
-          type: string
-          format: date-time
+          type: integer
         complete:
           type: string
           format: date-time
@@ -72,3 +166,7 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Task'
+    Event: 
+      type: object
+      properties:
+    Events:

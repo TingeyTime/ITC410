@@ -204,21 +204,21 @@ This will be used for general notes about the week. It would be cool to use a Ma
         "taskId": "001",
         "title": "Write in Journal",
         "description": "Daily Notes",
-        "duration": "T00:20:00",
+        "duration": "20",
         "complete": null
     },
     {
         "taskId": "002",
         "title": "Clean desk",
         "description": "Find a place for everything",
-        "duration": "T00:15:00",
+        "duration": "15",
         "complete": null
     }
     {
         "taskId": "003",
         "title": "Finish Homework",
         "description": "Chemistry",
-        "duration": "T02:00:00",
+        "duration": "00",
         "complete": null
     }
 ]
@@ -230,7 +230,7 @@ This will be used for general notes about the week. It would be cool to use a Ma
 {
     "title": "Write in Journal",
     "description": "Daily Notes",
-    "duration": "T00:20:00",
+    "duration": "20",
     "complete": null
 }
 ```
