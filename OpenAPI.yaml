@@ -2,7 +2,7 @@ openapi: "3.0.0"
 info:
   title: Weekly Planning API
   version: v1
-path:
+paths:
   /accounts:
     post:
       tags:
@@ -40,6 +40,8 @@ path:
       - name: accountId
         in: path
         required: true
+        schema:
+          type: string
     delete:
       tags:
         - Accounts
