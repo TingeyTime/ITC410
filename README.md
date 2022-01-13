@@ -117,8 +117,8 @@ This will be used for general notes about the week. It would be cool to use a Ma
 | add task | `/tasks` | POST | | Set Task |
 | edit task | `/tasks/{taskId}` | PUT | `taskId` | Set Task |
 | delete task | `/tasks/{taskId}` | DELETE | `taskId` | |
-| get events | `/events/` | GET | | Get Events |
-| add event | `/events/` | POST | | Set Event |
+| get events | `/events` | GET | | Get Events |
+| add event | `/events` | POST | | Set Event |
 | edit event | `/events/{eventId}` | EDIT | `eventId` | Set Event |
 | delete event | `/events/{eventId}` | DELETE | `eventId` | |
 | upload notes | `/notes` | POST | | Note |
