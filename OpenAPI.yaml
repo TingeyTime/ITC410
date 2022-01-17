@@ -16,32 +16,32 @@ paths:
               type: object
               required: 
                 - username
-                - name
+                - email
                 - password
               properties:
                 username:
                   type: string
-                name:
+                email:
                   type: string
                 password:
                   type: string
                   format: password
             example:
               username: username
-              name: name
+              email: email
               password: a-password
       responses:
         201:
           description: Account created.
+        400:
+          description: Invalid request.
+        409:
+          description: Account already exists.
         420:
           description: Account password too chill.
   /accounts/{accountId}:
     parameters:
-      - name: accountId
-        in: path
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/PathAccountId'
     delete:
       tags:
         - Accounts
@@ -49,17 +49,17 @@ paths:
       responses:
         204:
           description: Account deleted.
+        401:
+          description: Not authenticated.
+        403:
+          description: Access denied.
   /accounts/{accountId}/login:
     parameters:
-      - name: accountId
-        in: path
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/PathAccountId'
     put:
       tags:
         - Accounts
-      summary: Login to an account.
+      summary: Log in.
       requestBody:
         required: true
         content:
@@ -67,34 +67,36 @@ paths:
             schema:
               type: object
               required:
-                - username
+                - email
                 - password
               properties:
-                username:
+                email:
                   type: string
                 password:
                   type: string
                   format: password
               example:
-                username: username
+                email: email
                 password: a-password
       responses:
-        201:
-          description: Successful login
+        200:
+          description: Authenticated.
+        400:
+          description: Invalid request.
+        403:
+          description: Access denied.
   /accounts/{accountId}/logout:
     parameters:
-      - name: accountId
-        in: path
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/PathAccountId'
     put:
       tags:
         - Accounts
-      summary: Logout of an account.
+      summary: Log out.
       responses:
-        205:
-          description: Successful logout
+        200:
+          description: Logged out.
+        403:
+          description: Access denied.
   /taskLists:
     get:
       tags:
@@ -104,27 +106,309 @@ paths:
         200:
           description: OK
           content:
-          application/json:
-            $ref: '#/components/schemas/TaskLists'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskLists'
+        400:
+          description: Invalid request.
+        401:
+          description: Not authenticated.
     post:
       tags:
         - Task Lists
-      summary: Add task list.
+      summary: Add a task list.
       requestBody:
-        required: true
-        content:
-          application/json:
-            $ref: '#/components/schemas/TaskList'
+        $ref: '#/components/requestBodies/SetTaskList'
       responses:
         201:
           description: Task list created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskLists'
+        400:
+          description: Invalid request.
+        401:
+          description: Not authenticated.
   /taskLists/{taskListId}:
+    parameters:
+      - $ref: '#/components/parameters/PathTaskListId'
+    put: 
+      tags:
+        - Task Lists
+      summary: Update a task list.
+      requestBody:
+        $ref: '#/components/requestBodies/SetTaskList'
+      responses:
+        200:
+          description: Task list updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskLists'
+        400:
+          description: Invalid request.
+        401:
+          description: Not authenticated.
+        403:
+          description: Access denied.
+        404:
+          description: Not found.
+    delete: 
+      tags:
+        - Task Lists
+      summary: Delete a Task List.
+      responses:
+        204:
+          description: Task list deleted.
+        401:
+          description: Not authenticated.
+        403:
+          description: Access denied.
   /tasks:
+    get:
+      tags:
+        - Tasks
+      summary: Get tasks.
+      parameters:
+        - name: completed
+          in: query
+          schema:
+            type: boolean
+        - name: duration
+          in: query
+          schema:
+            type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tasks'
+        400:
+          description: Invalid request.
+        401:
+          description: Not authenticated.
+    post:
+      tags:
+        - Tasks
+      summary: Add a task.
+      requestBody:
+        $ref: '#/components/requestBodies/SetTask'
+      responses:
+        201:
+          description: Task created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        400:
+          description: Invalid request.
+        401:
+          description: Not authenticated.
   /tasks/{taskId}:
+    parameters:
+      - $ref: '#/components/parameters/PathTaskId'
+    put: 
+      tags:
+        - Tasks
+      summary: Update a task.
+      requestBody:
+        $ref: '#/components/requestBodies/SetTask'
+      responses:
+        200:
+          description: Task updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tasks'
+        400:
+          description: Invalid request.
+        401:
+          description: Not authenticated.
+        403:
+          description: Access denied.
+        404:
+          description: Not found.
+    delete: 
+      tags:
+        - Tasks
+      summary: Delete a task.
+      responses:
+        204:
+          description: Task deleted
+        401:
+          description: Not authenticated.
+        403:
+          description: Access denied.
   /events:
+    get:
+      tags:
+        - Events
+      summary: Get events.
+      parameters:
+        - name: occurred
+          in: query
+          schema:
+            type: string
+            format: date-time
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Events'
+        400:
+          description: Invalid request.
+        401:
+          description: Not authenticated.
+    post:
+      tags:
+        - Events
+      summary: Add an event.
+      requestBody:
+        $ref: '#/components/requestBodies/SetEvent'
+      responses:
+        201:
+          description: Event created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Events'
+        400:
+          description: Invalid request.
+        401:
+          description: Not authenticated.
   /events/{eventId}:
+    parameters:
+      - $ref: '#/components/parameters/PathEventId'
+    put: 
+      tags:
+        - Events
+      summary: Update an event.
+      requestBody:
+        $ref: '#/components/requestBodies/SetEvent'
+      responses:
+        205:
+          description: Event edited.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Events'
+        400:
+          description: Invalid request.
+        401:
+          description: Not authenticated.
+        403:
+          description: Access denied.
+        404:
+          description: Not found.
+    delete: 
+      tags:
+        - Events
+      summary: Delete an event.
+      responses:
+        204:
+          description: Event deleted.
+        401:
+          description: Not authenticated.
+        403:
+          description: Access denied.
   /notes:
+    get:
+      tags:
+        - Notes
+      summary: Get notes.
+      responses:
+        200:
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+        400:
+          description: Invalid request.
+        401:
+          description: Not authenticated.
+    post:
+      tags:
+        - Notes
+      summary: Add a note.
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+      responses:
+        201:
+          description: Note created.
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: Invalid request.
+        401:
+          description: Not authenticated.
+    delete:
+      tags:
+        - Notes
+      summary: Delete a note.
+      responses:
+        204:
+          description: Note deleted.
+        401:
+          description: Not authenticated.
+        403:
+          description: Access denied.
 components:
+  parameters:
+    PathAccountId:
+      name: accountId
+      in: path
+      required: true
+      schema: 
+        type: string
+    PathTaskListId:
+      name: taskListId
+      in: path
+      required: true
+      schema: 
+        type: string
+    PathTaskId:
+      name: taskId
+      in: path
+      required: true
+      schema: 
+        type: string
+    PathEventId:
+      name: eventId
+      in: path
+      required: true
+      schema: 
+        type: string
+  requestBodies:
+    SetTaskList:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TaskList'
+    SetTask:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Task'
+    SetEvent:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Event'
   schemas:
     TaskList:
       type: object
@@ -137,15 +421,15 @@ components:
         tasks:
           type: array
           items:
-            - type: string
+            type: string
         completed:
           type: string
           format: date-time
           nullable: true
     TaskLists:
       type: array
-        items:
-          $ref: '#/components/schemas/TaskList'
+      items:
+        $ref: '#/components/schemas/TaskList'
     Task:
       type: object
       properties:
@@ -169,4 +453,20 @@ components:
     Event: 
       type: object
       properties:
+        taskId:
+          type: string
+          readOnly: true
+        title:
+          type: string
+        description:
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
     Events:
+      type: array
+      items:
+        $ref: '#/components/schemas/Event'
