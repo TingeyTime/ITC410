@@ -412,6 +412,8 @@ components:
   schemas:
     TaskList:
       type: object
+      required:
+        - title
       properties:
         listId:
           type: string
@@ -432,6 +434,9 @@ components:
         $ref: '#/components/schemas/TaskList'
     Task:
       type: object
+      required:
+        - title
+        - duration
       properties:
         taskId:
           type: string
@@ -452,6 +457,10 @@ components:
         $ref: '#/components/schemas/Task'
     Event: 
       type: object
+      required:
+        - title
+        - start
+        - end
       properties:
         taskId:
           type: string
