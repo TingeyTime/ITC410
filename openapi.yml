@@ -1,7 +1,7 @@
 openapi: "3.0.0"
 info:
   title: Simple Plan API
-  version: v1
+  version: 1.0.0
 paths:
   /accounts:
     post:
@@ -145,7 +145,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TaskLists'
+                $ref: '#/components/schemas/TaskList'
         400:
           description: Invalid request.
         401:
@@ -222,7 +222,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tasks'
+                $ref: '#/components/schemas/Task'
         400:
           description: Invalid request.
         401:
@@ -276,7 +276,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Events'
+                $ref: '#/components/schemas/Event'
         400:
           description: Invalid request.
         401:
@@ -292,7 +292,7 @@ paths:
         $ref: '#/components/requestBodies/SetEvent'
       responses:
         205:
-          description: Event edited.
+          description: Event updated.
           content:
             application/json:
               schema:
@@ -332,38 +332,27 @@ paths:
           description: Invalid request.
         401:
           description: Not authenticated.
-    post:
+    put:
       tags:
         - Notes
-      summary: Add a note.
+      summary: Update notes.
       requestBody:
-        required: true
-        content:
-          text/plain:
-            schema:
-              type: string
+        $ref: '#/components/requestBodies/SetNote'
       responses:
-        201:
-          description: Note created.
+        205:
+          description: Note updated.
           content:
-            application/json:
+            text/plain:
               schema:
                 type: string
         400:
           description: Invalid request.
         401:
           description: Not authenticated.
-    delete:
-      tags:
-        - Notes
-      summary: Delete a note.
-      responses:
-        204:
-          description: Note deleted.
-        401:
-          description: Not authenticated.
         403:
           description: Access denied.
+        404:
+          description: Not found.
 components:
   parameters:
     PathAccountId:
@@ -409,6 +398,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Event'
+    SetNote:
+      required: true
+      content:
+        text/plain:
+          schema:
+            type: string
   schemas:
     TaskList:
       type: object
