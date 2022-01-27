@@ -4,19 +4,31 @@ const port = 3000;
 
 app.use((req, res, next) => {
     console.log(req.method + ' ' + req.path);
-    req.greet = 'World';
     next();
 })
 
 app.use(express.json())
+app.use(express.text())
 
 app.get('/', (req, res) => {
-    res.send('Hello ' + req.greet);
+    res.send('Hello World!');
 })
 
 app.post('/', (req, res) => {
-    console.log('Body: ', req.body);
-    res.send('OK');
+    if (req.get('Content-Type') === 'application/json') {
+        console.log('Body: ', 'application/json ', req.body);
+        res.json({content: 'application/json', requestBody: req.body})
+        res.send('OK')
+    }
+    else if (req.get('Content-Type') === 'text/plain') {
+        console.log('Body: ', 'text/plain ', req.body);
+        res.json({content: 'text/plain', requestBody: req.body})
+        res.send('OK')
+    }
+    else {
+        console.log('Body: ', req.body);
+        res.status(400).send("Body is not the correct content type.");
+    }
 })
 
 app.listen(3000)

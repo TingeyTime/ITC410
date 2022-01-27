@@ -4,7 +4,8 @@
   "description": "I am going to create a weekly/daily planning application that can aid in connecting a simple task to a blocked out event in a schedule. While using a digital calendar, I find it difficult to plan out repeated habitual tasks. Due to the repetition adding of small tasks like homework, journal writing, reading, or other habits, creating these events can be tedious and the time planned can change day to day. Adding these tasks to a calendar does have value though, as it can increase a personal commitment to the task and one gets to see their day planned out completely.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server/index.js",
+    "test": "mocha test"
   },
   "repository": {
     "type": "git",
