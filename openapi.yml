@@ -5,6 +5,8 @@ info:
 paths:
   /accounts:
     post:
+      x-controller: accounts
+      x-operation: createUser
       tags:
         - Accounts
       summary: Create an account.
@@ -43,6 +45,8 @@ paths:
     parameters:
       - $ref: '#/components/parameters/PathAccountId'
     delete:
+      x-controller: accounts
+      x-operation: deleteUser
       tags:
         - Accounts
       summary: Delete an account.
@@ -57,6 +61,8 @@ paths:
     parameters:
       - $ref: '#/components/parameters/PathAccountId'
     put:
+      x-controller: accounts
+      x-operation: login
       tags:
         - Accounts
       summary: Log in.
@@ -89,6 +95,8 @@ paths:
     parameters:
       - $ref: '#/components/parameters/PathAccountId'
     put:
+      x-controller: accounts
+      x-operation: logout
       tags:
         - Accounts
       summary: Log out.
@@ -99,6 +107,8 @@ paths:
           description: Access denied.
   /taskLists:
     get:
+      x-controller: tasklists
+      x-operation: listTaskLists
       tags:
         - Task Lists
       summary: Get task lists.
@@ -114,6 +124,8 @@ paths:
         401:
           description: Not authenticated.
     post:
+      x-controller: tasklists
+      x-operation: createTaskList
       tags:
         - Task Lists
       summary: Add a task list.
@@ -133,7 +145,9 @@ paths:
   /taskLists/{taskListId}:
     parameters:
       - $ref: '#/components/parameters/PathTaskListId'
-    put: 
+    put:
+      x-controller: taskLists
+      x-operation: updateTaskList
       tags:
         - Task Lists
       summary: Update a task list.
@@ -155,6 +169,8 @@ paths:
         404:
           description: Not found.
     delete: 
+      x-controller: taskLists
+      x-operation: deleteTaskList
       tags:
         - Task Lists
       summary: Delete a Task List.
@@ -167,6 +183,8 @@ paths:
           description: Access denied.
   /tasks:
     get:
+      x-controller: tasks
+      x-operation: listTasks
       tags:
         - Tasks
       summary: Get tasks.
@@ -191,6 +209,8 @@ paths:
         401:
           description: Not authenticated.
     post:
+      x-controller: tasks
+      x-operation: createTask
       tags:
         - Tasks
       summary: Add a task.
@@ -210,7 +230,9 @@ paths:
   /tasks/{taskId}:
     parameters:
       - $ref: '#/components/parameters/PathTaskId'
-    put: 
+    put:
+      x-controller: tasks
+      x-operation: updateTask
       tags:
         - Tasks
       summary: Update a task.
@@ -232,6 +254,8 @@ paths:
         404:
           description: Not found.
     delete: 
+      x-controller: tasks
+      x-operation: deleteTask
       tags:
         - Tasks
       summary: Delete a task.
@@ -244,6 +268,8 @@ paths:
           description: Access denied.
   /events:
     get:
+      x-controller: events
+      x-operation: getEvents
       tags:
         - Events
       summary: Get events.
@@ -265,6 +291,8 @@ paths:
         401:
           description: Not authenticated.
     post:
+      x-controller: events
+      x-operation: createEvent
       tags:
         - Events
       summary: Add an event.
@@ -284,7 +312,9 @@ paths:
   /events/{eventId}:
     parameters:
       - $ref: '#/components/parameters/PathEventId'
-    put: 
+    put:
+      x-controller: events
+      x-operation: updateEvent
       tags:
         - Events
       summary: Update an event.
@@ -305,7 +335,9 @@ paths:
           description: Access denied.
         404:
           description: Not found.
-    delete: 
+    delete:
+      x-controller: events
+      x-operation: deleteEvent
       tags:
         - Events
       summary: Delete an event.
@@ -317,22 +349,9 @@ paths:
         403:
           description: Access denied.
   /notes:
-    get:
-      tags:
-        - Notes
-      summary: Get notes.
-      responses:
-        200:
-          description: OK
-          content:
-            text/plain:
-              schema:
-                type: string
-        400:
-          description: Invalid request.
-        401:
-          description: Not authenticated.
     put:
+      x-controller: notes
+      x-operation: updateNote
       tags:
         - Notes
       summary: Update notes.
@@ -474,3 +493,7 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Event'
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/TingeyTime/WeeklyPlanning/1.0.0

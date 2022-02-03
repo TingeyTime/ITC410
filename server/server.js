@@ -8,7 +8,7 @@ express.server = async function () {
   
   // Any paths defined in your openapi.yml will validate and parse the request
   // before it calls your route code.
-  const openapiPath = path.resolve(_dirname, '../openapi/yml')
+  const openapiPath = path.resolve(_dirname, '../openapi.yml')
   const enforcer = await Enforcer(openapiPath, { hidWarnings: true })
   const enforcerMiddleware = EnforcerMiddleware(await Enforcer('./openapi.yml'))
 
