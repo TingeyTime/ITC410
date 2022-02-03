@@ -111,19 +111,17 @@ This will be used for general notes about the week. It would be cool to use a Ma
 | log out | `/accounts/{accountId}/logout` | PUT | `accountId` | |
 | get task lists | `/taskLists` | GET | | Get Task Lists |
 | add task list | `/taskLists` | POST | `taskListId` | Set Task List |
-| edit task list | `/taskLists/{taskListId}` | PUT | `taskListId` | Set Task List |
+| update task list | `/taskLists/{taskListId}` | PUT | `taskListId` | Set Task List |
 | delete task lists | `/taskLists/{taskListId}` | DELETE | `taskListId` | |
 | get tasks | `/tasks` | GET | | Get Tasks |
 | add task | `/tasks` | POST | | Set Task |
-| edit task | `/tasks/{taskId}` | PUT | `taskId` | Set Task |
+| update task | `/tasks/{taskId}` | PUT | `taskId` | Set Task |
 | delete task | `/tasks/{taskId}` | DELETE | `taskId` | |
 | get events | `/events` | GET | | Get Events |
 | add event | `/events` | POST | | Set Event |
-| edit event | `/events/{eventId}` | EDIT | `eventId` | Set Event |
+| update event | `/events/{eventId}` | PUT | `eventId` | Set Event |
 | delete event | `/events/{eventId}` | DELETE | `eventId` | |
-| upload notes | `/notes` | POST | | Note |
-| download notes | `/notes` | GET | | Note |
-| delete notes | `/notes` | DELETE | | |
+| update notes | `/notes` | PUT | | Note |
 
 ## Representations
 
