@@ -43,7 +43,7 @@ describe('server', () => {
                 .expect(200)
         })
 
-        it('can logout a user', () =>{
+        it('can logout a user', () => {
             return request(app)
                 .put('/accounts/accountId/logout')
                 .expect(200)
