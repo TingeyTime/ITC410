@@ -247,22 +247,22 @@ This is my note
         "eventId": "001",
         "title": "Write in Journal",
         "description": "Daily Notes",
-        "start": "2022-01-10T22:00:00",
-        "end": "2022-01-10T22:20:00",
+        "start": "2022-01-10T22:00:00Z",
+        "end": "2022-01-10T22:20:00Z",
     },
     {
         "eventId": "002",
         "title": "Clean desk",
         "description": "Find a place for everything",
-        "start": "2022-01-10T17:30:00",
-        "end": "2022-01-10T17:45:00",
+        "start": "2022-01-10T17:30:00Z",
+        "end": "2022-01-10T17:45:00Z",
     }
     {
         "eventId": "003",
         "title": "Finish Homework",
         "description": "Chemistry",
-        "start": "2022-01-10T18:00:00",
-        "end": "2022-01-10T20:00:00",
+        "start": "2022-01-10T18:00:00Z",
+        "end": "2022-01-10T20:00:00Z",
     }
 ]
 ```
@@ -275,8 +275,8 @@ This is my note
         "eventId": "001",
         "title": "Write in Journal",
         "description": "Daily Notes",
-        "start": "2022-01-10T22:00:00",
-        "end": "2022-01-10T22:20:00",
+        "start": "2022-01-10T22:00:00Z",
+        "end": "2022-01-10T22:20:00Z",
     }
 ]
 ```
