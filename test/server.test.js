@@ -11,6 +11,7 @@ describe('server', () => {
         app = await server()
     })
 
+    /// Test accounts
     describe('accounts', () => {
         it('can create an account', () => {
             // The supertest request function returns a promise.
@@ -36,8 +37,8 @@ describe('server', () => {
             return request(app)
                 .put('/accounts/accountId/login')
                 .send({
-                    "email": "email",
-                    "password": "a-password"
+                    email: "email",
+                    password: "a-password"
                 })
                 .expect(200)
         })
@@ -49,6 +50,7 @@ describe('server', () => {
         })
     })
 
+    /// Test task lists
     describe('task lists', () => {
         it('can get task lists', async function() {
             const res = await request(app)
@@ -83,6 +85,7 @@ describe('server', () => {
         })
     })
 
+    // Test tasks
     describe('tasks', () => {
         it('can get tasks', async function() {
             const res = await request(app)
@@ -94,7 +97,7 @@ describe('server', () => {
 
         it('can create a task', () => {
             return request(app)
-                .post('/tasks/taskId')
+                .post('/tasks')
                 .send({
                     // listId: "001",
                     title: "simple",
@@ -102,9 +105,70 @@ describe('server', () => {
                 })
                 .expect(201)
         })
+
+        it('can update a task', () => {
+            return request(app)
+                .put('/tasks/taskId')
+                .send({
+                    title: "simple",
+                    duration: 20
+                })
+                .expect(200)
+        })
+        
+        it('can delete a task', () => {
+            return request(app)
+                .delete('/tasks/taskId')
+                .expect(204)
+        })
     })
 
-    // describe('events')
+    describe('events', () => {
+        it('can get events', async function() {
+            const res = await request(app)
+                .get('/events')
+                .set('Accept', 'application/json')
+            expect(res.status).to.equal(200)
+            expect(res.body).to.be.an('Array')
+        })
 
-    // describe('notes')
+        it('can create an event', () => {
+            return request(app)
+                .post('/events')
+                .send({
+                    title: "simple",
+                    start: "2022-01-01T22:00:00Z",
+                    end: "2022-01-01T22:10:00Z"
+                })
+                .expect(201)
+        })
+
+        it('can update an event', () => {
+            return request(app)
+                .put('/events/eventId')
+                .send({
+                    title: "simple",
+                    start: "2022-01-01T22:00:00Z",
+                    end: "2022-01-01T22:20:00Z"
+                })
+                .expect(200)
+        })
+        
+        it('can delete an event', () => {
+            return request(app)
+                .delete('/events/eventId')
+                .expect(204)
+        })
+    })
+
+    // Test notes
+    describe('notes', () => {
+        it('can update a note', () => {
+            return request(app)
+                .put('/notes')
+                .set("Content-type", "text/plain")
+                .send("This is my note.")
+                .expect(200)
+        })
+    })
 })

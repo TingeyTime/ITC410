@@ -10,14 +10,15 @@ exports.server = async function () {
   // before it calls your route code.
   const openapiPath = path.resolve(__dirname, '../openapi.yml')
   const enforcer = await Enforcer(openapiPath, { hideWarnings: true })
-  const enforcerMiddleware = EnforcerMiddleware(await Enforcer('./openapi.yml'))
+  const enforcerMiddleware = EnforcerMiddleware(enforcer)
 
   //bodyParsers
   app.use(express.json())
+  app.use(express.text())
 
     // Print log server-side
     app.use((req, res, next) => {
-      console.log(req.method + ' ' + req.path, req.headers, req.body)
+      // console.log(req.method + ' ' + req.path, req.headers, req.body)
       next()
     })
 

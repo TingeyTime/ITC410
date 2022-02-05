@@ -321,7 +321,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/SetEvent'
       responses:
-        205:
+        200:
           description: Event updated.
           content:
             application/json:
@@ -358,7 +358,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/SetNote'
       responses:
-        205:
+        200:
           description: Note updated.
           content:
             text/plain:
