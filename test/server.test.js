@@ -48,6 +48,26 @@ describe('server', () => {
                 .put('/accounts/accountId/logout')
                 .expect(200)
         })
+
+        // Negative assertions
+        it('cannot create an account with just a username', () =>{
+            return request(app)
+                .post('/account')
+                .send({
+                    username: "forgot-an-email",
+                    password: "too-short"
+                })
+                .expect(404)
+        })
+
+        it('can login a user without an email', () => {
+            return request(app)
+                .put('/accounts/accountId/login')
+                .send({
+                    password: "nope"
+                })
+                .expect(400)
+        })
     })
 
     /// Test task lists
@@ -82,6 +102,20 @@ describe('server', () => {
             return request(app)
                 .delete('/taskLists/taskListId')
                 .expect(204)
+        })
+
+        // Negative assertions
+        it('cannot create a task list without a title', () => {
+            return request(app)
+                .post('/taskLists')
+                .send({})
+                .expect(400)
+        })
+
+        it('cannot delete a task list without an id', () => {
+            return request(app)
+                .delete('/taskLists')
+                .expect(405)
         })
     })
 
@@ -121,6 +155,20 @@ describe('server', () => {
                 .delete('/tasks/taskId')
                 .expect(204)
         })
+
+        // Negative assertions
+        it('cannot create a task without a title', () => {
+            return request(app)
+                .post('/tasks')
+                .send({})
+                .expect(400)
+        })
+
+        it('cannot delete a task without an id', () => {
+            return request(app)
+                .delete('/tasks')
+                .expect(405)
+        })
     })
 
     describe('events', () => {
@@ -159,6 +207,20 @@ describe('server', () => {
                 .delete('/events/eventId')
                 .expect(204)
         })
+
+        // Negative assertions
+        it('cannot create an event without a title', () => {
+            return request(app)
+                .post('/events')
+                .send({})
+                .expect(400)
+        })
+
+        it('cannot delete an event without an id', () => {
+            return request(app)
+                .delete('/events')
+                .expect(405)
+        })
     })
 
     // Test notes
@@ -169,6 +231,13 @@ describe('server', () => {
                 .set("Content-type", "text/plain")
                 .send("This is my note.")
                 .expect(200)
+        })
+
+        // Negative Assertions
+        it('cannot delete a note', () => {
+            return request(app)
+                .delete('/notes')
+                .expect(405)
         })
     })
 })

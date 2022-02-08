@@ -107,7 +107,7 @@ paths:
           description: Access denied.
   /taskLists:
     get:
-      x-controller: tasklists
+      x-controller: taskLists
       x-operation: listTaskLists
       tags:
         - Task Lists
@@ -124,7 +124,7 @@ paths:
         401:
           description: Not authenticated.
     post:
-      x-controller: tasklists
+      x-controller: taskLists
       x-operation: createTaskList
       tags:
         - Task Lists
