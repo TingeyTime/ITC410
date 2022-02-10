@@ -65,10 +65,9 @@
           <v-spacer />
           <v-btn
             color="primary"
-            nuxt
-            to="/inspire"
+            @click="getTasks()"
           >
-            Continue
+            API Button
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -78,6 +77,14 @@
 
 <script>
 export default {
-  name: 'IndexPage'
+  name: 'IndexPage',
+  methods: {
+    getTasks : async function () {
+                   const response = await this.$axios.$get('/api/tasks');
+                   
+                   console.log(response);
+                   }
+  }
 }
+
 </script>

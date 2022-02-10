@@ -8,7 +8,7 @@ const app = express()
 // Any paths defined in your openapi.yml will validate and parse the request
 // before it calls your route code.
 const openapiPath = path.resolve(__dirname, '../openapi.yml')
-const enforcer = await Enforcer(openapiPath, { hideWarnings: true })
+const enforcer = Enforcer(openapiPath, { hideWarnings: true })
 const enforcerMiddleware = EnforcerMiddleware(enforcer)
 
 //bodyParsers
@@ -21,7 +21,7 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use(enforcerMiddleware.init())
+app.use(enforcerMiddleware.init({baseUrl: "/api"}))
 
 // Catch errors
 enforcerMiddleware.on('error', err => {
