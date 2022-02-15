@@ -106,6 +106,7 @@ This will be used for general notes about the week. It would be cool to use a Ma
 | Description | URL Fragment | HTTP Method | Path Parameters | Representations |
 | ----------- | ------------ | ----------- | --------------- | --------------- |
 | create account | `/accounts` | POST | | Create Account |
+| update account | `/accounts/{accountId}` | PUT | `accountId` | |
 | delete account | `/accounts/{accountId}` | DELETE | `accountId` | |
 | log in | `/accounts/{accountId}/login` | PUT | `accountId` | Account Log In |
 | log out | `/accounts/{accountId}/logout` | PUT | `accountId` | |

@@ -44,6 +44,37 @@ paths:
   /accounts/{accountId}:
     parameters:
       - $ref: '#/components/parameters/PathAccountId'
+    put:
+      x-controller: accounts
+      x-operation: updateUser
+      tags:
+        - Accounts
+      summary: Update an account.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                  format: password
+              example:
+                email: email
+                password: a-password
+      responses:
+        200:
+          description: Authenticated.
+        400:
+          description: Invalid request.
+        403:
+          description: Access denied.
     delete:
       x-controller: accounts
       x-operation: deleteUser
