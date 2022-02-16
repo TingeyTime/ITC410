@@ -1,39 +1,4 @@
 #
-# MongoDB Dockerfile
-#
-# https://github.com/dockerfile/mongodb
-#
-
-# Pull base image.
-FROM ubuntu
-
-# Install MongoDB.
-RUN \
-  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10 && \
-  echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' > /etc/apt/sources.list.d/mongodb.list && \
-  apt-get update && \
-  apt-get install -y mongodb-org && \
-  rm -rf /var/lib/apt/lists/*
-
-# Define mountable directories.
-VOLUME ["/data/db"]
-
-# Define working directory.
-WORKDIR /data
-
-# Define default command.
-CMD ["mongod"]
-
-# Expose ports.
-#   - 27017: process
-#   - 28017: http
-EXPOSE 27017
-EXPOSE 28017
-
-# docker-compose up
-# docker-compose up --build
-
-#
 # NOTE: THIS DOCKERFILE IS GENERATED VIA "apply-templates.sh"
 #
 # PLEASE DO NOT EDIT IT DIRECTLY.
@@ -102,7 +67,7 @@ RUN mkdir /docker-entrypoint-initdb.d
 
 RUN set -ex; \
 	export GNUPGHOME="$(mktemp -d)"; \
-	set -- 'F5679A222C647C87527C2F8CB00A0BD1E2C63C11'; \
+	set -- '20691EEC35216C63CAF66CE1656408E390CFB1F5'; \
 	for key; do \
 		gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$key"; \
 	done; \
@@ -119,12 +84,12 @@ ARG MONGO_PACKAGE=mongodb-org
 ARG MONGO_REPO=repo.mongodb.org
 ENV MONGO_PACKAGE=${MONGO_PACKAGE} MONGO_REPO=${MONGO_REPO}
 
-ENV MONGO_MAJOR 5.0
+ENV MONGO_MAJOR 4.4
 RUN echo "deb [ signed-by=/etc/apt/keyrings/mongodb.gpg ] http://$MONGO_REPO/apt/ubuntu focal/${MONGO_PACKAGE%-unstable}/$MONGO_MAJOR multiverse" | tee "/etc/apt/sources.list.d/${MONGO_PACKAGE%-unstable}.list"
 
-# http://docs.mongodb.org/master/release-notes/5.0/
-ENV MONGO_VERSION 5.0.6
-# 01/27/2022, https://github.com/mongodb/mongo/tree/212a8dbb47f07427dae194a9c75baec1d81d9259
+# http://docs.mongodb.org/master/release-notes/4.4/
+ENV MONGO_VERSION 4.4.12
+# 01/20/2022, https://github.com/mongodb/mongo/tree/51475a8c4d9856eb1461137e7539a0a763cc85dc
 
 RUN set -x \
 # installing "mongodb-enterprise" pulls in "tzdata" which prompts for input
