@@ -9,6 +9,7 @@ const path = require('path')
 // controllers
 
 // Test Database Connection
+main().catch(e)
 mongoose.connect(`${process.env.DB_URL}`, (err, res) => {
   if (err) {
     console.error(err)
