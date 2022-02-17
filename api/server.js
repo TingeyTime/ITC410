@@ -9,15 +9,14 @@ const path = require('path')
 // controllers
 
 // Test Database Connection
-mongoose.connect(process.env.DB_URL)
-// Pool.query('SELECT NOW()', (err, res) => {
-//   if (err) {
-//     console.error(err)
-//     process.exit(1)
-//   } else {
-//     console.log('Database connected')
-//   }
-// })
+mongoose.connect(`${process.env.DB_URL}`, (err, res) => {
+  if (err) {
+    console.error(err)
+    process.exit(1)
+  } else {
+    console.log('Database connected')
+  }
+})
 
 const app = express()
 
