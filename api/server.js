@@ -1,4 +1,4 @@
-require('dotenv').config('../.')
+require('dotenv').config('../.env')
 
 const Enforcer = require('openapi-enforcer')
 const EnforcerMiddleware = require('openapi-enforcer-middleware')
@@ -9,8 +9,7 @@ const path = require('path')
 // controllers
 
 // Test Database Connection
-main().catch(e)
-mongoose.connect(`${process.env.DB_URL}`, (err, res) => {
+mongoose.connect(`${process.env.DB_URL}/test`, (err, res) => {
   if (err) {
     console.error(err)
     process.exit(1)

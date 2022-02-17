@@ -7,11 +7,11 @@
         {
             "type": "pwa-node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Debug API",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\api\\index.js"
+            "program": "${workspaceFolder}/api/index.js"
         }
     ]
 }
