@@ -1,24 +1,23 @@
-# Use root/example as user/password credentials
-version: '3.1'
+version: "3.8"
 
 services:
 
   mongo:
     image: mongo
-    container_name: SimplePlan_mongodb
     restart: always
-    ports:
-      - ${DB_PORT}:27017
+    env_file: ./.env
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASS}
 
-  mongo-express:
-    image: mongo-express
+  db:
+    build:
+      context: ./docker/db
     restart: always
-    ports:
-      - 8081:8081
+    env_file: ./.env
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: ${DB_USER}
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${DB_PASS}
       ME_CONFIG_MONGODB_URL: ${DB_URL}
+    ports:
+      - ${DB_PORT}:8081

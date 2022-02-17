@@ -1,7 +1,23 @@
+require('dotenv').config('../.')
+
 const Enforcer = require('openapi-enforcer')
 const EnforcerMiddleware = require('openapi-enforcer-middleware')
 const express = require('express')
+// const { Pool } = require('pg')
+const mongoose = require('mongoose')
 const path = require('path')
+// controllers
+
+// Test Database Connection
+mongoose.connect(process.env.DB_URL)
+// Pool.query('SELECT NOW()', (err, res) => {
+//   if (err) {
+//     console.error(err)
+//     process.exit(1)
+//   } else {
+//     console.log('Database connected')
+//   }
+// })
 
 const app = express()
 
@@ -15,11 +31,11 @@ const enforcerMiddleware = EnforcerMiddleware(enforcer)
 app.use(express.json())
 app.use(express.text())
 
-// Print log server-side
-app.use((req, res, next) => {
-  // console.log(req.method + ' ' + req.path, req.headers, req.body)
-  next()
-})
+// // Print log server-side
+// app.use((req, res, next) => {
+//   console.log(req.method + ' ' + req.path, req.headers, req.body)
+//   next()
+// })
 
 app.use(enforcerMiddleware.init({baseUrl: "/api"}))
 
@@ -28,6 +44,14 @@ enforcerMiddleware.on('error', err => {
   console.error(err)
   process.exit(1)
 }) 
+
+// app.use(enforcerMiddleware.route({
+//   accounts: _Accounts(pool),
+//   // taskLists: _TaskList(pool),
+//   // tasks: _Tasks(pool),
+//   // events: _Events(pool),
+//   // notes: _Notes(pool),
+// }))
 
 app.use(enforcerMiddleware.mock())
 
