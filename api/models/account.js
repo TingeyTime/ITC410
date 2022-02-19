@@ -20,9 +20,6 @@ const AccountSchema = new Schema({
   session_info: Array
 });
 
-// Compile model from schema
-var AccountModel = mongoose.model('AccountModel', AccountSchema)
-
 // const validatePresenceOf = value => value && value.length;
 
 /**
@@ -63,7 +60,7 @@ AccountSchema.path('email').validate(function(email) {
 
 	// Check only when it is a new account or when email field is modified
 	if (this.isNew || this.isModified('email')) {
-	    Account.find({ email }).exec((err, accounts) => resolve(!err && !users.length)
+	    Account.find({ email }).exec((err, accounts) => resolve(!err && !users.length))
 	} else resolve(true);
     });
 }, 'Email `{VALUE} already exists');
@@ -85,4 +82,5 @@ UserSchema.methods = {
 	 */
 };
 
-mongoose.model('Account', AccountSchema);
+// Compile model from schema
+var AccountModel = mongoose.model('AccountModel', AccountSchema)
