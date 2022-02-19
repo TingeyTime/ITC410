@@ -4,19 +4,15 @@ const Enforcer = require('openapi-enforcer')
 const EnforcerMiddleware = require('openapi-enforcer-middleware')
 const express = require('express')
 // const { Pool } = require('pg')
-const mongoose = require('mongoose')
 const path = require('path')
 // controllers
 
 // Test Database Connection
-mongoose.connect(`${process.env.DB_URL}/test`, (err, res) => {
-  if (err) {
-    console.error(err)
-    process.exit(1)
-  } else {
-    console.log('Database connected')
-  }
-})
+const mongoose = require('mongoose')
+const mongoDB = process.env.DB_URL;
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true })
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
 const app = express()
 

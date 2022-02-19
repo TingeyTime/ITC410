@@ -10,15 +10,20 @@ const { Schema } = mongoose;
  */
 
 const AccountSchema = new Schema({
-  account_id: { type: String },
-  username: { type: String, default: '' },
-  email: { type: String, default: '' },
-  name: { type: String, default: '' },
-  password: { type: String, default: '' },
-  session_info: []
+  username: String,
+  email: String,
+  name: { 
+      first: String,
+      last: String
+    },
+  password: String,
+  session_info: Array
 });
 
-const validatePresenceOf = value => value && value.length;
+// Compile model from schema
+var AccountModel = mongoose.model('AccountModel', AccountSchema)
+
+// const validatePresenceOf = value => value && value.length;
 
 /**
  * Virtuals
@@ -27,11 +32,15 @@ const validatePresenceOf = value => value && value.length;
 AccountSchema.virtual('password')
     .set(function(password) {
         this._password = password;
-        this.hashed_password = this.encryptPassword(password);
+        this._password = this.encryptPassword(password);
     })
     .get(function() {
         return this._password;
     });
+
+AccountSchema.virtual('fullName').get(function() {
+    return this.name.first + ' ' + this.name.last;
+})
 
 /**
  * Validations
