@@ -3,16 +3,30 @@ require('dotenv').config('../.env')
 const Enforcer = require('openapi-enforcer')
 const EnforcerMiddleware = require('openapi-enforcer-middleware')
 const express = require('express')
-// const { Pool } = require('pg')
+const { Pool } = require('pg')
 const path = require('path')
+const Accounts = require('./controllers/account')
 // controllers
 
 // Test Database Connection
-const mongoose = require('mongoose')
-const mongoDB = process.env.DB_URL;
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true })
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'))
+
+const pool = Pool({
+  host: process.env.POSTGRES_HOST,
+  database: process.env.POSTGRES_DB,
+  user: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
+  port: process.env.POSTGRES_PORT,
+})
+
+pool.query('SELECT NOW()', (err, res) => {
+  if (err) {
+    console.error(err)
+    process.exit(1)
+  } else {
+    console.log('Database connected')
+  }
+})
+
 
 const app = express()
 
@@ -41,7 +55,7 @@ enforcerMiddleware.on('error', err => {
 }) 
 
 app.use(enforcerMiddleware.route({
-  accounts: _Accounts(pool),
+  accounts: Accounts(pool),
   // taskLists: _TaskList(pool),
   // tasks: _Tasks(pool),
   // events: _Events(pool),
