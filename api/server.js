@@ -40,13 +40,13 @@ enforcerMiddleware.on('error', err => {
   process.exit(1)
 }) 
 
-// app.use(enforcerMiddleware.route({
-//   accounts: _Accounts(pool),
-//   // taskLists: _TaskList(pool),
-//   // tasks: _Tasks(pool),
-//   // events: _Events(pool),
-//   // notes: _Notes(pool),
-// }))
+app.use(enforcerMiddleware.route({
+  accounts: _Accounts(pool),
+  // taskLists: _TaskList(pool),
+  // tasks: _Tasks(pool),
+  // events: _Events(pool),
+  // notes: _Notes(pool),
+}))
 
 app.use(enforcerMiddleware.mock())
 

@@ -60,26 +60,42 @@ AccountSchema.path('email').validate(function(email) {
 
 	// Check only when it is a new account or when email field is modified
 	if (this.isNew || this.isModified('email')) {
-	    Account.find({ email }).exec((err, accounts) => resolve(!err && !users.length))
+	    Account.find({ email }).exec((err, accounts) => resolve(!err && !accounts.length))
 	} else resolve(true);
     });
 }, 'Email `{VALUE} already exists');
 
-AccountSchema.path('name').validate(function(name) {
-    if (this.skipValidation()) return true;
-    return name.length;
-}, 'Name cannot be blank')
+/**
+ * Pre-save hook
+ */
 
 /**
  * Methods
  */
 
-UserSchema.methods = {
+AccountSchema.methods = {
 	/**
 	 * Authenticate - check if the passwords are the same
 	 * Encrypt
 	 * Validation
 	 */
+
+    /**
+     * Encrypt password
+     * 
+     * @param {String} password
+     * @return {String}
+     * @api public
+     */
+
+    encryptPassword: function(password) {
+        if(!password) return '';
+        try {
+            return bcrypt.hashSync(password, 10);
+        } catch (err) {
+            return '';
+        }
+    }
 };
 
 // Compile model from schema
