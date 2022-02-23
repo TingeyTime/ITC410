@@ -4,9 +4,9 @@ module.exports = function (pool) {
     return {
         async createAccount (req, res) {
             const { email, username, name, password } = req.enforcer.body
-            const accountId = await accounts.createAccount(pool, username, name, password)
+            const accountId = await accounts.createAccount(pool, email, username, name, password)
             if (accountId) {
-                res.set('baseUrl', '/api/accounts/' = accountId)
+                res.set('location', '/api/accounts/' + accountId)
                     .enforcer
                     .status(201)
                     .send()

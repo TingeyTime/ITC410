@@ -1,7 +1,7 @@
 const bycrypt = require('bcryptjs')
 const uuid = require('uuid').v4
 
-exports.createAccount = async function (client, username, name, password) {
+exports.createAccount = async function (client, email, username, name, password) {
     const accountId = uuid()
     const salt = await bycrypt.genSalt(10)
     const { rowCount } = await client.query({
@@ -18,7 +18,7 @@ exports.createAccount = async function (client, username, name, password) {
     return rowCount > 0 ? accountId : undefined
 }
 
-exports.getAccount = async function (client, account) {
+exports.getAccount = async function (client, accountId) {
     const { rows } = await client.query({
         name: 'get-account-by-id',
         text: 'SELECT * FROM accounts WHERE account_id = $1',
@@ -34,22 +34,22 @@ exports.updateAccount = async function (client, accountId, data) {
 
     if (email !== undefined){
         values.push(email)
-        sessionStorage.push('email=$' + values.length)
+        set.push('email=$' + values.length)
     }
 
     if (username !== undefined){
         values.push(username)
-        sessionStorage.push('username=$' + values.length)
+        set.push('username=$' + values.length)
     }
     
     if (name !== undefined){
         values.push(name)
-        sessionStorage.push('name=$' + values.length)
+        set.push('name=$' + values.length)
     }
     
     if (password !== undefined){
         values.push(password)
-        sessionStorage.push('password=$' + values.length)
+        set.push('password=$' + values.length)
     }
 
     if (values.length === 0) {
@@ -57,12 +57,12 @@ exports.updateAccount = async function (client, accountId, data) {
     }
 
     values.push(accountId)
-    const { rows } = client.query({
+    const { row } = client.query({
         name: 'update-account',
-        text: 'UPDATE accounts SET ' + sessionStorage.join(', ') + ' WHERE account_id = $' + (values.length) + ' RETURNING *',
+        text: 'UPDATE accounts SET ' + set.join(', ') + ' WHERE account_id = $' + (values.length) + ' RETURNING *',
         values
     })
-    return rows[0]
+    return row
 }
 
 exports.deleteAccount = async function (client, accountId) {

@@ -10,12 +10,12 @@ const Accounts = require('./controllers/account')
 
 // Test Database Connection
 
-const pool = Pool({
-  host: process.env.POSTGRES_HOST,
+const pool = new Pool({
+      host: process.env.POSTGRES_HOST,
   database: process.env.POSTGRES_DB,
-  user: process.env.POSTGRES_USER,
+      user: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
-  port: process.env.POSTGRES_PORT,
+      port: +process.env.POSTGRES_PORT
 })
 
 pool.query('SELECT NOW()', (err, res) => {
@@ -55,11 +55,11 @@ enforcerMiddleware.on('error', err => {
 }) 
 
 app.use(enforcerMiddleware.route({
-  accounts: Accounts(pool),
-  // taskLists: _TaskList(pool),
-  // tasks: _Tasks(pool),
-  // events: _Events(pool),
-  // notes: _Notes(pool),
+  accounts: Accounts(pool)
+  // taskLists: TaskLists(pool),
+  // tasks: Tasks(pool),
+  // events: Events(pool),
+  // notes: Notes(pool),
 }))
 
 app.use(enforcerMiddleware.mock())

@@ -6,10 +6,10 @@ CHECK(
 
 CREATE TABLE "accounts" (
     "account_id" character(36) NOT NULL,
-    "email" domain_email NOT NULL,
+    "email" character(80) NOT NULL,
     "username" character(40) NOT NULL,
     "name" character(80) NOT NULL,
-    "password" character NOT NULL,
+    "password" character(80) NOT NULL,
     PRIMARY KEY ("account_id")
 );
 

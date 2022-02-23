@@ -6,7 +6,7 @@ paths:
   /accounts:
     post:
       x-controller: accounts
-      x-operation: createUser
+      x-operation: createAccount
       tags:
         - Accounts
       summary: Create an account.
@@ -17,20 +17,24 @@ paths:
             schema:
               type: object
               required: 
-                - username
                 - email
+                - name
+                - username
                 - password
               properties:
-                username:
-                  type: string
                 email:
+                  type: string
+                name:
+                  type: string
+                username:
                   type: string
                 password:
                   type: string
                   format: password
             example:
-              username: username
               email: email
+              name: name
+              username: username
               password: a-password
       responses:
         201:
@@ -46,7 +50,7 @@ paths:
       - $ref: '#/components/parameters/PathAccountId'
     put:
       x-controller: accounts
-      x-operation: updateUser
+      x-operation: updateAccount
       tags:
         - Accounts
       summary: Update an account.
@@ -77,7 +81,7 @@ paths:
           description: Access denied.
     delete:
       x-controller: accounts
-      x-operation: deleteUser
+      x-operation: deleteAccount
       tags:
         - Accounts
       summary: Delete an account.
@@ -138,8 +142,8 @@ paths:
           description: Access denied.
   /taskLists:
     get:
-      x-controller: taskLists
-      x-operation: listTaskLists
+      # x-controller: taskLists
+      # x-operation: getTaskList
       tags:
         - Task Lists
       summary: Get task lists.
@@ -155,8 +159,8 @@ paths:
         401:
           description: Not authenticated.
     post:
-      x-controller: taskLists
-      x-operation: createTaskList
+      # x-controller: taskLists
+      # x-operation: createTaskList
       tags:
         - Task Lists
       summary: Add a task list.
@@ -177,8 +181,8 @@ paths:
     parameters:
       - $ref: '#/components/parameters/PathTaskListId'
     put:
-      x-controller: taskLists
-      x-operation: updateTaskList
+      # x-controller: taskLists
+      # x-operation: updateTaskList
       tags:
         - Task Lists
       summary: Update a task list.
@@ -200,8 +204,8 @@ paths:
         404:
           description: Not found.
     delete: 
-      x-controller: taskLists
-      x-operation: deleteTaskList
+      # x-controller: taskLists
+      # x-operation: deleteTaskList
       tags:
         - Task Lists
       summary: Delete a Task List.
@@ -214,8 +218,8 @@ paths:
           description: Access denied.
   /tasks:
     get:
-      x-controller: tasks
-      x-operation: listTasks
+      # x-controller: tasks
+      # x-operation: getTasks
       tags:
         - Tasks
       summary: Get tasks.
@@ -240,8 +244,8 @@ paths:
         401:
           description: Not authenticated.
     post:
-      x-controller: tasks
-      x-operation: createTask
+      # x-controller: tasks
+      # x-operation: createTask
       tags:
         - Tasks
       summary: Add a task.
@@ -262,8 +266,8 @@ paths:
     parameters:
       - $ref: '#/components/parameters/PathTaskId'
     put:
-      x-controller: tasks
-      x-operation: updateTask
+      # x-controller: tasks
+      # x-operation: updateTask
       tags:
         - Tasks
       summary: Update a task.
@@ -285,8 +289,8 @@ paths:
         404:
           description: Not found.
     delete: 
-      x-controller: tasks
-      x-operation: deleteTask
+      # x-controller: tasks
+      # x-operation: deleteTask
       tags:
         - Tasks
       summary: Delete a task.
@@ -299,8 +303,8 @@ paths:
           description: Access denied.
   /events:
     get:
-      x-controller: events
-      x-operation: getEvents
+      # x-controller: events
+      # x-operation: getEvents
       tags:
         - Events
       summary: Get events.
@@ -322,8 +326,8 @@ paths:
         401:
           description: Not authenticated.
     post:
-      x-controller: events
-      x-operation: createEvent
+      # x-controller: events
+      # x-operation: createEvent
       tags:
         - Events
       summary: Add an event.
@@ -344,8 +348,8 @@ paths:
     parameters:
       - $ref: '#/components/parameters/PathEventId'
     put:
-      x-controller: events
-      x-operation: updateEvent
+      # x-controller: events
+      # x-operation: updateEvent
       tags:
         - Events
       summary: Update an event.
@@ -367,8 +371,8 @@ paths:
         404:
           description: Not found.
     delete:
-      x-controller: events
-      x-operation: deleteEvent
+      # x-controller: events
+      # x-operation: deleteEvent
       tags:
         - Events
       summary: Delete an event.
@@ -381,8 +385,8 @@ paths:
           description: Access denied.
   /notes:
     put:
-      x-controller: notes
-      x-operation: updateNote
+      # x-controller: notes
+      # x-operation: updateNote
       tags:
         - Notes
       summary: Update notes.
