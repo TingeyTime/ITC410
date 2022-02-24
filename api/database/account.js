@@ -32,17 +32,17 @@ exports.updateAccount = async function (client, accountId, data) {
     const values = []
     const set = []
 
-    if (email !== undefined){
+    if (email !== undefined) {
         values.push(email)
         set.push('email=$' + values.length)
     }
 
-    if (username !== undefined){
+    if (username !== undefined) {
         values.push(username)
         set.push('username=$' + values.length)
     }
     
-    if (name !== undefined){
+    if (name !== undefined) {
         values.push(name)
         set.push('name=$' + values.length)
     }

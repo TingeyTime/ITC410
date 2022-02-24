@@ -11,6 +11,7 @@ const session           = require('express-session');
 
 // controllers
 const Accounts = require('./controllers/account')
+const TaskLists = require('./controllers/taskList')
 
 // Test Database Connection
 
@@ -97,11 +98,11 @@ app.use((req, res, next) => {
 })
 
 app.use(enforcerMiddleware.route({
-  accounts: Accounts(pool)
-  // taskLists: TaskLists(pool),
-  // tasks: Tasks(pool),
-  // events: Events(pool),
-  // notes: Notes(pool),
+    accounts: Accounts(pool)
+  , taskLists: TaskLists(pool)
+  // , tasks: Tasks(pool)
+  // , events: Events(pool)
+  // , notes: Notes(pool)
 }))
 
 app.use(enforcerMiddleware.mock())
