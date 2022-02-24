@@ -48,7 +48,9 @@ exports.updateAccount = async function (client, accountId, data) {
     }
     
     if (password !== undefined){
-        values.push(password)
+        const salt = await bycrypt.genSalt(10)
+        const hashed_password = await bycrypt.hash(password, salt)
+        values.push(hashed_password)
         set.push('password=$' + values.length)
     }
 

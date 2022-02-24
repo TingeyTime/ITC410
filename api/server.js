@@ -8,7 +8,6 @@ const path = require('path')
 const LocalStrategy     = require('passport-local').Strategy;
 const passport          = require('passport');
 const session           = require('express-session');
-// const cookieParser      = require('cookie-parser');
 
 // controllers
 const Accounts = require('./controllers/account')
