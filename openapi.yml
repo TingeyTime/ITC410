@@ -544,7 +544,7 @@ components:
         - start
         - end
       properties:
-        taskId:
+        EventId:
           type: string
           readOnly: true
         title:

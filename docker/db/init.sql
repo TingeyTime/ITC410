@@ -27,9 +27,18 @@ CREATE TABLE tasks (
 );
 
 CREATE TABLE tasksInTaskLists (
-  list_id character(36) NOT NULL,
-  task_id character(36) NOT NULL,
-  PRIMARY KEY (list_id, task_id),
-  CONSTRAINT fk_list FOREIGN KEY (list_id) REFERENCES taskLists(list_id),
-  CONSTRAINT fk_task FOREIGN KEY (task_id) REFERENCES tasks(task_id)
+    list_id character(36) NOT NULL,
+    task_id character(36) NOT NULL,
+    PRIMARY KEY (list_id, task_id),
+    CONSTRAINT fk_list FOREIGN KEY (list_id) REFERENCES taskLists(list_id),
+    CONSTRAINT fk_task FOREIGN KEY (task_id) REFERENCES tasks(task_id)
+);
+
+CREATE TABLE events (
+    event_id character(36) NOT NULL,
+    title character(80) NOT NULL,
+    description character(1000) NOT NULL,
+    date_start timestamp NOT NULL,
+    date_end timestamp NOT NULL,
+    PRIMARY KEY (event_id)
 );
