@@ -5,8 +5,13 @@ const EnforcerMiddleware = require('openapi-enforcer-middleware')
 const express = require('express')
 const { Pool } = require('pg')
 const path = require('path')
-const Accounts = require('./controllers/account')
+const LocalStrategy     = require('passport-local').Strategy;
+const passport          = require('passport');
+const session           = require('express-session');
+// const cookieParser      = require('cookie-parser');
+
 // controllers
+const Accounts = require('./controllers/account')
 
 // Test Database Connection
 
@@ -36,9 +41,32 @@ const openapiPath = path.resolve(__dirname, '../openapi.yml')
 const enforcer = Enforcer(openapiPath, { hideWarnings: true })
 const enforcerMiddleware = EnforcerMiddleware(enforcer)
 
-//bodyParsers
+//bodyParsers (adds the request's body property)
 app.use(express.json())
 app.use(express.text())
+
+/// Cookies and Passport
+
+// app.use(cookieParser());
+app.use(session({ secret: 'secret key', resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// tell passport to use a local strategy and tell it how to validate a username and password
+passport.use(new LocalStrategy(function(username, password, done) {
+  if (username && password === 'pass') return done(null, { username: username });
+  return done(null, false);
+}));
+
+// tell passport how to turn a user into serialized data that will be stored with the session
+passport.serializeUser(function(user, done) {
+  done(null, user.username);
+});
+
+// tell passport how to go from the serialized data back to the user
+passport.deserializeUser(function(id, done) {
+  done(null, { username: id });
+});
 
 // // Print log server-side
 // app.use((req, res, next) => {
@@ -52,7 +80,22 @@ app.use(enforcerMiddleware.init({baseUrl: "/api"}))
 enforcerMiddleware.on('error', err => {
   console.error(err)
   process.exit(1)
-}) 
+})
+
+app.use((req, res, next) => {
+  const { operation } = req.enforcer
+  if (operation.security !== undefined) {
+    const sessionIsRequired = operation.security.find(obj => obj.cookieAuth !== undefined)
+    if (sessionIsRequired) {
+      const cookie = req.cookies.simplePlanSessionId
+      if (cookie === undefined || req.user === undefined) {
+        res.sendStatus(401)
+        return;
+      }
+    }
+  }
+  next()
+})
 
 app.use(enforcerMiddleware.route({
   accounts: Accounts(pool)
