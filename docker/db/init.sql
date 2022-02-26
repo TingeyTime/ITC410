@@ -1,3 +1,7 @@
+--- Initial Database Structure for Simple Plan
+
+-- Accounts
+
 CREATE TABLE accounts (
     account_id character(36) NOT NULL,
     email character(80) NOT NULL,
@@ -10,12 +14,27 @@ CREATE TABLE accounts (
 ALTER TABLE accounts
 ADD CONSTRAINT accounts_username UNIQUE (username);
 
+CREATE TABLE "accounts_sessions" (
+  "sid" varchar NOT NULL COLLATE "default",
+  "sess" json NOT NULL,
+  "expire" timestamp(6) NOT NULL
+)
+WITH (OIDS=FALSE);
+
+ALTER TABLE "accounts_sessions" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
+
+CREATE INDEX "IDX_session_expire" ON "accounts_sessions" ("expire");
+
+-- Task Lists
+
 CREATE TABLE taskLists (
     list_id character(36) NOT NULL,
     title character (80) NOT NULL,
     completed boolean NOT NULL,
     PRIMARY KEY (list_id)
 );
+
+-- Tasks
 
 CREATE TABLE tasks (
     task_id character(36) NOT NULL,
@@ -33,6 +52,8 @@ CREATE TABLE tasksInTaskLists (
     CONSTRAINT fk_list FOREIGN KEY (list_id) REFERENCES taskLists(list_id),
     CONSTRAINT fk_task FOREIGN KEY (task_id) REFERENCES tasks(task_id)
 );
+
+-- Events
 
 CREATE TABLE events (
     event_id character(36) NOT NULL,

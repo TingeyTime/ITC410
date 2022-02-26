@@ -1,13 +1,14 @@
 require('dotenv').config('../.env')
 
-const Enforcer = require('openapi-enforcer')
-const EnforcerMiddleware = require('openapi-enforcer-middleware')
-const express = require('express')
-const { Pool } = require('pg')
-const path = require('path')
-const LocalStrategy     = require('passport-local').Strategy;
-const passport          = require('passport');
-const session           = require('express-session');
+const Enforcer            = require('openapi-enforcer')
+const EnforcerMiddleware  = require('openapi-enforcer-middleware')
+const express             = require('express')
+const { Pool }            = require('pg')
+const path                = require('path')
+const LocalStrategy       = require('passport-local').Strategy;
+const passport            = require('passport');
+const session             = require('express-session');
+const pgSession           = require('connect-pg-simple')(session);
 
 // controllers
 const Accounts = require('./controllers/account')
@@ -48,7 +49,20 @@ app.use(express.text())
 /// Cookies and Passport
 
 // app.use(cookieParser());
-app.use(session({ secret: 'secret key', resave: false, saveUninitialized: true }));
+// app.use(session({ secret: 'secret key', resave: false, saveUninitialized: true }));
+app.use(session({
+  store: new pgSession({
+    pool: pool,
+    tableName: 'accounts_sessions'
+  }),
+  secret: process.env.COOKIE_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { 
+    name: 'simplePlanSessionId',
+    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+  }
+}))
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -87,7 +101,7 @@ app.use((req, res, next) => {
   if (operation.security !== undefined) {
     const sessionIsRequired = operation.security.find(obj => obj.cookieAuth !== undefined)
     if (sessionIsRequired) {
-      const cookie = req.cookies.simplePlanSessionId
+      const cookie = req.session.cookie
       if (cookie === undefined || req.user === undefined) {
         res.sendStatus(401)
         return;

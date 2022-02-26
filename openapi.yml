@@ -48,7 +48,7 @@ paths:
   /accounts/{accountId}:
     parameters:
       - $ref: '#/components/parameters/PathAccountId'
-    put:
+    patch:
       x-controller: accounts
       x-operation: updateAccount
       tags:

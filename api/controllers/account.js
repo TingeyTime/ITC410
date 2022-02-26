@@ -1,4 +1,6 @@
 const accounts = require('../database/account')
+const jwt = require('jsonwebtoken')
+const secret = process.env.COOKIE_SECRET
 
 module.exports = function (pool) {
     return {
@@ -6,6 +8,10 @@ module.exports = function (pool) {
             const { email, username, name, password } = req.enforcer.body
             const accountId = await accounts.createAccount(pool, email, username, name, password)
             if (accountId) {
+                const token = jwt.sign({
+                    sub: username,
+                    admin: false
+                }, secret)
                 res.set('location', '/api/accounts/' + accountId)
                     .enforcer
                     .status(201)

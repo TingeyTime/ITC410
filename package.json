@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "clean-dev-environment": "docker-compose down -v --rmi all --remove-orphans",
+    "dev": "docker-compose up && nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
@@ -12,10 +13,12 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "bcryptjs": "^2.4.3",
+    "connect-pg-simple": "^7.0.0",
     "core-js": "^3.19.3",
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "express-session": "^1.17.2",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.2",
     "nuxt": "^2.2.0",
     "openapi-enforcer": "^1.16.1",
