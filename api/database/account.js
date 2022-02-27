@@ -27,6 +27,15 @@ exports.getAccount = async function (client, accountId) {
     return rows[0]
 }
 
+exports.getAccountByEmail = async function (client, accountId) {
+    const { rows } = await client.query({
+        name: 'get-account-by-email',
+        text: 'SELECT * FROM accounts WHERE account_id = $1',
+        values: [accountId]
+    })
+    return rows[0]
+}
+
 exports.updateAccount = async function (client, accountId, data) {
     const { email, username, name, password } = data
     const values = []

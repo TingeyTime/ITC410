@@ -5,13 +5,16 @@ const EnforcerMiddleware  = require('openapi-enforcer-middleware')
 const express             = require('express')
 const { Pool }            = require('pg')
 const path                = require('path')
+const bcrypt              = require('bcryptjs')
 const LocalStrategy       = require('passport-local').Strategy;
 const passport            = require('passport');
 const session             = require('express-session');
 const pgSession           = require('connect-pg-simple')(session);
+const DatabaseAccounts    = require('./database/account')
 
 // controllers
 const Accounts = require('./controllers/account')
+const Authentication = require('./controllers/authentication')
 const TaskLists = require('./controllers/taskList')
 
 // Test Database Connection
@@ -33,6 +36,36 @@ pool.query('SELECT NOW()', (err, res) => {
   }
 })
 
+// tell passport to use a local strategy and tell it how to validate a username and password
+passport.use(new LocalStrategy(function(email, password, done) {
+  DatabaseAccounts.getAccountByEmail(pool, email)
+    .then(async account => {
+      if (account === undefined) {
+        done(null, false)
+      } else {
+        const match = await bcrypt.compare(password, account.password)
+        if (match) {
+          done(null, { id: account.account_id, email: account.email, username: account.username, name: account.name})
+        } else {
+          const hash = await bcrypt.hash(password, account.password)
+          const m2 = await bcrypt.compare(password, hash)
+
+          done(null, false)
+        }
+      }
+    })
+    .catch(e => done(e, null))
+}));
+
+// tell passport how to turn a user into serialized data that will be stored with the session
+passport.serializeUser(function(user, done) {
+  done(null, user.username);
+});
+
+// tell passport how to go from the serialized data back to the user
+passport.deserializeUser(function(id, done) {
+  done(null, { username: id });
+});
 
 const app = express()
 
@@ -63,24 +96,9 @@ app.use(session({
     maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
   }
 }))
+
 app.use(passport.initialize());
 app.use(passport.session());
-
-// tell passport to use a local strategy and tell it how to validate a username and password
-passport.use(new LocalStrategy(function(username, password, done) {
-  if (username && password === 'pass') return done(null, { username: username });
-  return done(null, false);
-}));
-
-// tell passport how to turn a user into serialized data that will be stored with the session
-passport.serializeUser(function(user, done) {
-  done(null, user.username);
-});
-
-// tell passport how to go from the serialized data back to the user
-passport.deserializeUser(function(id, done) {
-  done(null, { username: id });
-});
 
 // // Print log server-side
 // app.use((req, res, next) => {
@@ -100,12 +118,9 @@ app.use((req, res, next) => {
   const { operation } = req.enforcer
   if (operation.security !== undefined) {
     const sessionIsRequired = operation.security.find(obj => obj.cookieAuth !== undefined)
-    if (sessionIsRequired) {
-      const cookie = req.session.cookie
-      if (cookie === undefined || req.user === undefined) {
-        res.sendStatus(401)
-        return;
-      }
+    if (sessionIsRequired && !req.user) {
+      res.sendStatus(401)
+      return
     }
   }
   next()

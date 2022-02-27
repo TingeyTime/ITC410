@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "clean-dev-environment": "docker-compose down -v --rmi all --remove-orphans",
-    "dev": "docker-compose up && nuxt",
+    "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
