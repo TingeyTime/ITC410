@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "clean-dev-environment": "docker-compose down -v --rmi all --remove-orphans",
+    "clean-dev-env": "docker-compose down -v --rmi all --remove-orphans",
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",

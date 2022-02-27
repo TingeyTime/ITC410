@@ -59,12 +59,12 @@ passport.use(new LocalStrategy(function(email, password, done) {
 
 // tell passport how to turn a user into serialized data that will be stored with the session
 passport.serializeUser(function(user, done) {
-  done(null, user.username);
+  done(null, JSON.stringify(user));
 });
 
 // tell passport how to go from the serialized data back to the user
 passport.deserializeUser(function(id, done) {
-  done(null, { username: id });
+  done(null, JSON.parse(id));
 });
 
 const app = express()
