@@ -45,9 +45,9 @@ paths:
           description: Account already exists.
         420:
           description: Account password too chill.
-  /accounts/{accountId}:
+  /accounts/{username}:
     parameters:
-      - $ref: '#/components/parameters/PathAccountId'
+      - $ref: '#/components/parameters/PathUsername'
     patch:
       x-controller: accounts
       x-operation: updateAccount
@@ -62,17 +62,21 @@ paths:
           application/json:
             schema:
               type: object
-              required:
-                - email
-                - password
               properties:
                 email:
+                  type: string
+                username:
+                  type: string
+                name:
                   type: string
                 password:
                   type: string
                   format: password
+                  minLength: 1
               example:
                 email: email
+                username: username
+                name: name
                 password: a-password
       responses:
         200:
@@ -94,14 +98,12 @@ paths:
           description: Not authenticated.
         403:
           description: Access denied.
-  /accounts/{accountId}/login:
-    parameters:
-      - $ref: '#/components/parameters/PathAccountId'
+  /authentication/login:
+    x-controller: authentication
     put:
-      x-controller: accounts
       x-operation: login
       tags:
-        - Accounts
+        - Authentication
       summary: Log in.
       requestBody:
         required: true
@@ -110,16 +112,16 @@ paths:
             schema:
               type: object
               required:
-                - email
+                - username
                 - password
               properties:
-                email:
+                username:
                   type: string
                 password:
                   type: string
                   format: password
               example:
-                email: email
+                username: username
                 password: a-password
       responses:
         200:
@@ -128,20 +130,16 @@ paths:
           description: Invalid request.
         403:
           description: Access denied.
-  /accounts/{accountId}/logout:
-    parameters:
-      - $ref: '#/components/parameters/PathAccountId'
+  /authentication/logout:
+    x-controller: authentication
     put:
-      x-controller: accounts
       x-operation: logout
       tags:
-        - Accounts
+        - Authentication
       summary: Log out.
       responses:
         200:
           description: Logged out.
-        403:
-          description: Access denied.
   /taskLists:
     get:
       # x-controller: taskLists
@@ -442,6 +440,12 @@ components:
       in: path
       required: true
       schema: 
+        type: string
+    PathUsername:
+      name: username
+      in: path
+      required: true
+      schema:
         type: string
     PathTaskListId:
       name: taskListId

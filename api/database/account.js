@@ -27,11 +27,11 @@ exports.getAccount = async function (client, accountId) {
     return rows[0]
 }
 
-exports.getAccountByEmail = async function (client, accountId) {
+exports.getAccountByUsername = async function (client, username) {
     const { rows } = await client.query({
-        name: 'get-account-by-email',
-        text: 'SELECT * FROM accounts WHERE account_id = $1',
-        values: [accountId]
+        name: 'get-account-by-username',
+        text: 'SELECT * FROM accounts WHERE username = $1',
+        values: [username]
     })
     return rows[0]
 }

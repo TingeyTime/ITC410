@@ -1,6 +1,7 @@
 const accounts = require('../database/account')
 const jwt = require('jsonwebtoken')
-const secret = process.env.COOKIE_SECRET
+const passport = require('passport')
+const secret = process.env.SESSION_SECRET
 
 module.exports = function (pool) {
     return {
@@ -23,16 +24,18 @@ module.exports = function (pool) {
 
         async updateAccount (req, res) {
             const data = req.enforcer.body
-            const { accountId } = req.enforcer.params
-
+            const { username } = req.enforcer.params
             const client = await pool.connect()
             try {
                 await client.query('BEGIN')
-                let account = await accounts.getAccountByEmail(client, email)
+                passport.authenticate('local')
+                let account = await accounts.getAccountByUsername(client, username)
                 if (account === undefined) {
                     res.enforcer.status(404).send()
+                } else if (account.account_id !== req.user.id) {
+                    res.enforcer.status(403).send()
                 } else {
-                    await accounts.updateAccount(client, accountId, data)
+                    await accounts.updateAccount(client, req.user.id, data)
                     res.enforcer.status(200).send()
                 }
                 await client.query('COMMIT')

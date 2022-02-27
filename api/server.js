@@ -37,8 +37,8 @@ pool.query('SELECT NOW()', (err, res) => {
 })
 
 // tell passport to use a local strategy and tell it how to validate a username and password
-passport.use(new LocalStrategy(function(email, password, done) {
-  DatabaseAccounts.getAccountByEmail(pool, email)
+passport.use(new LocalStrategy((username, password, done) => {
+  DatabaseAccounts.getAccountByUsername(pool, username)
     .then(async account => {
       if (account === undefined) {
         done(null, false)
@@ -58,12 +58,12 @@ passport.use(new LocalStrategy(function(email, password, done) {
 }));
 
 // tell passport how to turn a user into serialized data that will be stored with the session
-passport.serializeUser(function(user, done) {
+passport.serializeUser((user, done) => {
   done(null, JSON.stringify(user));
 });
 
 // tell passport how to go from the serialized data back to the user
-passport.deserializeUser(function(id, done) {
+passport.deserializeUser((id, done) => {
   done(null, JSON.parse(id));
 });
 
@@ -79,27 +79,6 @@ const enforcerMiddleware = EnforcerMiddleware(enforcer)
 app.use(express.json())
 app.use(express.text())
 
-/// Cookies and Passport
-
-// app.use(cookieParser());
-// app.use(session({ secret: 'secret key', resave: false, saveUninitialized: true }));
-app.use(session({
-  store: new pgSession({
-    pool: pool,
-    tableName: 'accounts_sessions'
-  }),
-  secret: process.env.COOKIE_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { 
-    name: 'simplePlanSessionId',
-    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
-  }
-}))
-
-app.use(passport.initialize());
-app.use(passport.session());
-
 // // Print log server-side
 // app.use((req, res, next) => {
 //   console.log(req.method + ' ' + req.path, req.headers, req.body)
@@ -113,6 +92,27 @@ enforcerMiddleware.on('error', err => {
   console.error(err)
   process.exit(1)
 })
+
+/// Cookies and Passport
+
+// app.use(cookieParser());
+// app.use(session({ secret: 'secret key', resave: false, saveUninitialized: true }));
+app.use(session({
+  store: new pgSession({
+    pool,
+    tableName: 'accounts_sessions'
+  }),
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { 
+    // name: 'simplePlanSessionId',
+    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+  }
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use((req, res, next) => {
   const { operation } = req.enforcer
@@ -128,6 +128,7 @@ app.use((req, res, next) => {
 
 app.use(enforcerMiddleware.route({
     accounts: Accounts(pool)
+  , authentication: Authentication(passport)
   , taskLists: TaskLists(pool)
   // , tasks: Tasks(pool)
   // , events: Events(pool)
