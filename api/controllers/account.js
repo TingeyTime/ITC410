@@ -28,7 +28,6 @@ module.exports = function (pool) {
             const client = await pool.connect()
             try {
                 await client.query('BEGIN')
-                passport.authenticate('local')
                 let account = await accounts.getAccountByUsername(client, username)
                 if (account === undefined) {
                     res.enforcer.status(404).send()
@@ -48,17 +47,18 @@ module.exports = function (pool) {
         },
 
         async deleteAccount (req, res) {
-			const { email } = req.enforcer.params
+			const { username } = req.enforcer.params
+            const client = await pool.connect()
 			try {
 				await client.query('BEGIN')
-				let account = await accounts.getAccountByEmail(client, email)
+				let account = await accounts.getAccountByUsername(client, username)
 				if (account === undefined) {
-					res.enforcer.status(204).send()
+					res.enforcer.status(404).send()
 				} else if (account.account_id !== req.user.id) {
 					res.enforcer.status(403).send()
 				} else {
-					await accounts.deleteAccount(pool, account.id)
-					res.enforcer.status(200).send()
+					await accounts.deleteAccount(pool, account.account_id)
+					res.enforcer.status(204).send()
 				}
 				await client.query('COMMIT')
 			} catch (e) {

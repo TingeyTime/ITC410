@@ -3,11 +3,11 @@
 -- Accounts
 
 CREATE TABLE accounts (
-    account_id character(36) NOT NULL,
-    email character(80) NOT NULL,
-    username character(40) NOT NULL,
-    name character(80) NOT NULL,
-    password character(80) NOT NULL,
+    account_id varchar(36) NOT NULL,
+    email varchar(80) NOT NULL,
+    username varchar(40) NOT NULL,
+    name varchar(80) NOT NULL,
+    password varchar(80) NOT NULL,
     PRIMARY KEY (account_id)
 );
 
@@ -28,8 +28,8 @@ CREATE INDEX "IDX_session_expire" ON "accounts_sessions" ("expire");
 -- Task Lists
 
 CREATE TABLE taskLists (
-    list_id character(36) NOT NULL,
-    title character (80) NOT NULL,
+    list_id varchar(36) NOT NULL,
+    title varchar (80) NOT NULL,
     completed boolean NOT NULL,
     PRIMARY KEY (list_id)
 );
@@ -37,17 +37,17 @@ CREATE TABLE taskLists (
 -- Tasks
 
 CREATE TABLE tasks (
-    task_id character(36) NOT NULL,
-    title character (80) NOT NULL,
-    description character(1000) NOT NULL,
+    task_id varchar(36) NOT NULL,
+    title varchar (80) NOT NULL,
+    description varchar(1000) NOT NULL,
     duration numeric NOT NULL,
     complete boolean NOT NULL,
     PRIMARY KEY (task_id)
 );
 
 CREATE TABLE tasksInTaskLists (
-    list_id character(36) NOT NULL,
-    task_id character(36) NOT NULL,
+    list_id varchar(36) NOT NULL,
+    task_id varchar(36) NOT NULL,
     PRIMARY KEY (list_id, task_id),
     CONSTRAINT fk_list FOREIGN KEY (list_id) REFERENCES taskLists(list_id),
     CONSTRAINT fk_task FOREIGN KEY (task_id) REFERENCES tasks(task_id)
@@ -56,9 +56,9 @@ CREATE TABLE tasksInTaskLists (
 -- Events
 
 CREATE TABLE events (
-    event_id character(36) NOT NULL,
-    title character(80) NOT NULL,
-    description character(1000) NOT NULL,
+    event_id varchar(36) NOT NULL,
+    title varchar(80) NOT NULL,
+    description varchar(1000) NOT NULL,
     date_start timestamp NOT NULL,
     date_end timestamp NOT NULL,
     PRIMARY KEY (event_id)

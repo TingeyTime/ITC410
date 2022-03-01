@@ -1,9 +1,8 @@
-const bycrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs')
 const uuid = require('uuid').v4
 
 exports.createAccount = async function (client, email, username, name, password) {
     const accountId = uuid()
-    const salt = await bycrypt.genSalt(10)
     const { rowCount } = await client.query({
         name: 'create-account',
         text: 'INSERT INTO accounts (account_id, email, username, name, password) VALUES ($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING',
@@ -12,7 +11,7 @@ exports.createAccount = async function (client, email, username, name, password)
             email,
             username,
             name,
-            await bycrypt.hash(password, salt)
+            await encryptPassword(password)
         ]
     })
     return rowCount > 0 ? accountId : undefined
@@ -57,8 +56,7 @@ exports.updateAccount = async function (client, accountId, data) {
     }
     
     if (password !== undefined){
-        const salt = await bycrypt.genSalt(10)
-        const hashed_password = await bycrypt.hash(password, salt)
+        const hashed_password = await encryptPassword(password)
         values.push(hashed_password)
         set.push('password=$' + values.length)
     }
@@ -83,4 +81,9 @@ exports.deleteAccount = async function (client, accountId) {
         values: [accountId]
     })
     return rowCount > 0
+}
+
+async function encryptPassword (password) {
+    const salt = await bcrypt.genSalt(10)
+    return await bcrypt.hash(password, salt)
 }

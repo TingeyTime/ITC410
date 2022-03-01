@@ -45,7 +45,8 @@ passport.use(new LocalStrategy((username, password, done) => {
       } else {
         const match = await bcrypt.compare(password, account.password)
         if (match) {
-          done(null, { id: account.account_id, email: account.email, username: account.username, name: account.name})
+          // create req.user
+        done(null, { id: account.account_id, email: account.email, username: account.username, name: account.name})
         } else {
           const hash = await bcrypt.hash(password, account.password)
           const m2 = await bcrypt.compare(password, hash)
@@ -79,11 +80,11 @@ const enforcerMiddleware = EnforcerMiddleware(enforcer)
 app.use(express.json())
 app.use(express.text())
 
-// // Print log server-side
-// app.use((req, res, next) => {
-//   console.log(req.method + ' ' + req.path, req.headers, req.body)
-//   next()
-// })
+// Print log server-side
+app.use((req, res, next) => {
+  console.log(req.method + ' ' + req.path, req.headers, req.body)
+  next()
+})
 
 app.use(enforcerMiddleware.init({baseUrl: "/api"}))
 

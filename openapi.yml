@@ -85,6 +85,8 @@ paths:
           description: Invalid request.
         403:
           description: Access denied.
+        404:
+          description: Account not Found
     delete:
       x-controller: accounts
       x-operation: deleteAccount
@@ -92,6 +94,8 @@ paths:
         - Accounts
       summary: Delete an account.
       responses:
+        404:
+          description: Account does not exist
         204:
           description: Account deleted.
         401:
