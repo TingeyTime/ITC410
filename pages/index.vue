@@ -89,18 +89,19 @@ export default {
                     })
                    },
     createAccount : async function (email, username, name, password) {
-                   const response = await this.$axios.$post('/api/accounts/', {
-                                                              email: email,
-                                                              username: username,
-                                                              name: name,
-                                                              password: password
-                                                              })
-                                                              .then(function (response) {
-                                                                console.log(response)
-                                                              })
-                                                              .catch(function (err) {
-                                                                console.error(err)
-                                                              })
+                   const response = await this.$axios.$post('/api/accounts/', 
+                    {
+                      email: email,
+                      username: username,
+                      name: name,
+                      password: password
+                    })
+                    .then(function (response) {
+                      console.log(response)
+                    })
+                    .catch(function (err) {
+                      console.error(err)
+                    })
     }
   }
 }

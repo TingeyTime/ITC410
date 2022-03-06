@@ -1,11 +1,6 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      :clipped="true"
-      fixed
-      app
-    >
+    <v-navigation-drawer v-if="user" v-model="drawer" :clipped="true" fixed app>
       <v-list>
         <v-list-item
           v-for="(item, i) in items"
@@ -23,35 +18,26 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar
-      :clipped-left="true"
-      fixed
-      app
-    >
-    <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-    <v-toolbar-title>{{title}}</v-toolbar-title>
-    <v-spacer></v-spacer>
-    <v-container>
-      <v-div v-if="loggedIn">
-      </v-div>
-      <v-div v-else>
-        <v-btn href="/Login">
-          Log In
-        </v-btn>
-        <v-btn>
-          Register
-        </v-btn>
-      </v-div>
-    </v-container>
+    <v-app-bar clipped-left fixed app>
+      <v-app-bar-nav-icon v-if="user" @click.stop="drawer = !drawer" />
+      <v-toolbar-title>{{ title }}</v-toolbar-title>
+      <div class="flex-grow-1" />
+      <v-container>
+        <v-div v-if="user">
+          <v-btn @click="Logout"> Log out </v-btn>
+        </v-div>
+        <v-div v-else>
+          <v-btn href="/Login"> Log In </v-btn>
+          <v-btn href="/SignUp"> Sign Up </v-btn>
+        </v-div>
+      </v-container>
     </v-app-bar>
     <v-main>
       <v-container>
         <Nuxt />
       </v-container>
     </v-main>
-    <v-footer
-      app
-    >
+    <v-footer app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
@@ -59,29 +45,37 @@
 
 <script>
 export default {
-  name: 'DefaultLayout',
-  data () {
+  name: "DefaultLayout",
+  data() {
     return {
       drawer: false,
       items: [
         {
-          icon: 'mdi-view-dashboard',
-          title: 'Dashboard',
-          to: '/'
+          icon: "mdi-view-dashboard",
+          title: "Dashboard",
+          to: "/",
         },
         {
-          icon: 'mdi-cog',
-          title: 'Settings',
-          to: '/settings'
-        }
+          icon: "mdi-cog",
+          title: "Settings",
+          to: "/settings",
+        },
       ],
-      title: 'Simple Plan',
-      loggedIn: false
-    }
+      title: "Simple Plan",
+      loggedIn: false,
+    };
   },
 
   methods: {
+    Logout() {
+      this.$store.dispatch('accounts/logout')
+    }
+  },
 
-  }
-}
+  computed: {
+    user() {
+      return this.$store.state.accounts.user;
+    },
+  },
+};
 </script>
