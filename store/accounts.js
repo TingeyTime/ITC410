@@ -20,6 +20,7 @@ export const actions = {
 		})
 		if (res.status === 201) {
 			commit('setUser', getUserFromCookie())
+			this.$router.push('/')
 		}
 	},
 
@@ -30,6 +31,7 @@ export const actions = {
 		})
 		if (res.status === 200) {
 			commit('setUser', getUserFromCookie())
+			this.$router.push('/')
 		}
 	},
 

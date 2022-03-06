@@ -61,15 +61,6 @@
             Nuxt GitHub
           </a>
         </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            @click="getTasks()"
-          >
-            API Button
-          </v-btn>
-        </v-card-actions>
       </v-card>
     </v-col>
   </v-row>
@@ -79,30 +70,7 @@
 export default {
   name: 'IndexPage',
   methods: {
-    getTasks : async function () {
-                   const response = await this.$axios.$get('/api/tasks')
-                    .then(function (response) {
-                      console.log(response)
-                    })
-                    .catch(function (err) {
-                      console.error(err)
-                    })
-                   },
-    createAccount : async function (email, username, name, password) {
-                   const response = await this.$axios.$post('/api/accounts/', 
-                    {
-                      email: email,
-                      username: username,
-                      name: name,
-                      password: password
-                    })
-                    .then(function (response) {
-                      console.log(response)
-                    })
-                    .catch(function (err) {
-                      console.error(err)
-                    })
-    }
+
   }
 }
 

@@ -54,10 +54,10 @@ export default {
   data() {
     return {
       form: {
-        email: "",
-        name: "",
-        username: "",
-        password: ""
+        email: "test@example.com",
+        name: "Test",
+        username: "Test",
+        password: "test"
       },
       status: "nothing"
     }

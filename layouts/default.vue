@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer v-if="user" v-model="drawer" :clipped="true" fixed app>
+    <v-navigation-drawer v-model="drawer" clipped fixed app>
       <v-list>
         <v-list-item
           v-for="(item, i) in items"
@@ -21,15 +21,15 @@
     <v-app-bar clipped-left fixed app>
       <v-app-bar-nav-icon v-if="user" @click.stop="drawer = !drawer" />
       <v-toolbar-title>{{ title }}</v-toolbar-title>
-      <div class="flex-grow-1" />
+      <v-spacer />
       <v-container>
-        <v-div v-if="user">
+        <div v-if="user !== null">
           <v-btn @click="Logout"> Log out </v-btn>
-        </v-div>
-        <v-div v-else>
+        </div>
+        <div v-else>
           <v-btn href="/Login"> Log In </v-btn>
           <v-btn href="/SignUp"> Sign Up </v-btn>
-        </v-div>
+        </div>
       </v-container>
     </v-app-bar>
     <v-main>

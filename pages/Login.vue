@@ -41,8 +41,8 @@ export default {
   data() {
     return {
       form: {
-        username: "",
-        password: ""
+        username: "Test",
+        password: "test"
       },
       status: "nothing"
     }
@@ -52,6 +52,12 @@ export default {
       this.$store.dispatch('accounts/login', {
         username: this.form.username,
         password: this.form.password
+      })
+      .then( () => {
+        console.log('Login successful')
+      })
+      .catch( (err) => {
+        console.error(err)
       })
     },
   },
