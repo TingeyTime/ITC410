@@ -22,15 +22,18 @@
       <v-app-bar-nav-icon v-if="user" @click.stop="drawer = !drawer" />
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-spacer />
-      <v-container>
-        <div v-if="user !== null">
+        <span v-if="user !== null">
+          <v-spacer/>
+          <span>
+            <v-avatar color="primary">{{user}}</v-avatar>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          </span>
           <v-btn @click="Logout"> Log out </v-btn>
-        </div>
-        <div v-else>
+        </span>
+        <span v-else>
           <v-btn href="/Login"> Log In </v-btn>
           <v-btn href="/SignUp"> Sign Up </v-btn>
-        </div>
-      </v-container>
+        </span>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -75,7 +78,7 @@ export default {
   computed: {
     user() {
       return this.$store.state.accounts.user;
-    },
+    }
   },
 };
 </script>

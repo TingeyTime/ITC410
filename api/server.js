@@ -107,7 +107,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: { 
-    // name: 'simplePlanSessionId',
+    name: 'simplePlanSessionId',
     maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
   }
 }))

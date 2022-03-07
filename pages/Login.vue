@@ -53,12 +53,6 @@ export default {
         username: this.form.username,
         password: this.form.password
       })
-      .then( () => {
-        console.log('Login successful')
-      })
-      .catch( (err) => {
-        console.error(err)
-      })
     },
   },
 };

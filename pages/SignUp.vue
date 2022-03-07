@@ -31,7 +31,7 @@
               type="password"
               required
             ></v-text-field>
-            <v-btn class="mr-4" @click="Register()"> submit </v-btn>
+            <v-btn class="mr-4" @click="Register()">Submit</v-btn>
           </form>
         </v-card-text>
         <v-card-text>
@@ -70,11 +70,6 @@ export default {
         username: this.form.username,
         password: this.form.password
       })
-    }
-  },
-  computed: {
-    user () {
-      return this.$store.state.accounts.user
     }
   }
 };

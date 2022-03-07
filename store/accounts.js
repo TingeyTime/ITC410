@@ -6,7 +6,14 @@ export const state = () => {
 
 export const mutations = {
 	setUser (state, user) {
+		console.log('Generated Cookie = ', getUserFromCookie())
+		if (user !== null) {
+			state.user = user
+		}
+		else {
+		console.log('Using username instead')
 		state.user = user
+		}
 	}
 }
 
@@ -19,7 +26,7 @@ export const actions = {
 			password
 		})
 		if (res.status === 201) {
-			commit('setUser', getUserFromCookie())
+			commit('setUser', username) // FIXME: Should you getUserFromCookie()
 			this.$router.push('/')
 		}
 	},
@@ -30,7 +37,7 @@ export const actions = {
 			password
 		})
 		if (res.status === 200) {
-			commit('setUser', getUserFromCookie())
+			commit('setUser', username)  // FIXME: Should you getUserFromCookie()
 			this.$router.push('/')
 		}
 	},
@@ -38,6 +45,7 @@ export const actions = {
 	async logout({ commit }) {
 		const res = await this.$axios.put('api/authentication/logout')
 		if (res.status === 200) {
+			console.log('user logged out...')
 			commit('setUser', null)
 		}
 	}
@@ -50,5 +58,5 @@ export const actions = {
 function getUserFromCookie () {
 	const re = new RegExp("user=([^;]+)")
 	const value = re.exec(document.cookie)
-	return value != null ? unescape(value[1]) : null
+	return value != null ? decodeURI(value[1]) : null
 }
