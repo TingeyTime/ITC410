@@ -16,6 +16,20 @@
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
         </v-list-item>
+        <v-list-item
+          v-for="(info, i) in info"
+          :key="i"
+          :to="info.to"
+          router
+          exact
+        >
+          <v-list-item-action>
+            <v-icon>{{ info.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="info.title" />
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-app-bar clipped-left fixed app>
@@ -25,18 +39,18 @@
         {{ title }}
       </v-toolbar-title>
       <v-spacer />
-        <span v-if="user !== null">
-          <v-spacer/>
-          <span>
-            <v-avatar color="primary">{{user}}</v-avatar>
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-          </span>
-          <v-btn @click="Logout"> Log out </v-btn>
+      <span v-if="user !== null">
+        <v-spacer />
+        <span>
+          <v-avatar color="primary">{{ user }}</v-avatar>
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
         </span>
-        <span v-else>
-          <v-btn href="/Login"> Log In </v-btn>
-          <v-btn href="/SignUp"> Sign Up </v-btn>
-        </span>
+        <v-btn @click="Logout"> Log out </v-btn>
+      </span>
+      <span v-else>
+        <v-btn href="/Login"> Log In </v-btn>
+        <v-btn href="/SignUp"> Sign Up </v-btn>
+      </span>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -55,6 +69,13 @@ export default {
   data() {
     return {
       drawer: false,
+      info: [
+        {
+          icon: "mdi-information",
+          title: "About",
+          to: "/about",
+        },
+      ],
       items: [
         {
           icon: "mdi-view-dashboard",
@@ -74,14 +95,14 @@ export default {
 
   methods: {
     Logout() {
-      this.$store.dispatch('accounts/logout')
-    }
+      this.$store.dispatch("accounts/logout");
+    },
   },
 
   computed: {
     user() {
       return this.$store.state.accounts.user;
-    }
+    },
   },
 };
 </script>
