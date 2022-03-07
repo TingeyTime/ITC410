@@ -6,14 +6,7 @@ export const state = () => {
 
 export const mutations = {
 	setUser (state, user) {
-		console.log('Generated Cookie = ', getUserFromCookie())
-		if (user !== null) {
-			state.user = user
-		}
-		else {
-		console.log('Using username instead')
 		state.user = user
-		}
 	}
 }
 
@@ -58,5 +51,5 @@ export const actions = {
 function getUserFromCookie () {
 	const re = new RegExp("user=([^;]+)")
 	const value = re.exec(document.cookie)
-	return value != null ? decodeURI(value[1]) : null
+	return value != null ? unescape(value[1]) : null
 }

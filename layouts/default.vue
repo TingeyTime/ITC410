@@ -20,7 +20,10 @@
     </v-navigation-drawer>
     <v-app-bar clipped-left fixed app>
       <v-app-bar-nav-icon v-if="user" @click.stop="drawer = !drawer" />
-      <v-toolbar-title>{{ title }}</v-toolbar-title>
+      <v-toolbar-title>
+        <v-icon>mdi-calendar-month</v-icon>
+        {{ title }}
+      </v-toolbar-title>
       <v-spacer />
         <span v-if="user !== null">
           <v-spacer/>
