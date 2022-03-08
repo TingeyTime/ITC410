@@ -37,7 +37,7 @@
         <v-card-text>
           <h2>Already Registered?</h2>
           <br/>
-          <p>Login to use this application now!</p>
+          <p>Log in to use this application now!</p>
           <nuxt-link to="/Login">Login now</nuxt-link>
           <br/>
           <nuxt-link to="/">Back to homepage</nuxt-link>
@@ -70,6 +70,7 @@ export default {
         username: this.form.username,
         password: this.form.password
       })
+      this.$router.push('/')
     }
   }
 };

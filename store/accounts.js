@@ -20,7 +20,6 @@ export const actions = {
 		})
 		if (res.status === 201) {
 			commit('setUser', username) // FIXME: Should you getUserFromCookie()
-			this.$router.push('/')
 		}
 	},
 
@@ -31,7 +30,6 @@ export const actions = {
 		})
 		if (res.status === 200) {
 			commit('setUser', username)  // FIXME: Should you getUserFromCookie()
-			this.$router.push('/')
 		}
 	},
 

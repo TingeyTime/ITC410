@@ -1,7 +1,18 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer v-model="drawer" clipped fixed app>
-      <v-list>
+    <v-navigation-drawer
+      v-model="drawer"
+      clipped
+      fixed
+      app
+      v-click-outside="{
+        handler: onClickOutsideStandard,
+        include: include,
+      }"
+      >
+      <v-list
+        v-if="user"
+      >
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
@@ -16,6 +27,8 @@
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
         </v-list-item>
+      </v-list>
+      <v-list>
         <v-list-item
           v-for="(info, i) in info"
           :key="i"
@@ -33,11 +46,13 @@
       </v-list>
     </v-navigation-drawer>
     <v-app-bar clipped-left fixed app>
-      <v-app-bar-nav-icon v-if="user" @click.stop="drawer = !drawer" />
-      <v-toolbar-title>
-        <v-icon>mdi-calendar-month</v-icon>
-        {{ title }}
-      </v-toolbar-title>
+      <v-app-bar-nav-icon class="include" @click.stop="drawer = !drawer" />
+      <router-link to='/' style="text-decoration: none; color: inherit;">
+        <v-toolbar-title>
+          <v-icon>mdi-calendar-month</v-icon>
+          {{ title }}
+        </v-toolbar-title>
+      </router-link>
       <v-spacer />
       <span v-if="user !== null">
         <v-spacer />
@@ -80,7 +95,7 @@ export default {
         {
           icon: "mdi-view-dashboard",
           title: "Dashboard",
-          to: "/",
+          to: "/dashboard",
         },
         {
           icon: "mdi-cog",
@@ -97,6 +112,12 @@ export default {
     Logout() {
       this.$store.dispatch("accounts/logout");
     },
+    onClickOutsideStandard () {
+        this.drawer = false
+      },
+      include () {
+        return [document.querySelector('.include')]
+      },
   },
 
   computed: {
