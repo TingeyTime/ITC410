@@ -69,8 +69,13 @@ export default {
         name: this.form.name,
         username: this.form.username,
         password: this.form.password
-      })
-      this.$router.push('/')
+        })
+        .then(() => {
+          this.$router.push("/");
+        })
+        .catch(() => {
+          console.error("account creation failed");
+        });
     }
   }
 };

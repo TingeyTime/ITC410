@@ -49,8 +49,8 @@ CREATE TABLE tasksInTaskLists (
     list_id varchar NOT NULL,
     task_id varchar NOT NULL,
     PRIMARY KEY (list_id, task_id),
-    CONSTRAINT fk_list FOREIGN KEY (list_id) REFERENCES taskLists(list_id),
-    CONSTRAINT fk_task FOREIGN KEY (task_id) REFERENCES tasks(task_id)
+    CONSTRAINT fk_list FOREIGN KEY (list_id) REFERENCES taskLists(list_id) ON DELETE CASCADE,
+    CONSTRAINT fk_task FOREIGN KEY (task_id) REFERENCES tasks(task_id) ON DELETE CASCADE
 );
 
 -- Events
@@ -62,4 +62,15 @@ CREATE TABLE events (
     date_start timestamp NOT NULL,
     date_end timestamp NOT NULL,
     PRIMARY KEY (event_id)
+);
+
+-- Notes
+
+CREATE TABLE notes (
+    note_id varchar NOT NULL,
+    account_id varchar NOT NULL,
+    date_updated timestamp NOT NULL,
+    context varchar NOT NULL,
+    PRIMARY KEY (note_id),
+    CONSTRAINT fk_list FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON DELETE CASCADE
 );

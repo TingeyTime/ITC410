@@ -23,10 +23,10 @@
         </v-card-text>
         <v-card-text>
           <h2>Not Registered?</h2>
-          <br/>
+          <br />
           <p>Sign up to use this application now!</p>
           <nuxt-link to="/SignUp">Sign up now</nuxt-link>
-          <br/>
+          <br />
           <nuxt-link to="/">Back to homepage</nuxt-link>
         </v-card-text>
       </v-card>
@@ -42,18 +42,24 @@ export default {
     return {
       form: {
         username: "Test",
-        password: "test"
+        password: "test",
       },
-      status: "nothing"
-    }
+      status: "nothing",
+    };
   },
   methods: {
     Login() {
-      this.$store.dispatch('accounts/login', {
-        username: this.form.username,
-        password: this.form.password
-      })
-      this.$router.push('/')
+      this.$store
+        .dispatch("accounts/login", {
+          username: this.form.username,
+          password: this.form.password,
+        })
+        .then(() => {
+          this.$router.push("/");
+        })
+        .catch(() => {
+          console.error("login failed");
+        });
     },
   },
 };

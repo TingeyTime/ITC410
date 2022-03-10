@@ -1,5 +1,3 @@
-const { database } = require('pg/lib/defaults')
-
 const uuid = require('uuid').v4
 
 exports.createTaskList = async function (client, title, completed = false) {
@@ -31,7 +29,7 @@ exports.updateTaskList = async function (client, taskListId, data) {
     const set = []
 
     if (title !== undefined) {
-        values.push(email)
+        values.push(title)
         set.push('title=$' + values.length)
     }
 
@@ -47,7 +45,7 @@ exports.updateTaskList = async function (client, taskListId, data) {
     values.push(taskListId)
     const { row } = client.query({
         name: 'update-task-list',
-        text: 'UPDATE accounts SET ' + set.join(', ') + ' WHERE account_id = $' + (values.length) + ' RETURNING *',
+        text: 'UPDATE taskLists SET ' + set.join(', ') + ' WHERE list_id = $' + (values.length) + ' RETURNING *',
         values
     })
     return row
@@ -56,20 +54,20 @@ exports.updateTaskList = async function (client, taskListId, data) {
 exports.deleteTaskList = async function (client, taskListId) {
     const { rowCount } = client.query({
         name: 'delete-task-list',
-        text: 'DELETE FROM accounts WHERE list_ = $1',
+        text: 'DELETE FROM taskLists WHERE list_id = $1',
         values: [taskListId]
     })
     return rowCount > 0
 }
 
-// exports.addTaskToTaskList = async function (client, taskListId, taskId) {
-//     const { rowCount } = client.query({
-//         name: 'create-taskList',
-//         text: 'INSERT INTO tasksInTaskLists (list_id, task_id) VALUES ($1, $2) ON CONFLICT DO NOTHING',
-//         values: [
-//             taskListId,
-//             taskId,
-//         ]
-//     })
-//     return rowCount > 0
-// }
+exports.addTaskToTaskList = async function (client, taskListId, taskId) {
+    const { rowCount } = client.query({
+        name: 'add-task-to-taskList',
+        text: 'INSERT INTO tasksInTaskLists (list_id, task_id) VALUES ($1, $2) ON CONFLICT DO NOTHING',
+        values: [
+            taskListId,
+            taskId,
+        ]
+    })
+    return rowCount > 0
+}
