@@ -90,6 +90,11 @@ export default {
           title: "About",
           to: "/about",
         },
+        {
+          icon: "mdi-draw",
+          title: "Temporary Journal",
+          to: "/temporaryJournal"
+        }
       ],
       items: [
         {
@@ -104,7 +109,6 @@ export default {
         },
       ],
       title: "Simple Plan",
-      loggedIn: false,
     };
   },
 

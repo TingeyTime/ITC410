@@ -5,6 +5,7 @@ const secret = process.env.SESSION_SECRET
 
 module.exports = function (pool) {
     return {
+
         async createAccount (req, res) {
             const { email, username, name, password } = req.enforcer.body
             const accountId = await accounts.createAccount(pool, email, username, name, password)

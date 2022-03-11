@@ -43,6 +43,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -79,5 +80,27 @@ export default {
       path: '/api',
       handler: '~/api/server.js'
     }
-  ]
+  ],
+
+  auth: {
+    strategies: {
+      local: {
+        // token: {
+        //   property: 'token',
+        //   global: true,
+        //   // required: true,
+        //   // type: 'Bearer'
+        // },
+        // user: {
+        //   property: 'user',
+        //   // autoFetch: true
+        // },
+        endpoints: {
+          login: { url: '/api/authentication/login', method: 'put' },
+          logout: { url: '/api/authentication/logout', method: 'put' },
+          user: { url: '/api/account/', method: 'get' }
+        }
+      }
+    }
+  }
 }
