@@ -17,9 +17,31 @@ module.exports = function (pool) {
                 res.set('location', '/api/accounts/' + accountId)
                     .enforcer
                     .status(201)
-                    .send()
+                    .send({
+                        username: username,
+                        email: email,
+                        name: name
+                    })
             } else {
                 res.enforcer.status(409).send()
+            }
+        },
+
+        async getAccount (req, res) {
+            const data = req.enforcer.body
+            const { username } = req.enforcer.params
+            const client = await pool.connect()
+            let account = await accounts.getAccountByUsername(client, username)
+            if (account === undefined) {
+                res.enforcer.status(404).send()
+            } else if (account.account_id !== req.user.id) {
+                res.enforcer.status(403).send()
+            } else {
+                res.enforcer.status(200).send({
+                    username: account.username,
+                    email: account.email,
+                    name: account.name
+                })
             }
         },
 
@@ -36,7 +58,12 @@ module.exports = function (pool) {
                     res.enforcer.status(403).send()
                 } else {
                     await accounts.updateAccount(client, req.user.id, data)
-                    res.enforcer.status(200).send()
+                    let new_account = await accounts.getAccountByUsername(client, req.enforcer.body.username)
+                    res.enforcer.status(200).send({
+                        username: new_account.username,
+                        email: new_account.email,
+                        name: new_account.name
+                    })
                 }
                 await client.query('COMMIT')
             } catch (e) {

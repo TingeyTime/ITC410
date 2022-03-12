@@ -39,6 +39,10 @@ paths:
       responses:
         201:
           description: Account created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
         400:
           description: Invalid request.
         409:
@@ -48,6 +52,27 @@ paths:
   /accounts/{username}:
     parameters:
       - $ref: '#/components/parameters/PathUsername'
+    get:
+      x-controller: accounts
+      x-operation: getAccount
+      tags:
+        - Accounts
+      security:
+        - cookieAuth: []
+      summary: Get an account.
+      responses:
+        200:
+          description: Authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: Invalid request.
+        403:
+          description: Access denied.
+        404:
+          description: Account not Found
     patch:
       x-controller: accounts
       x-operation: updateAccount
@@ -81,6 +106,10 @@ paths:
       responses:
         200:
           description: Authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
         400:
           description: Invalid request.
         403:
@@ -500,6 +529,21 @@ components:
       in: cookie
       name: simplePlanSessionId
   schemas:
+    User:
+      required:
+        - username
+        - email
+        - name
+      properties:
+        username:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
     TaskList:
       type: object
       required:
