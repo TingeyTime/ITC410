@@ -18,7 +18,7 @@
               type="password"
               required
             ></v-text-field>
-            <v-btn class="mr-4" @click="Login"> submit </v-btn>
+            <v-btn class="mr-4" @click="loginUser"> Login </v-btn>
           </form>
         </v-card-text>
         <v-card-text>
@@ -48,19 +48,33 @@ export default {
     };
   },
   methods: {
-    Login() {
-      this.$store
-        .dispatch("accounts/login", {
+    loginUser() {
+      this.$auth.loginWith('local', {
+        data: {
           username: this.form.username,
-          password: this.form.password,
-        })
+          password: this.form.password
+        }
+      })
         .then(() => {
           this.$router.push("/");
         })
         .catch(() => {
           console.error("login failed");
         });
-    },
+    }
+    // Login() {
+    //   this.$store
+    //     .dispatch("accounts/login", {
+    //       username: this.form.username,
+    //       password: this.form.password,
+    //     })
+    //     .then(() => {
+    //       this.$router.push("/");
+    //     })
+    //     .catch(() => {
+    //       console.error("login failed");
+    //     });
+    // },
   },
 };
 </script>

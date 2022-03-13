@@ -36,10 +36,10 @@
         </v-card-text>
         <v-card-text>
           <h2>Already Registered?</h2>
-          <br/>
+          <br />
           <p>Log in to use this application now!</p>
           <nuxt-link to="/Login">Login now</nuxt-link>
-          <br/>
+          <br />
           <nuxt-link to="/">Back to homepage</nuxt-link>
         </v-card-text>
       </v-card>
@@ -57,26 +57,33 @@ export default {
         email: "test@example.com",
         name: "Test",
         username: "Test",
-        password: "test"
+        password: "test",
       },
-      status: "nothing"
-    }
+      status: "nothing",
+    };
   },
   methods: {
-    Register () {
-      this.$store.dispatch('accounts/createAccount', {
-        email: this.form.email,
-        name: this.form.name,
-        username: this.form.username,
-        password: this.form.password
+    Register() {
+      this.$store
+        .dispatch("accounts/createAccount", {
+          email: this.form.email,
+          name: this.form.name,
+          username: this.form.username,
+          password: this.form.password,
         })
         .then(() => {
+          this.$auth.loginWith("local", {
+            data: {
+              username: this.form.username,
+              password: this.form.password,
+            },
+          });
           this.$router.push("/");
         })
         .catch(() => {
           console.error("account creation failed");
         });
-    }
-  }
+    },
+  },
 };
 </script>

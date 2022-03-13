@@ -49,9 +49,6 @@ paths:
           description: Account already exists.
         420:
           description: Account password too chill.
-  /accounts/{username}:
-    parameters:
-      - $ref: '#/components/parameters/PathUsername'
     get:
       x-controller: accounts
       x-operation: getAccount
@@ -73,6 +70,30 @@ paths:
           description: Access denied.
         404:
           description: Account not Found
+  /accounts/{username}:
+    parameters:
+      - $ref: '#/components/parameters/PathUsername'
+    # get:
+    #   x-controller: accounts
+    #   x-operation: getAccount
+    #   tags:
+    #     - Accounts
+    #   security:
+    #     - cookieAuth: []
+    #   summary: Get an account.
+    #   responses:
+    #     200:
+    #       description: Authenticated.
+    #       content:
+    #         application/json:
+    #           schema:
+    #             $ref: '#/components/schemas/User'
+    #     400:
+    #       description: Invalid request.
+    #     403:
+    #       description: Access denied.
+    #     404:
+    #       description: Account not Found
     patch:
       x-controller: accounts
       x-operation: updateAccount
@@ -531,19 +552,20 @@ components:
   schemas:
     User:
       required:
-        - username
-        - email
-        - name
+        - user
       properties:
-        username:
-          type: string
-          readOnly: true
-        email:
-          type: string
-          readOnly: true
-        name:
-          type: string
-          readOnly: true
+        user:
+          type: object
+          properties:
+            username:
+              type: string
+              readOnly: true
+            email:
+              type: string
+              readOnly: true
+            name:
+              type: string
+              readOnly: true
     TaskList:
       type: object
       required:

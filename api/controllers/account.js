@@ -18,9 +18,11 @@ module.exports = function (pool) {
                     .enforcer
                     .status(201)
                     .send({
-                        username: username,
-                        email: email,
-                        name: name
+                        user: {
+                            username: username,
+                            email: email,
+                            name: name
+                        }
                     })
             } else {
                 res.enforcer.status(409).send()
@@ -28,8 +30,7 @@ module.exports = function (pool) {
         },
 
         async getAccount (req, res) {
-            const data = req.enforcer.body
-            const { username } = req.enforcer.params
+            const username = req.user.username
             const client = await pool.connect()
             let account = await accounts.getAccountByUsername(client, username)
             if (account === undefined) {
@@ -38,9 +39,11 @@ module.exports = function (pool) {
                 res.enforcer.status(403).send()
             } else {
                 res.enforcer.status(200).send({
-                    username: account.username,
-                    email: account.email,
-                    name: account.name
+                    user: {
+                        username: account.username,
+                        email: account.email,
+                        name: account.name
+                    }
                 })
             }
         },

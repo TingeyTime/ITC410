@@ -23,23 +23,30 @@ export const actions = {
 		}
 	},
 
-	async login ({ commit, state }, { username, password }) {
-		const res = await this.$axios.put('api/authentication/login', {
-			username,
-			password
-		})
+	async getAccount({commit, state }, { username }) {
+		const res = await this.$axios.get(`api/accounts/${ username }`,)
 		if (res.status === 200) {
-			commit('setUser', username)  // FIXME: Should you getUserFromCookie()
+			commit('setUser', res.body.data)
 		}
 	},
 
-	async logout({ commit }) {
-		const res = await this.$axios.put('api/authentication/logout')
-		if (res.status === 200) {
-			console.log('user logged out...')
-			commit('setUser', null)
-		}
-	}
+	// async login ({ commit, state }, { username, password }) {
+	// 	const res = await this.$axios.put('api/authentication/login', {
+	// 		username,
+	// 		password
+	// 	})
+	// 	if (res.status === 200) {
+	// 		commit('setUser', username)  // FIXME: Should you getUserFromCookie()
+	// 	}
+	// },
+
+	// async logout({ commit }) {
+	// 	const res = await this.$axios.put('api/authentication/logout')
+	// 	if (res.status === 200) {
+	// 		console.log('user logged out...')
+	// 		commit('setUser', null)
+	// 	}
+	// }
 }
 
 // Check if the user cookie is set and if so get the cookie value.

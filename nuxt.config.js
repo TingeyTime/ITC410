@@ -85,18 +85,18 @@ export default {
   auth: {
     strategies: {
       local: {
-        token: {
-          property: 'token',
-          global: true,
-          // required: true,
-          // type: 'Bearer'
-        },
-        user: {
-          property: 'user',
-          // autoFetch: true
-        },
+        // token: {
+        //   property: 'token',
+        //   global: true,
+        //   // required: true,
+        //   // type: 'Bearer'
+        // },
+        // user: {
+        //   property: 'user',
+        //   autoFetch: true
+        // },
         endpoints: {
-          login: { url: '/api/authentication/login', method: 'put', propertyName: 'token' },
+          login: { url: '/api/authentication/login', method: 'put', propertyName: 'user' },
           logout: { url: '/api/authentication/logout', method: 'put' },
           user: {url: '/api/accounts/', method: 'get', propertyName: 'user'}
         }

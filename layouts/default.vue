@@ -54,12 +54,13 @@
         </v-toolbar-title>
       </router-link>
       <v-spacer />
-      <span v-if="user !== null">
+      <span v-if="$auth.loggedIn">
         <v-spacer />
         <span>
-          <v-avatar color="primary">{{ user }}</v-avatar>
-          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <v-avatar color="primary">A</v-avatar>
+          <span>{{ $auth.user.email }}</span>
         </span>
+
         <v-btn @click="Logout"> Log out </v-btn>
       </span>
       <span v-else>
@@ -114,7 +115,7 @@ export default {
 
   methods: {
     Logout() {
-      this.$store.dispatch("accounts/logout");
+      this.$auth.logout();
     },
     onClickOutsideStandard () {
         this.drawer = false
