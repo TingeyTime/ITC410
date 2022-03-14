@@ -12,7 +12,8 @@ module.exports = function (pool) {
                     .enforcer
                     .status(201)
                     .send({
-                        title: title
+                        title: title,
+                        completed: completed
                     })
             } else {
                 res.enforcer.status(409).send()
@@ -45,7 +46,8 @@ module.exports = function (pool) {
                 if (taskList === undefined) {
                     res.enforcer.status(404).send()
                 } else {
-                    let updated_list = await taskLists.updateTaskList(client, taskListId, data)
+                    await taskLists.updateTaskList(client, taskListId, data)
+                    let updated_list = await taskLists.getTaskList(client, taskListId)
                     res.enforcer.status(200).send({
                         list_id: updated_list.list_id,
                         title: updated_list.title,
