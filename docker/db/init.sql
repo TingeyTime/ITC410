@@ -29,9 +29,11 @@ CREATE INDEX "IDX_session_expire" ON "accounts_sessions" ("expire");
 
 CREATE TABLE taskLists (
     list_id varchar NOT NULL,
+    account_id varchar NOT NULL,
     title varchar NOT NULL,
-    completed boolean NOT NULL,
-    PRIMARY KEY (list_id)
+    completed timestamp,
+    PRIMARY KEY (list_id),
+    CONSTRAINT fk_list FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON DELETE CASCADE
 );
 
 -- Tasks
@@ -41,7 +43,7 @@ CREATE TABLE tasks (
     title varchar NOT NULL,
     description varchar NOT NULL,
     duration numeric NOT NULL,
-    complete boolean NOT NULL,
+    complete timestamp,
     PRIMARY KEY (task_id)
 );
 
@@ -57,11 +59,13 @@ CREATE TABLE tasksInTaskLists (
 
 CREATE TABLE events (
     event_id varchar NOT NULL,
+    account_id varchar NOT NULL,
     title varchar NOT NULL,
     description varchar NOT NULL,
     date_start timestamp NOT NULL,
     date_end timestamp NOT NULL,
-    PRIMARY KEY (event_id)
+    PRIMARY KEY (event_id),
+    CONSTRAINT fk_list FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON DELETE CASCADE
 );
 
 -- Notes

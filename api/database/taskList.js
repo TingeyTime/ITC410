@@ -1,12 +1,13 @@
 const uuid = require('uuid').v4
 
-exports.createTaskList = async function (client, title, completed = false) {
+exports.createTaskList = async function (client, accountId, title, completed = null) {
     const taskListId = uuid()
-    const { rowCount } = client.query({
+    const { rowCount } = await client.query({
         name: 'create-taskList',
-        text: 'INSERT INTO taskLists (task_id, title, completed) VALUES ($1, $2, $3) ON CONFLICT DO NOTHING',
+        text: 'INSERT INTO taskLists (list_id, account_id, title, completed) VALUES ($1, $2, $3, $4) ON CONFLICT DO NOTHING',
         values: [
             taskListId,
+            accountId,
             title,
             completed
         ]
@@ -17,10 +18,19 @@ exports.createTaskList = async function (client, title, completed = false) {
 exports.getTaskList = async function (client, taskListId) {
     const { rows } = await client.query({
         name: 'get-task-list-by-id',
-        text: 'SELECT * FROM taskLists WHERE list_id = $1',
+        text: 'SELECT list_id, title, completed FROM taskLists WHERE list_id = $1',
         values: [taskListId]
     })
     return rows[0]
+}
+
+exports.getTaskLists = async function (client, accountId) {
+    const { rows } = await client.query({
+        name: 'get-task-list-by-account-id',
+        text: 'SELECT list_id, title, completed FROM taskLists WHERE account_id = $1',
+        values: [accountId]
+    })
+    return rows
 }
 
 exports.updateTaskList = async function (client, taskListId, data) {

@@ -73,27 +73,6 @@ paths:
   /accounts/{username}:
     parameters:
       - $ref: '#/components/parameters/PathUsername'
-    # get:
-    #   x-controller: accounts
-    #   x-operation: getAccount
-    #   tags:
-    #     - Accounts
-    #   security:
-    #     - cookieAuth: []
-    #   summary: Get an account.
-    #   responses:
-    #     200:
-    #       description: Authenticated.
-    #       content:
-    #         application/json:
-    #           schema:
-    #             $ref: '#/components/schemas/User'
-    #     400:
-    #       description: Invalid request.
-    #     403:
-    #       description: Access denied.
-    #     404:
-    #       description: Account not Found
     patch:
       x-controller: accounts
       x-operation: updateAccount
@@ -196,8 +175,8 @@ paths:
           description: Logged out.
   /taskLists:
     get:
-      # x-controller: taskLists
-      # x-operation: getTaskList
+      x-controller: taskLists
+      x-operation: getTaskLists
       tags:
         - Task Lists
       security:
@@ -215,8 +194,8 @@ paths:
         401:
           description: Not authenticated.
     post:
-      # x-controller: taskLists
-      # x-operation: createTaskList
+      x-controller: taskLists
+      x-operation: createTaskList
       tags:
         - Task Lists
       security:
@@ -230,17 +209,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TaskLists'
+                $ref: '#/components/schemas/TaskList'
         400:
           description: Invalid request.
         401:
           description: Not authenticated.
+        409:
+          description: Task list already exists.
   /taskLists/{taskListId}:
     parameters:
       - $ref: '#/components/parameters/PathTaskListId'
     put:
-      # x-controller: taskLists
-      # x-operation: updateTaskList
+      x-controller: taskLists
+      x-operation: updateTaskList
       tags:
         - Task Lists
       security:
@@ -264,8 +245,8 @@ paths:
         404:
           description: Not found.
     delete: 
-      # x-controller: taskLists
-      # x-operation: deleteTaskList
+      x-controller: taskLists
+      x-operation: deleteTaskList
       tags:
         - Task Lists
       security:
@@ -570,16 +551,13 @@ components:
       type: object
       required:
         - title
+        - completed
       properties:
         listId:
           type: string
           readOnly: true
         title:
           type: string
-        tasks:
-          type: array
-          items:
-            type: string
         completed:
           type: string
           format: date-time
