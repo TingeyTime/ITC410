@@ -16,9 +16,10 @@ const DatabaseAccounts    = require('./database/account')
 const Accounts = require('./controllers/account')
 const Authentication = require('./controllers/authentication')
 const TaskLists = require('./controllers/taskList')
+const Tasks = require('./controllers/task')
 
 // Test Database Connection
-
+5
 const pool = new Pool({
       host: process.env.POSTGRES_HOST,
   database: process.env.POSTGRES_DB,
@@ -131,7 +132,7 @@ app.use(enforcerMiddleware.route({
     accounts: Accounts(pool)
   , authentication: Authentication(passport)
   , taskLists: TaskLists(pool)
-  // , tasks: Tasks(pool)
+  , tasks: Tasks(pool)
   // , events: Events(pool)
   // , notes: Notes(pool)
 }))

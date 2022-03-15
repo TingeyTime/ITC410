@@ -54,6 +54,7 @@ module.exports = function (pool) {
                         completed: updated_list.completed
                     })
                 }
+                await client.query('COMMIT')
             } catch (e) {
                 await client.query('ROLLBACK')
                 throw e

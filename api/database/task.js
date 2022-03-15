@@ -61,15 +61,3 @@ exports.deletetask = async function (client, taskId) {
     })
     return rowCount > 0
 }
-
-exports.addTaskTotask = async function (client, taskId, taskId) {
-    const { rowCount } = client.query({
-        name: 'add-task-to-task',
-        text: 'INSERT INTO tasksIntasks (list_id, task_id) VALUES ($1, $2) ON CONFLICT DO NOTHING',
-        values: [
-            taskId,
-            taskId,
-        ]
-    })
-    return rowCount > 0
-}

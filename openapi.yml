@@ -259,6 +259,49 @@ paths:
           description: Not authenticated.
         403:
           description: Access denied.
+  /tasklists/{taskListId}/tasks:
+    parameters:
+      - $ref: '#/components/parameters/PathTaskListId'
+    get:
+      x-controller: tasks
+      x-operation: getTasksFromTaskList
+      tags:
+        - Tasks
+      security:
+        - cookieAuth: []
+      summary: Get tasks in a task list.
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tasks'
+        400:
+          description: Invalid request.
+        401:
+          description: Not authenticated.
+    post:
+      x-controller: tasks
+      x-operation: createTask
+      tags:
+        - Tasks
+      security:
+        - cookieAuth: []
+      summary: Add a task.
+      requestBody:
+        $ref: '#/components/requestBodies/SetTask'
+      responses:
+        201:
+          description: Task created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        400:
+          description: Invalid request.
+        401:
+          description: Not authenticated.
   /tasks:
     get:
       # x-controller: tasks
@@ -284,27 +327,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Tasks'
-        400:
-          description: Invalid request.
-        401:
-          description: Not authenticated.
-    post:
-      # x-controller: tasks
-      # x-operation: createTask
-      tags:
-        - Tasks
-      security:
-        - cookieAuth: []
-      summary: Add a task.
-      requestBody:
-        $ref: '#/components/requestBodies/SetTask'
-      responses:
-        201:
-          description: Task created.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Task'
         400:
           description: Invalid request.
         401:

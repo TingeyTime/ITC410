@@ -33,6 +33,15 @@ exports.getTaskLists = async function (client, accountId) {
     return rows
 }
 
+exports.getTasksInTaskList = async function (client, taskListId) {
+    const { rows } = await client.query({
+        name: 'get-tasks-in-task-list',
+        text: 'SELECT task_id, title, duration, completed FROM tasksInTaskLists LEFT JOIN tasks ON task_id AND list_id = $1',
+        values: [taskListId]
+    })
+    return rows
+}
+
 exports.updateTaskList = async function (client, taskListId, data) {
     const { title, completed } = data
     const values = []
