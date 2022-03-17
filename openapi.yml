@@ -337,8 +337,8 @@ paths:
     parameters:
       - $ref: '#/components/parameters/PathTaskId'
     put:
-      # x-controller: tasks
-      # x-operation: updateTask
+      x-controller: tasks
+      x-operation: updateTask
       tags:
         - Tasks
       security:
@@ -362,8 +362,8 @@ paths:
         404:
           description: Not found.
     delete: 
-      # x-controller: tasks
-      # x-operation: deleteTask
+      x-controller: tasks
+      x-operation: deleteTask
       tags:
         - Tasks
       security:

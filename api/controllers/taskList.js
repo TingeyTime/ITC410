@@ -35,14 +35,7 @@ module.exports = function (pool) {
             }
         },
 
-        async getTasksFromTaskList (req, res) {
-            const { taskListId } = req.enfocer.params
-            const client = await pool.connect()
-            let tasks_in_list = await taskLists.getTasksInTaskList(client, taskListId)
-            res.enfocer.status(200).send(tasks_in_list)
-        },
-
-        async updateTaskList (req, res) { // FIXME: update still failing, possible issue with timestamp
+        async updateTaskList (req, res) {
             const data = req.enforcer.body
             const { taskListId } = req.enforcer.params
 

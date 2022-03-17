@@ -20,23 +20,23 @@ exports.createTask = async function (client, accountId, title, description, dura
 exports.getTask = async function (client, taskId) {
     const { rows } = await client.query({
         name: 'get-task-by-id',
-        text: 'SELECT task_id, title, description, duration, complete FROM tasks WHERE task_id = $1',
+        text: 'SELECT * FROM tasks WHERE task_id = $1',
         values: [taskId]
     })
     return rows[0]
 }
 
-exports.getAllTasks = async function (client, acountId) {
+exports.getAllTasks = async function (client, accountId) {
     const { rows } = await client.query({
         name: 'get-task-by-id',
         text: 'SELECT task_id, title, description, duration, complete FROM tasks WHERE account_id = $1',
-        values: [acountId]
+        values: [accountId]
     })
     return rows
 }
 
 exports.updateTask = async function (client, taskId, data) {
-    const { title, complete } = data
+    const { title, description, duration, complete } = data
     const values = []
     const set = []
 
@@ -45,13 +45,23 @@ exports.updateTask = async function (client, taskId, data) {
         set.push('title=$' + values.length)
     }
 
+    if (description !== undefined) {
+        values.push(description)
+        set.push('description=$' + values.length)
+    }
+
+    if (duration !== undefined) {
+        values.push(duration)
+        set.push('duration=$' + values.length)
+    }
+
     if (complete !== undefined) {
         values.push(complete)
         set.push('complete=$' + values.length)
     }
 
     if (values.length === 0) {
-        return await exports.gettask(client, taskId)
+        return await exports.getTask(client, taskId)
     }
 
     values.push(taskId)

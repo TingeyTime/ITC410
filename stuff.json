@@ -1,0 +1,4235 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "7.0.1 (UNKNOWN)",
+        "title": "PostgREST API",
+        "description": "standard public schema"
+    },
+    "host": "0.0.0.0:8000",
+    "basePath": "/",
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json",
+        "application/vnd.pgrst.object+json",
+        "text/csv"
+    ],
+    "produces": [
+        "application/json",
+        "application/vnd.pgrst.object+json",
+        "text/csv"
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "tags": [
+                    "Introspection"
+                ],
+                "summary": "OpenAPI description (this document)",
+                "produces": [
+                    "application/openapi+json",
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/adminpage": {
+            "get": {
+                "tags": [
+                    "adminpage"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.adminpage.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.adminpage.userfirstname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.adminpage.userlastname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.adminpage.isadmin"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/order"
+                    },
+                    {
+                        "$ref": "#/parameters/range"
+                    },
+                    {
+                        "$ref": "#/parameters/rangeUnit"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/limit"
+                    },
+                    {
+                        "$ref": "#/parameters/preferCount"
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "Partial Content"
+                    },
+                    "200": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/adminpage"
+                            },
+                            "type": "array"
+                        },
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "adminpage"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/body.adminpage"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "adminpage"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.adminpage.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.adminpage.userfirstname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.adminpage.userlastname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.adminpage.isadmin"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "adminpage"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.adminpage.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.adminpage.userfirstname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.adminpage.userlastname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.adminpage.isadmin"
+                    },
+                    {
+                        "$ref": "#/parameters/body.adminpage"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/adminstatus": {
+            "get": {
+                "tags": [
+                    "adminstatus"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.adminstatus.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.adminstatus.isadmin"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/order"
+                    },
+                    {
+                        "$ref": "#/parameters/range"
+                    },
+                    {
+                        "$ref": "#/parameters/rangeUnit"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/limit"
+                    },
+                    {
+                        "$ref": "#/parameters/preferCount"
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "Partial Content"
+                    },
+                    "200": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/adminstatus"
+                            },
+                            "type": "array"
+                        },
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "adminstatus"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/body.adminstatus"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "adminstatus"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.adminstatus.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.adminstatus.isadmin"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "adminstatus"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.adminstatus.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.adminstatus.isadmin"
+                    },
+                    {
+                        "$ref": "#/parameters/body.adminstatus"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/cookbook": {
+            "get": {
+                "tags": [
+                    "cookbook"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbook.cookbookid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbook.cookbookname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbook.cookbookdescription"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbook.cookbookupdateddate"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbook.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/order"
+                    },
+                    {
+                        "$ref": "#/parameters/range"
+                    },
+                    {
+                        "$ref": "#/parameters/rangeUnit"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/limit"
+                    },
+                    {
+                        "$ref": "#/parameters/preferCount"
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "Partial Content"
+                    },
+                    "200": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/cookbook"
+                            },
+                            "type": "array"
+                        },
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "cookbook"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/body.cookbook"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "cookbook"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbook.cookbookid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbook.cookbookname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbook.cookbookdescription"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbook.cookbookupdateddate"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbook.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "cookbook"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbook.cookbookid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbook.cookbookname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbook.cookbookdescription"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbook.cookbookupdateddate"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbook.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/body.cookbook"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/cookbookrecipes": {
+            "get": {
+                "tags": [
+                    "cookbookrecipes"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbookrecipes.cookbookid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbookrecipes.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbookrecipes.recipename"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbookrecipes.recipedescription"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbookrecipes.isprivate"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.cookbookrecipes.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/order"
+                    },
+                    {
+                        "$ref": "#/parameters/range"
+                    },
+                    {
+                        "$ref": "#/parameters/rangeUnit"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/limit"
+                    },
+                    {
+                        "$ref": "#/parameters/preferCount"
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "Partial Content"
+                    },
+                    "200": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/cookbookrecipes"
+                            },
+                            "type": "array"
+                        },
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/equipment": {
+            "get": {
+                "tags": [
+                    "equipment"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.equipment.equipmentname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.equipment.equipmentid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.equipment.equipmentdescription"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/order"
+                    },
+                    {
+                        "$ref": "#/parameters/range"
+                    },
+                    {
+                        "$ref": "#/parameters/rangeUnit"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/limit"
+                    },
+                    {
+                        "$ref": "#/parameters/preferCount"
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "Partial Content"
+                    },
+                    "200": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/equipment"
+                            },
+                            "type": "array"
+                        },
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "equipment"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/body.equipment"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "equipment"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.equipment.equipmentname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.equipment.equipmentid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.equipment.equipmentdescription"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "equipment"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.equipment.equipmentname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.equipment.equipmentid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.equipment.equipmentdescription"
+                    },
+                    {
+                        "$ref": "#/parameters/body.equipment"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/favoriterecipes": {
+            "get": {
+                "tags": [
+                    "favoriterecipes"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.favoriterecipes.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.favoriterecipes.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.favoriterecipes.recipename"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.favoriterecipes.recipedescription"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.favoriterecipes.isprivate"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/order"
+                    },
+                    {
+                        "$ref": "#/parameters/range"
+                    },
+                    {
+                        "$ref": "#/parameters/rangeUnit"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/limit"
+                    },
+                    {
+                        "$ref": "#/parameters/preferCount"
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "Partial Content"
+                    },
+                    "200": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/favoriterecipes"
+                            },
+                            "type": "array"
+                        },
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/favorites": {
+            "get": {
+                "tags": [
+                    "favorites"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.favorites.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.favorites.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/order"
+                    },
+                    {
+                        "$ref": "#/parameters/range"
+                    },
+                    {
+                        "$ref": "#/parameters/rangeUnit"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/limit"
+                    },
+                    {
+                        "$ref": "#/parameters/preferCount"
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "Partial Content"
+                    },
+                    "200": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/favorites"
+                            },
+                            "type": "array"
+                        },
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "favorites"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/body.favorites"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "favorites"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.favorites.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.favorites.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "favorites"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.favorites.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.favorites.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/body.favorites"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/holds": {
+            "get": {
+                "tags": [
+                    "holds"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.holds.cookbookid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.holds.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/order"
+                    },
+                    {
+                        "$ref": "#/parameters/range"
+                    },
+                    {
+                        "$ref": "#/parameters/rangeUnit"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/limit"
+                    },
+                    {
+                        "$ref": "#/parameters/preferCount"
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "Partial Content"
+                    },
+                    "200": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/holds"
+                            },
+                            "type": "array"
+                        },
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "holds"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/body.holds"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "holds"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.holds.cookbookid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.holds.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "holds"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.holds.cookbookid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.holds.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/body.holds"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/ingredient": {
+            "get": {
+                "tags": [
+                    "ingredient"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.ingredient.ingredientid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.ingredient.ingredientamount"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.ingredient.ingredientmeasurement"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.ingredient.itemid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.ingredient.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/order"
+                    },
+                    {
+                        "$ref": "#/parameters/range"
+                    },
+                    {
+                        "$ref": "#/parameters/rangeUnit"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/limit"
+                    },
+                    {
+                        "$ref": "#/parameters/preferCount"
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "Partial Content"
+                    },
+                    "200": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/ingredient"
+                            },
+                            "type": "array"
+                        },
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "ingredient"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/body.ingredient"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "ingredient"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.ingredient.ingredientid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.ingredient.ingredientamount"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.ingredient.ingredientmeasurement"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.ingredient.itemid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.ingredient.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "ingredient"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.ingredient.ingredientid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.ingredient.ingredientamount"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.ingredient.ingredientmeasurement"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.ingredient.itemid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.ingredient.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/body.ingredient"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/involves": {
+            "get": {
+                "tags": [
+                    "involves"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.involves.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.involves.equipmentid"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/order"
+                    },
+                    {
+                        "$ref": "#/parameters/range"
+                    },
+                    {
+                        "$ref": "#/parameters/rangeUnit"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/limit"
+                    },
+                    {
+                        "$ref": "#/parameters/preferCount"
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "Partial Content"
+                    },
+                    "200": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/involves"
+                            },
+                            "type": "array"
+                        },
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "involves"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/body.involves"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "involves"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.involves.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.involves.equipmentid"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "involves"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.involves.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.involves.equipmentid"
+                    },
+                    {
+                        "$ref": "#/parameters/body.involves"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/item": {
+            "get": {
+                "tags": [
+                    "item"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.item.itemid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.item.itemname"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/order"
+                    },
+                    {
+                        "$ref": "#/parameters/range"
+                    },
+                    {
+                        "$ref": "#/parameters/rangeUnit"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/limit"
+                    },
+                    {
+                        "$ref": "#/parameters/preferCount"
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "Partial Content"
+                    },
+                    "200": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/item"
+                            },
+                            "type": "array"
+                        },
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "item"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/body.item"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "item"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.item.itemid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.item.itemname"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "item"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.item.itemid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.item.itemname"
+                    },
+                    {
+                        "$ref": "#/parameters/body.item"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/recipe": {
+            "get": {
+                "tags": [
+                    "recipe"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.recipename"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.recipeinstructions"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.isprivate"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.recipedescription"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.recipeupdateddate"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/order"
+                    },
+                    {
+                        "$ref": "#/parameters/range"
+                    },
+                    {
+                        "$ref": "#/parameters/rangeUnit"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/limit"
+                    },
+                    {
+                        "$ref": "#/parameters/preferCount"
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "Partial Content"
+                    },
+                    "200": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/recipe"
+                            },
+                            "type": "array"
+                        },
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "recipe"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/body.recipe"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "recipe"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.recipename"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.recipeinstructions"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.isprivate"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.recipedescription"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.recipeupdateddate"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "recipe"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.recipename"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.recipeinstructions"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.isprivate"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.recipedescription"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.recipeupdateddate"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipe.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/body.recipe"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/recipeequipment": {
+            "get": {
+                "tags": [
+                    "recipeequipment"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.recipeequipment.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipeequipment.equipmentname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipeequipment.equipmentdescription"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/order"
+                    },
+                    {
+                        "$ref": "#/parameters/range"
+                    },
+                    {
+                        "$ref": "#/parameters/rangeUnit"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/limit"
+                    },
+                    {
+                        "$ref": "#/parameters/preferCount"
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "Partial Content"
+                    },
+                    "200": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/recipeequipment"
+                            },
+                            "type": "array"
+                        },
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/recipeingredients": {
+            "get": {
+                "tags": [
+                    "recipeingredients"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.recipeingredients.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipeingredients.itemname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipeingredients.ingredientamount"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipeingredients.ingredientmeasurement"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/order"
+                    },
+                    {
+                        "$ref": "#/parameters/range"
+                    },
+                    {
+                        "$ref": "#/parameters/rangeUnit"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/limit"
+                    },
+                    {
+                        "$ref": "#/parameters/preferCount"
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "Partial Content"
+                    },
+                    "200": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/recipeingredients"
+                            },
+                            "type": "array"
+                        },
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/recipes": {
+            "get": {
+                "tags": [
+                    "recipes"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.recipes.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipes.recipename"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipes.recipedescription"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipes.recipeinstructions"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipes.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/order"
+                    },
+                    {
+                        "$ref": "#/parameters/range"
+                    },
+                    {
+                        "$ref": "#/parameters/rangeUnit"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/limit"
+                    },
+                    {
+                        "$ref": "#/parameters/preferCount"
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "Partial Content"
+                    },
+                    "200": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/recipes"
+                            },
+                            "type": "array"
+                        },
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "recipes"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/body.recipes"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "recipes"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.recipes.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipes.recipename"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipes.recipedescription"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipes.recipeinstructions"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipes.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "recipes"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.recipes.recipeid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipes.recipename"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipes.recipedescription"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipes.recipeinstructions"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.recipes.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/body.recipes"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/usercookbooks": {
+            "get": {
+                "tags": [
+                    "usercookbooks"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.usercookbooks.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usercookbooks.cookbookid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usercookbooks.cookbookname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usercookbooks.cookbookdescription"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/order"
+                    },
+                    {
+                        "$ref": "#/parameters/range"
+                    },
+                    {
+                        "$ref": "#/parameters/rangeUnit"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/limit"
+                    },
+                    {
+                        "$ref": "#/parameters/preferCount"
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "Partial Content"
+                    },
+                    "200": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/usercookbooks"
+                            },
+                            "type": "array"
+                        },
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "usercookbooks"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/body.usercookbooks"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "usercookbooks"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.usercookbooks.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usercookbooks.cookbookid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usercookbooks.cookbookname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usercookbooks.cookbookdescription"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "usercookbooks"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.usercookbooks.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usercookbooks.cookbookid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usercookbooks.cookbookname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usercookbooks.cookbookdescription"
+                    },
+                    {
+                        "$ref": "#/parameters/body.usercookbooks"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/usertable": {
+            "get": {
+                "tags": [
+                    "usertable"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.usertable.useremail"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usertable.userpassword"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usertable.userfirstname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usertable.userlastname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usertable.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usertable.isadmin"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/order"
+                    },
+                    {
+                        "$ref": "#/parameters/range"
+                    },
+                    {
+                        "$ref": "#/parameters/rangeUnit"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/limit"
+                    },
+                    {
+                        "$ref": "#/parameters/preferCount"
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "Partial Content"
+                    },
+                    "200": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/usertable"
+                            },
+                            "type": "array"
+                        },
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "usertable"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/body.usertable"
+                    },
+                    {
+                        "$ref": "#/parameters/select"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "usertable"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.usertable.useremail"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usertable.userpassword"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usertable.userfirstname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usertable.userlastname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usertable.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usertable.isadmin"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "usertable"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/rowFilter.usertable.useremail"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usertable.userpassword"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usertable.userfirstname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usertable.userlastname"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usertable.userid"
+                    },
+                    {
+                        "$ref": "#/parameters/rowFilter.usertable.isadmin"
+                    },
+                    {
+                        "$ref": "#/parameters/body.usertable"
+                    },
+                    {
+                        "$ref": "#/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/rpc/pgp_key_id": {
+            "post": {
+                "tags": [
+                    "(rpc) pgp_key_id"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/decrypt_iv": {
+            "post": {
+                "tags": [
+                    "(rpc) decrypt_iv"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/toggleadmin": {
+            "post": {
+                "tags": [
+                    "(rpc) toggleadmin"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "required": [
+                                "id"
+                            ],
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "format": "integer",
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/signup": {
+            "post": {
+                "tags": [
+                    "(rpc) signup"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "required": [
+                                "email",
+                                "firstname",
+                                "lastname",
+                                "password"
+                            ],
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "format": "text",
+                                    "type": "string"
+                                },
+                                "lastname": {
+                                    "format": "text",
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "format": "text",
+                                    "type": "string"
+                                },
+                                "firstname": {
+                                    "format": "text",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/sign": {
+            "post": {
+                "tags": [
+                    "(rpc) sign"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "required": [
+                                "payload",
+                                "secret"
+                            ],
+                            "type": "object",
+                            "properties": {
+                                "secret": {
+                                    "format": "text",
+                                    "type": "string"
+                                },
+                                "payload": {
+                                    "format": "json",
+                                    "type": "string"
+                                },
+                                "algorithm": {
+                                    "format": "text",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/armor": {
+            "post": {
+                "tags": [
+                    "(rpc) armor"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/pgp_pub_encrypt_bytea": {
+            "post": {
+                "tags": [
+                    "(rpc) pgp_pub_encrypt_bytea"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/pgp_sym_encrypt_bytea": {
+            "post": {
+                "tags": [
+                    "(rpc) pgp_sym_encrypt_bytea"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/trigger_set_update_timestamp_cookbook": {
+            "post": {
+                "tags": [
+                    "(rpc) trigger_set_update_timestamp_cookbook"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/crypt": {
+            "post": {
+                "tags": [
+                    "(rpc) crypt"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/gen_salt": {
+            "post": {
+                "tags": [
+                    "(rpc) gen_salt"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/gen_random_uuid": {
+            "post": {
+                "tags": [
+                    "(rpc) gen_random_uuid"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/encrypt_iv": {
+            "post": {
+                "tags": [
+                    "(rpc) encrypt_iv"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/pgp_armor_headers": {
+            "post": {
+                "tags": [
+                    "(rpc) pgp_armor_headers"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/digest": {
+            "post": {
+                "tags": [
+                    "(rpc) digest"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/decrypt": {
+            "post": {
+                "tags": [
+                    "(rpc) decrypt"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/pgp_pub_decrypt": {
+            "post": {
+                "tags": [
+                    "(rpc) pgp_pub_decrypt"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/trigger_set_update_timestamp_recipe": {
+            "post": {
+                "tags": [
+                    "(rpc) trigger_set_update_timestamp_recipe"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/pgp_sym_decrypt": {
+            "post": {
+                "tags": [
+                    "(rpc) pgp_sym_decrypt"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/getrecipesnotincookbook": {
+            "post": {
+                "tags": [
+                    "(rpc) getrecipesnotincookbook"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "required": [
+                                "id"
+                            ],
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "format": "integer",
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/gen_random_bytes": {
+            "post": {
+                "tags": [
+                    "(rpc) gen_random_bytes"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/login": {
+            "post": {
+                "tags": [
+                    "(rpc) login"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "required": [
+                                "email",
+                                "password"
+                            ],
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "format": "text",
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "format": "text",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/recipestoaddtocookbook": {
+            "post": {
+                "tags": [
+                    "(rpc) recipestoaddtocookbook"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "required": [
+                                "id"
+                            ],
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "format": "text",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/algorithm_sign": {
+            "post": {
+                "tags": [
+                    "(rpc) algorithm_sign"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "required": [
+                                "signables",
+                                "secret",
+                                "algorithm"
+                            ],
+                            "type": "object",
+                            "properties": {
+                                "signables": {
+                                    "format": "text",
+                                    "type": "string"
+                                },
+                                "secret": {
+                                    "format": "text",
+                                    "type": "string"
+                                },
+                                "algorithm": {
+                                    "format": "text",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/pgp_pub_decrypt_bytea": {
+            "post": {
+                "tags": [
+                    "(rpc) pgp_pub_decrypt_bytea"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/pgp_sym_decrypt_bytea": {
+            "post": {
+                "tags": [
+                    "(rpc) pgp_sym_decrypt_bytea"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/url_encode": {
+            "post": {
+                "tags": [
+                    "(rpc) url_encode"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "required": [
+                                "data"
+                            ],
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "format": "bytea",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/dearmor": {
+            "post": {
+                "tags": [
+                    "(rpc) dearmor"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/pgp_sym_encrypt": {
+            "post": {
+                "tags": [
+                    "(rpc) pgp_sym_encrypt"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/toggleprivate": {
+            "post": {
+                "tags": [
+                    "(rpc) toggleprivate"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "required": [
+                                "id"
+                            ],
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "format": "integer",
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/pgp_pub_encrypt": {
+            "post": {
+                "tags": [
+                    "(rpc) pgp_pub_encrypt"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/encrypt": {
+            "post": {
+                "tags": [
+                    "(rpc) encrypt"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/rpc/hmac": {
+            "post": {
+                "tags": [
+                    "(rpc) hmac"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/vnd.pgrst.object+json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        },
+                        "in": "body",
+                        "name": "args"
+                    },
+                    {
+                        "$ref": "#/parameters/preferParams"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "adminpage": {
+            "properties": {
+                "userid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>"
+                },
+                "userfirstname": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "userlastname": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "isadmin": {
+                    "format": "boolean",
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "adminstatus": {
+            "properties": {
+                "userid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>"
+                },
+                "isadmin": {
+                    "format": "boolean",
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "cookbook": {
+            "required": [
+                "cookbookid",
+                "cookbookname",
+                "cookbookupdateddate",
+                "userid"
+            ],
+            "properties": {
+                "cookbookid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>"
+                },
+                "cookbookname": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "cookbookdescription": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "cookbookupdateddate": {
+                    "format": "date",
+                    "type": "string"
+                },
+                "userid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Foreign Key to `usertable.userid`.<fk table='usertable' column='userid'/>"
+                }
+            },
+            "type": "object"
+        },
+        "cookbookrecipes": {
+            "properties": {
+                "cookbookid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>\nThis is a Foreign Key to `cookbook.cookbookid`.<fk table='cookbook' column='cookbookid'/>"
+                },
+                "recipeid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>"
+                },
+                "recipename": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "recipedescription": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "isprivate": {
+                    "format": "boolean",
+                    "type": "boolean"
+                },
+                "userid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Foreign Key to `usertable.userid`.<fk table='usertable' column='userid'/>"
+                }
+            },
+            "type": "object"
+        },
+        "equipment": {
+            "required": [
+                "equipmentname",
+                "equipmentid"
+            ],
+            "properties": {
+                "equipmentname": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "equipmentid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>"
+                },
+                "equipmentdescription": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "favoriterecipes": {
+            "properties": {
+                "userid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>\nThis is a Foreign Key to `usertable.userid`.<fk table='usertable' column='userid'/>"
+                },
+                "recipeid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>"
+                },
+                "recipename": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "recipedescription": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "isprivate": {
+                    "format": "boolean",
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "favorites": {
+            "required": [
+                "userid",
+                "recipeid"
+            ],
+            "properties": {
+                "userid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>\nThis is a Foreign Key to `usertable.userid`.<fk table='usertable' column='userid'/>"
+                },
+                "recipeid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>\nThis is a Foreign Key to `recipe.recipeid`.<fk table='recipe' column='recipeid'/>"
+                }
+            },
+            "type": "object"
+        },
+        "holds": {
+            "required": [
+                "cookbookid",
+                "recipeid"
+            ],
+            "properties": {
+                "cookbookid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>\nThis is a Foreign Key to `cookbook.cookbookid`.<fk table='cookbook' column='cookbookid'/>"
+                },
+                "recipeid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>\nThis is a Foreign Key to `recipe.recipeid`.<fk table='recipe' column='recipeid'/>"
+                }
+            },
+            "type": "object"
+        },
+        "ingredient": {
+            "required": [
+                "ingredientid",
+                "ingredientamount",
+                "ingredientmeasurement",
+                "itemid",
+                "recipeid"
+            ],
+            "properties": {
+                "ingredientid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>"
+                },
+                "ingredientamount": {
+                    "format": "integer",
+                    "type": "integer"
+                },
+                "ingredientmeasurement": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "itemid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>\nThis is a Foreign Key to `item.itemid`.<fk table='item' column='itemid'/>"
+                },
+                "recipeid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>\nThis is a Foreign Key to `recipe.recipeid`.<fk table='recipe' column='recipeid'/>"
+                }
+            },
+            "type": "object"
+        },
+        "involves": {
+            "required": [
+                "recipeid",
+                "equipmentid"
+            ],
+            "properties": {
+                "recipeid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>\nThis is a Foreign Key to `recipe.recipeid`.<fk table='recipe' column='recipeid'/>"
+                },
+                "equipmentid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>\nThis is a Foreign Key to `equipment.equipmentid`.<fk table='equipment' column='equipmentid'/>"
+                }
+            },
+            "type": "object"
+        },
+        "item": {
+            "required": [
+                "itemid",
+                "itemname"
+            ],
+            "properties": {
+                "itemid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>"
+                },
+                "itemname": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "recipe": {
+            "required": [
+                "recipeid",
+                "recipename",
+                "recipeinstructions",
+                "isprivate",
+                "recipeupdateddate",
+                "userid"
+            ],
+            "properties": {
+                "recipeid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>"
+                },
+                "recipename": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "recipeinstructions": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "isprivate": {
+                    "format": "boolean",
+                    "type": "boolean"
+                },
+                "recipedescription": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "recipeupdateddate": {
+                    "format": "date",
+                    "type": "string"
+                },
+                "userid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Foreign Key to `usertable.userid`.<fk table='usertable' column='userid'/>"
+                }
+            },
+            "type": "object"
+        },
+        "recipeequipment": {
+            "properties": {
+                "recipeid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>\nThis is a Foreign Key to `recipe.recipeid`.<fk table='recipe' column='recipeid'/>"
+                },
+                "equipmentname": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "equipmentdescription": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "recipeingredients": {
+            "properties": {
+                "recipeid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>\nThis is a Foreign Key to `recipe.recipeid`.<fk table='recipe' column='recipeid'/>"
+                },
+                "itemname": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "ingredientamount": {
+                    "format": "integer",
+                    "type": "integer"
+                },
+                "ingredientmeasurement": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "recipes": {
+            "properties": {
+                "recipeid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>"
+                },
+                "recipename": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "recipedescription": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "recipeinstructions": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "userid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Foreign Key to `usertable.userid`.<fk table='usertable' column='userid'/>"
+                }
+            },
+            "type": "object"
+        },
+        "usercookbooks": {
+            "properties": {
+                "userid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Foreign Key to `usertable.userid`.<fk table='usertable' column='userid'/>"
+                },
+                "cookbookid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>"
+                },
+                "cookbookname": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "cookbookdescription": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "usertable": {
+            "required": [
+                "useremail",
+                "userpassword",
+                "userfirstname",
+                "userlastname",
+                "userid",
+                "isadmin"
+            ],
+            "properties": {
+                "useremail": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "userpassword": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "userfirstname": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "userlastname": {
+                    "maxLength": 1024,
+                    "format": "character varying",
+                    "type": "string"
+                },
+                "userid": {
+                    "format": "integer",
+                    "type": "integer",
+                    "description": "Note:\nThis is a Primary Key.<pk/>"
+                },
+                "isadmin": {
+                    "format": "boolean",
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "parameters": {
+        "preferParams": {
+            "name": "Prefer",
+            "description": "Preference",
+            "required": false,
+            "in": "header",
+            "type": "string",
+            "enum": [
+                "params=single-object"
+            ]
+        },
+        "preferReturn": {
+            "name": "Prefer",
+            "description": "Preference",
+            "required": false,
+            "in": "header",
+            "type": "string",
+            "enum": [
+                "return=representation",
+                "return=minimal",
+                "return=none"
+            ]
+        },
+        "preferCount": {
+            "name": "Prefer",
+            "description": "Preference",
+            "required": false,
+            "in": "header",
+            "type": "string",
+            "enum": [
+                "count=none"
+            ]
+        },
+        "select": {
+            "name": "select",
+            "description": "Filtering Columns",
+            "required": false,
+            "in": "query",
+            "type": "string"
+        },
+        "on_conflict": {
+            "name": "on_conflict",
+            "description": "On Conflict",
+            "required": false,
+            "in": "query",
+            "type": "string"
+        },
+        "order": {
+            "name": "order",
+            "description": "Ordering",
+            "required": false,
+            "in": "query",
+            "type": "string"
+        },
+        "range": {
+            "name": "Range",
+            "description": "Limiting and Pagination",
+            "required": false,
+            "in": "header",
+            "type": "string"
+        },
+        "rangeUnit": {
+            "name": "Range-Unit",
+            "description": "Limiting and Pagination",
+            "required": false,
+            "default": "items",
+            "in": "header",
+            "type": "string"
+        },
+        "offset": {
+            "name": "offset",
+            "description": "Limiting and Pagination",
+            "required": false,
+            "in": "query",
+            "type": "string"
+        },
+        "limit": {
+            "name": "limit",
+            "description": "Limiting and Pagination",
+            "required": false,
+            "in": "query",
+            "type": "string"
+        },
+        "body.adminpage": {
+            "name": "adminpage",
+            "description": "adminpage",
+            "required": false,
+            "schema": {
+                "$ref": "#/definitions/adminpage"
+            },
+            "in": "body"
+        },
+        "rowFilter.adminpage.userid": {
+            "name": "userid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.adminpage.userfirstname": {
+            "name": "userfirstname",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.adminpage.userlastname": {
+            "name": "userlastname",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.adminpage.isadmin": {
+            "name": "isadmin",
+            "required": false,
+            "format": "boolean",
+            "in": "query",
+            "type": "string"
+        },
+        "body.adminstatus": {
+            "name": "adminstatus",
+            "description": "adminstatus",
+            "required": false,
+            "schema": {
+                "$ref": "#/definitions/adminstatus"
+            },
+            "in": "body"
+        },
+        "rowFilter.adminstatus.userid": {
+            "name": "userid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.adminstatus.isadmin": {
+            "name": "isadmin",
+            "required": false,
+            "format": "boolean",
+            "in": "query",
+            "type": "string"
+        },
+        "body.cookbook": {
+            "name": "cookbook",
+            "description": "cookbook",
+            "required": false,
+            "schema": {
+                "$ref": "#/definitions/cookbook"
+            },
+            "in": "body"
+        },
+        "rowFilter.cookbook.cookbookid": {
+            "name": "cookbookid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.cookbook.cookbookname": {
+            "name": "cookbookname",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.cookbook.cookbookdescription": {
+            "name": "cookbookdescription",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.cookbook.cookbookupdateddate": {
+            "name": "cookbookupdateddate",
+            "required": false,
+            "format": "date",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.cookbook.userid": {
+            "name": "userid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "body.cookbookrecipes": {
+            "name": "cookbookrecipes",
+            "description": "cookbookrecipes",
+            "required": false,
+            "schema": {
+                "$ref": "#/definitions/cookbookrecipes"
+            },
+            "in": "body"
+        },
+        "rowFilter.cookbookrecipes.cookbookid": {
+            "name": "cookbookid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.cookbookrecipes.recipeid": {
+            "name": "recipeid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.cookbookrecipes.recipename": {
+            "name": "recipename",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.cookbookrecipes.recipedescription": {
+            "name": "recipedescription",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.cookbookrecipes.isprivate": {
+            "name": "isprivate",
+            "required": false,
+            "format": "boolean",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.cookbookrecipes.userid": {
+            "name": "userid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "body.equipment": {
+            "name": "equipment",
+            "description": "equipment",
+            "required": false,
+            "schema": {
+                "$ref": "#/definitions/equipment"
+            },
+            "in": "body"
+        },
+        "rowFilter.equipment.equipmentname": {
+            "name": "equipmentname",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.equipment.equipmentid": {
+            "name": "equipmentid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.equipment.equipmentdescription": {
+            "name": "equipmentdescription",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "body.favoriterecipes": {
+            "name": "favoriterecipes",
+            "description": "favoriterecipes",
+            "required": false,
+            "schema": {
+                "$ref": "#/definitions/favoriterecipes"
+            },
+            "in": "body"
+        },
+        "rowFilter.favoriterecipes.userid": {
+            "name": "userid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.favoriterecipes.recipeid": {
+            "name": "recipeid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.favoriterecipes.recipename": {
+            "name": "recipename",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.favoriterecipes.recipedescription": {
+            "name": "recipedescription",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.favoriterecipes.isprivate": {
+            "name": "isprivate",
+            "required": false,
+            "format": "boolean",
+            "in": "query",
+            "type": "string"
+        },
+        "body.favorites": {
+            "name": "favorites",
+            "description": "favorites",
+            "required": false,
+            "schema": {
+                "$ref": "#/definitions/favorites"
+            },
+            "in": "body"
+        },
+        "rowFilter.favorites.userid": {
+            "name": "userid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.favorites.recipeid": {
+            "name": "recipeid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "body.holds": {
+            "name": "holds",
+            "description": "holds",
+            "required": false,
+            "schema": {
+                "$ref": "#/definitions/holds"
+            },
+            "in": "body"
+        },
+        "rowFilter.holds.cookbookid": {
+            "name": "cookbookid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.holds.recipeid": {
+            "name": "recipeid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "body.ingredient": {
+            "name": "ingredient",
+            "description": "ingredient",
+            "required": false,
+            "schema": {
+                "$ref": "#/definitions/ingredient"
+            },
+            "in": "body"
+        },
+        "rowFilter.ingredient.ingredientid": {
+            "name": "ingredientid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.ingredient.ingredientamount": {
+            "name": "ingredientamount",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.ingredient.ingredientmeasurement": {
+            "name": "ingredientmeasurement",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.ingredient.itemid": {
+            "name": "itemid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.ingredient.recipeid": {
+            "name": "recipeid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "body.involves": {
+            "name": "involves",
+            "description": "involves",
+            "required": false,
+            "schema": {
+                "$ref": "#/definitions/involves"
+            },
+            "in": "body"
+        },
+        "rowFilter.involves.recipeid": {
+            "name": "recipeid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.involves.equipmentid": {
+            "name": "equipmentid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "body.item": {
+            "name": "item",
+            "description": "item",
+            "required": false,
+            "schema": {
+                "$ref": "#/definitions/item"
+            },
+            "in": "body"
+        },
+        "rowFilter.item.itemid": {
+            "name": "itemid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.item.itemname": {
+            "name": "itemname",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "body.recipe": {
+            "name": "recipe",
+            "description": "recipe",
+            "required": false,
+            "schema": {
+                "$ref": "#/definitions/recipe"
+            },
+            "in": "body"
+        },
+        "rowFilter.recipe.recipeid": {
+            "name": "recipeid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.recipe.recipename": {
+            "name": "recipename",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.recipe.recipeinstructions": {
+            "name": "recipeinstructions",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.recipe.isprivate": {
+            "name": "isprivate",
+            "required": false,
+            "format": "boolean",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.recipe.recipedescription": {
+            "name": "recipedescription",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.recipe.recipeupdateddate": {
+            "name": "recipeupdateddate",
+            "required": false,
+            "format": "date",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.recipe.userid": {
+            "name": "userid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "body.recipeequipment": {
+            "name": "recipeequipment",
+            "description": "recipeequipment",
+            "required": false,
+            "schema": {
+                "$ref": "#/definitions/recipeequipment"
+            },
+            "in": "body"
+        },
+        "rowFilter.recipeequipment.recipeid": {
+            "name": "recipeid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.recipeequipment.equipmentname": {
+            "name": "equipmentname",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.recipeequipment.equipmentdescription": {
+            "name": "equipmentdescription",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "body.recipeingredients": {
+            "name": "recipeingredients",
+            "description": "recipeingredients",
+            "required": false,
+            "schema": {
+                "$ref": "#/definitions/recipeingredients"
+            },
+            "in": "body"
+        },
+        "rowFilter.recipeingredients.recipeid": {
+            "name": "recipeid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.recipeingredients.itemname": {
+            "name": "itemname",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.recipeingredients.ingredientamount": {
+            "name": "ingredientamount",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.recipeingredients.ingredientmeasurement": {
+            "name": "ingredientmeasurement",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "body.recipes": {
+            "name": "recipes",
+            "description": "recipes",
+            "required": false,
+            "schema": {
+                "$ref": "#/definitions/recipes"
+            },
+            "in": "body"
+        },
+        "rowFilter.recipes.recipeid": {
+            "name": "recipeid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.recipes.recipename": {
+            "name": "recipename",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.recipes.recipedescription": {
+            "name": "recipedescription",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.recipes.recipeinstructions": {
+            "name": "recipeinstructions",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.recipes.userid": {
+            "name": "userid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "body.usercookbooks": {
+            "name": "usercookbooks",
+            "description": "usercookbooks",
+            "required": false,
+            "schema": {
+                "$ref": "#/definitions/usercookbooks"
+            },
+            "in": "body"
+        },
+        "rowFilter.usercookbooks.userid": {
+            "name": "userid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.usercookbooks.cookbookid": {
+            "name": "cookbookid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.usercookbooks.cookbookname": {
+            "name": "cookbookname",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.usercookbooks.cookbookdescription": {
+            "name": "cookbookdescription",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "body.usertable": {
+            "name": "usertable",
+            "description": "usertable",
+            "required": false,
+            "schema": {
+                "$ref": "#/definitions/usertable"
+            },
+            "in": "body"
+        },
+        "rowFilter.usertable.useremail": {
+            "name": "useremail",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.usertable.userpassword": {
+            "name": "userpassword",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.usertable.userfirstname": {
+            "name": "userfirstname",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.usertable.userlastname": {
+            "name": "userlastname",
+            "required": false,
+            "format": "character varying",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.usertable.userid": {
+            "name": "userid",
+            "required": false,
+            "format": "integer",
+            "in": "query",
+            "type": "string"
+        },
+        "rowFilter.usertable.isadmin": {
+            "name": "isadmin",
+            "required": false,
+            "format": "boolean",
+            "in": "query",
+            "type": "string"
+        }
+    },
+    "externalDocs": {
+        "url": "https://postgrest.org/en/v7.0/api.html",
+        "description": "PostgREST Documentation"
+    }
+}

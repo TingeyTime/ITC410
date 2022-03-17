@@ -84,7 +84,14 @@ WHERE task_id IN
 exports.getTasksInTaskList = async function (client, taskListId) {
     const { rows } = await client.query({
         name: 'get-tasks-in-task-list',
-        text: `SELECT T.task_id, T.title, T.duration, T.complete FROM tasks as T LEFT OUTER JOIN tasksInTaskLists as L ON T.task_id=L.task_id AND L.list_id = $1 GROUP BY T.task_id`,
+        text: `
+               SELECT task_id, title, duration, complete
+               FROM tasks
+               WHERE task_id IN
+                   (SELECT task_id
+                   FROM tasksintasklists
+                   WHERE list_id = $1);
+        `,
         values: [taskListId]
     })
     return rows

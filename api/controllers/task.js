@@ -50,11 +50,51 @@ module.exports = function (pool) {
                 returnBody.push({
                     task_id: task.task_id,
                     title: task.title,
+                    description: task.description,
                     duration: Number(task.duration),
                     complete: task.complete
                 })
             })
-            res.enforcer.status(200).send(tasks_in_list)
+            res.enforcer.status(200).send(returnBody)
+        },
+
+        async updateTask (req, res) {
+            const { taskId } = req.enforcer.params
+            const data = req.enforcer.body
+            const client = await pool.connect()
+            try {
+                await client.query('BEGIN')
+                let task = await tasks.getTask(client, taskId)
+                if (task === undefined) {
+                    res.enforcer.status(404).send()
+                } else if (task.account_id !== req.user.id) {
+                    res.enforcer.status(403).send()
+                } else {
+                    await tasks.updateTask(client, taskId, data)
+                    let updated_task = await tasks.getTask(client, taskId)
+                    res.enforcer.status(200).send({
+                        list_id: updated_task.list_id,
+                        task_id: updated_task.task_id,
+                        title: updated_task.title,
+                        description: updated_task.description,
+                        duration: Number(updated_task.duration),
+                        complete: updated_task.complete
+                    })
+                }
+                await client.query('COMMIT')
+            } catch (e) {
+                await client.query('ROLLBACK')
+                throw e
+            } finally {
+                client.release()
+            }
+        },
+
+        async deleteTask (req, res) {
+            const { taskId } = req.enforcer.params
+            const client = await pool.connect()
+            await tasks.deleteTask(client, taskId)
+            res.enforcer.status(204).send()
         }
     }
 }
