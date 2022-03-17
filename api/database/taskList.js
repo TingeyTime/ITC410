@@ -33,15 +33,6 @@ exports.getTaskLists = async function (client, accountId) {
     return rows
 }
 
-exports.getTasksInTaskList = async function (client, taskListId) {
-    const { rows } = await client.query({
-        name: 'get-tasks-in-task-list',
-        text: 'SELECT task_id, title, duration, completed FROM tasksInTaskLists LEFT JOIN tasks ON task_id AND list_id = $1',
-        values: [taskListId]
-    })
-    return rows
-}
-
 exports.updateTaskList = async function (client, taskListId, data) {
     const { title, completed } = data
     const values = []
@@ -79,13 +70,24 @@ exports.deleteTaskList = async function (client, taskListId) {
     return rowCount > 0
 }
 
+// Manipulate tasks in task list
+
+exports.getTasksInTaskList = async function (client, taskListId) {
+    const { rows } = await client.query({
+        name: 'get-tasks-in-task-list',
+        text: 'SELECT L.list_id, T.task_id, T.title, T.duration, T.complete FROM tasksInTaskLists as L RIGHT JOIN tasks as T ON T.task_id = L.task_id AND L.list_id = $1',
+        values: [taskListId]
+    })
+    return rows
+}
+
 exports.addTaskToTaskList = async function (client, taskListId, taskId) {
     const { rowCount } = client.query({
         name: 'add-task-to-taskList',
         text: 'INSERT INTO tasksInTaskLists (list_id, task_id) VALUES ($1, $2) ON CONFLICT DO NOTHING',
         values: [
             taskListId,
-            taskId,
+            taskId
         ]
     })
     return rowCount > 0

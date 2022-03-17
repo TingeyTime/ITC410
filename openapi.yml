@@ -302,10 +302,12 @@ paths:
           description: Invalid request.
         401:
           description: Not authenticated.
+        409:
+          description: Task already exists. 
   /tasks:
     get:
-      # x-controller: tasks
-      # x-operation: getTasks
+      x-controller: tasks
+      x-operation: getTasks
       tags:
         - Tasks
       security:

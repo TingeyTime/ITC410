@@ -1,32 +1,42 @@
 const uuid = require('uuid').v4
 
-exports.createtask = async function (client, title, description, duration = 0, completed = false) {
+exports.createTask = async function (client, accountId, title, description, duration = 0, complete = null) {
     const taskId = uuid()
-    const { rowCount } = client.query({
+    const { rowCount } = await client.query({
         name: 'create-task',
-        text: 'INSERT INTO tasks (task_id, title, description, duration, completed) VALUES ($1, $2, $3) ON CONFLICT DO NOTHING',
+        text: 'INSERT INTO tasks (task_id, account_id, title, description, duration, complete) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT DO NOTHING',
         values: [
             taskId,
+            accountId,
             title,
             description,
             duration,
-            completed
+            complete
         ]
     })
     return rowCount > 0 ? taskId : undefined
 }
 
-exports.gettask = async function (client, taskId) {
+exports.getTask = async function (client, taskId) {
     const { rows } = await client.query({
         name: 'get-task-by-id',
-        text: 'SELECT * FROM tasks WHERE task_id = $1',
+        text: 'SELECT task_id, title, description, duration, complete FROM tasks WHERE task_id = $1',
         values: [taskId]
     })
     return rows[0]
 }
 
-exports.updatetask = async function (client, taskId, data) {
-    const { title, completed } = data
+exports.getAllTasks = async function (client, acountId) {
+    const { rows } = await client.query({
+        name: 'get-task-by-id',
+        text: 'SELECT task_id, title, description, duration, complete FROM tasks WHERE account_id = $1',
+        values: [acountId]
+    })
+    return rows
+}
+
+exports.updateTask = async function (client, taskId, data) {
+    const { title, complete } = data
     const values = []
     const set = []
 
@@ -35,9 +45,9 @@ exports.updatetask = async function (client, taskId, data) {
         set.push('title=$' + values.length)
     }
 
-    if (completed !== undefined) {
-        values.push(completed)
-        set.push('completed=$' + values.length)
+    if (complete !== undefined) {
+        values.push(complete)
+        set.push('complete=$' + values.length)
     }
 
     if (values.length === 0) {
@@ -53,7 +63,7 @@ exports.updatetask = async function (client, taskId, data) {
     return row
 }
 
-exports.deletetask = async function (client, taskId) {
+exports.deleteTask = async function (client, taskId) {
     const { rowCount } = client.query({
         name: 'delete-task',
         text: 'DELETE FROM tasks WHERE task_id = $1',

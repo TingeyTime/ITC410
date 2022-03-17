@@ -40,11 +40,13 @@ CREATE TABLE taskLists (
 
 CREATE TABLE tasks (
     task_id varchar NOT NULL,
+    account_id varchar NOT NULL,
     title varchar NOT NULL,
     description varchar NOT NULL,
     duration numeric NOT NULL,
     complete timestamp,
-    PRIMARY KEY (task_id)
+    PRIMARY KEY (task_id),
+    CONSTRAINT fk_list FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON DELETE CASCADE
 );
 
 CREATE TABLE tasksInTaskLists (
