@@ -6,7 +6,7 @@
           <h1>Sign Up</h1>
         </v-card-title>
         <v-card-text class="justify-center">
-          <form>
+          <form @submit="Register()">
             <v-text-field
               v-model="form.email"
               label="E-mail"
@@ -31,7 +31,7 @@
               type="password"
               required
             ></v-text-field>
-            <v-btn class="mr-4" @click="Register()">Submit</v-btn>
+            <v-btn class="mr-4" type="submit">Submit</v-btn>
           </form>
         </v-card-text>
         <v-card-text>
