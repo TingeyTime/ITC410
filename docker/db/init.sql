@@ -76,7 +76,7 @@ CREATE TABLE notes (
     note_id varchar NOT NULL,
     account_id varchar NOT NULL,
     date_updated timestamp NOT NULL,
-    context varchar NOT NULL,
+    content varchar NOT NULL,
     PRIMARY KEY (note_id),
     CONSTRAINT fk_list FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON DELETE CASCADE
 );

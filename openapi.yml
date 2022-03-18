@@ -259,7 +259,7 @@ paths:
           description: Not authenticated.
         403:
           description: Access denied.
-  /tasklists/{taskListId}/tasks:
+  /taskLists/{taskListId}/tasks:
     parameters:
       - $ref: '#/components/parameters/PathTaskListId'
     get:
@@ -378,8 +378,8 @@ paths:
           description: Access denied.
   /events:
     get:
-      # x-controller: events
-      # x-operation: getEvents
+      x-controller: events
+      x-operation: getEvents
       tags:
         - Events
       security:
@@ -403,8 +403,8 @@ paths:
         401:
           description: Not authenticated.
     post:
-      # x-controller: events
-      # x-operation: createEvent
+      x-controller: events
+      x-operation: createEvent
       tags:
         - Events
       security:
@@ -423,12 +423,35 @@ paths:
           description: Invalid request.
         401:
           description: Not authenticated.
+        409:
+          description: Event already exists.
   /events/{eventId}:
     parameters:
       - $ref: '#/components/parameters/PathEventId'
+    get:
+      x-controller: events
+      x-operation: getEvent
+      tags:
+        - Events
+      security:
+        - cookieAuth: []
+      summary: Get event
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        400:
+          description: Invalid request.
+        401:
+          description: Not authenticated.
+        404:
+          description: Event Not found.
     put:
-      # x-controller: events
-      # x-operation: updateEvent
+      x-controller: events
+      x-operation: updateEvent
       tags:
         - Events
       security:
@@ -442,7 +465,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Events'
+                $ref: '#/components/schemas/Event'
         400:
           description: Invalid request.
         401:
@@ -452,8 +475,8 @@ paths:
         404:
           description: Not found.
     delete:
-      # x-controller: events
-      # x-operation: deleteEvent
+      x-controller: events
+      x-operation: deleteEvent
       tags:
         - Events
       security:
@@ -467,14 +490,33 @@ paths:
         403:
           description: Access denied.
   /notes:
-    put:
-      # x-controller: notes
-      # x-operation: updateNote
+    get:
+      x-controller: notes
+      x-operation: getNote
       tags:
         - Notes
       security:
         - cookieAuth: []
-      summary: Update notes.
+      summary: Get note.
+      responses:
+        200:
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+        401:
+          description: Not authenticated.
+        404:
+          description: Not found.
+    put:
+      x-controller: notes
+      x-operation: updateNote
+      tags:
+        - Notes
+      security:
+        - cookieAuth: []
+      summary: Update note.
       requestBody:
         $ref: '#/components/requestBodies/SetNote'
       responses:
@@ -617,8 +659,8 @@ components:
       type: object
       required:
         - title
-        - start
-        - end
+        - date_start
+        - date_end
       properties:
         EventId:
           type: string
@@ -627,10 +669,10 @@ components:
           type: string
         description:
           type: string
-        start:
+        date_start:
           type: string
           format: date-time
-        end:
+        date_end:
           type: string
           format: date-time
     Events:

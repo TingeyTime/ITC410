@@ -7,7 +7,7 @@ module.exports = function (pool) {
             const { title, description, duration, complete } = req.enforcer.body
             const { taskListId } = req.enforcer.params
             const user_id = req.user.id
-            let taskId = await tasks.createTask(pool,  user_id, title, description, duration, complete)
+            let taskId = await tasks.createTask(pool, user_id, title, description, duration, complete)
             if (taskId) {
                 await taskLists.addTaskToTaskList(pool, taskListId, taskId)
                 res.set('location', '/api/taskLists/' + taskListId + '/tasks/' + taskId)

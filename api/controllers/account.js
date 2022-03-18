@@ -1,4 +1,5 @@
 const accounts = require('../database/account')
+const notes = require('../database/note')
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
 const secret = process.env.SESSION_SECRET
@@ -10,6 +11,7 @@ module.exports = function (pool) {
             const { email, username, name, password } = req.enforcer.body
             const accountId = await accounts.createAccount(pool, email, username, name, password)
             if (accountId) {
+                await notes.createNote(pool, accountId)
                 const token = jwt.sign({
                     sub: username,
                     admin: false

@@ -1,12 +1,13 @@
 const uuid = require('uuid').v4
 
-exports.createevent = async function (client, title, description, date_start = 0, date_end = false) {
+exports.createEvent = async function (client, accountId, title, description, date_start, date_end) {
     const eventId = uuid()
-    const { rowCount } = client.query({
+    const { rowCount } = await client.query({
         name: 'create-event',
-        text: 'INSERT INTO events (event_id, title, description, date_start, date_end) VALUES ($1, $2, $3) ON CONFLICT DO NOTHING',
+        text: 'INSERT INTO events (event_id, account_id, title, description, date_start, date_end) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT DO NOTHING',
         values: [
             eventId,
+            accountId,
             title,
             description,
             date_start,
@@ -16,7 +17,7 @@ exports.createevent = async function (client, title, description, date_start = 0
     return rowCount > 0 ? eventId : undefined
 }
 
-exports.getevent = async function (client, eventId) {
+exports.getEvent = async function (client, eventId) {
     const { rows } = await client.query({
         name: 'get-event-by-id',
         text: 'SELECT * FROM events WHERE event_id = $1',
@@ -25,7 +26,16 @@ exports.getevent = async function (client, eventId) {
     return rows[0]
 }
 
-exports.updateevent = async function (client, eventId, data) {
+exports.getEvents = async function (client, accountId) {
+    const { rows } = await client.query({
+        name: 'get-events-by-account-id',
+        text: 'SELECT * FROM events WHERE account_id = $1',
+        values: [accountId]
+    })
+    return rows
+}
+
+exports.updateEvent = async function (client, eventId, data) {
     const { title, description, date_start, date_end } = data
     const values = []
     const set = []
@@ -35,12 +45,12 @@ exports.updateevent = async function (client, eventId, data) {
         set.push('title=$' + values.length)
     }
 
-    if (title !== undefined) {
+    if (description !== undefined) {
         values.push(description)
         set.push('description=$' + values.length)
     }
 
-    if (title !== undefined) {
+    if (date_start !== undefined) {
         values.push(date_start)
         set.push('date_start=$' + values.length)
     }
@@ -51,19 +61,19 @@ exports.updateevent = async function (client, eventId, data) {
     }
 
     if (values.length === 0) {
-        return await exports.getevent(client, eventId)
+        return await exports.getEvent(client, eventId)
     }
 
     values.push(eventId)
     const { row } = client.query({
         name: 'update-event',
-        text: 'UPDATE events SET ' + set.join(', ') + ' WHERE list_id = $' + (values.length) + ' RETURNING *',
+        text: 'UPDATE events SET ' + set.join(', ') + ' WHERE event_id = $' + (values.length) + ' RETURNING *',
         values
     })
     return row
 }
 
-exports.deleteevent = async function (client, eventId) {
+exports.deleteEvent = async function (client, eventId) {
     const { rowCount } = client.query({
         name: 'delete-event',
         text: 'DELETE FROM events WHERE event_id = $1',

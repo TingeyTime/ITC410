@@ -17,6 +17,8 @@ const Accounts = require('./controllers/account')
 const Authentication = require('./controllers/authentication')
 const TaskLists = require('./controllers/taskList')
 const Tasks = require('./controllers/task')
+const Events = require('./controllers/event')
+const Notes = require('./controllers/note')
 
 // Test Database Connection
 5
@@ -133,8 +135,8 @@ app.use(enforcerMiddleware.route({
   , authentication: Authentication(passport)
   , taskLists: TaskLists(pool)
   , tasks: Tasks(pool)
-  // , events: Events(pool)
-  // , notes: Notes(pool)
+  , events: Events(pool)
+  , notes: Notes(pool)
 }))
 
 app.use(enforcerMiddleware.mock())
