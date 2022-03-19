@@ -4,7 +4,7 @@
       <v-col>
         <v-sheet height="900">
           <v-calendar-daily
-            max-days="1"
+            max-days=1
           >
 
           </v-calendar-daily>
