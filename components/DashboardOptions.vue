@@ -2,54 +2,24 @@
   <v-container>
     <v-row>
       <v-col>
-        <span v-if="!createActive">
-          <v-btn
-            class="mx-2 ma-1"
-            v-on:click="
-              $emit('update-options', !createActive);
-              createActive = !createActive;
-            "
-            color="info"
-            >View Task Lists
-          </v-btn>
-        </span>
-        <span v-else>
-          <v-btn
-            class="mx-2 ma-1"
-            v-on:click="
-              $emit('update-options', !createActive);
-              createActive = !createActive;
-            "
-            outlined
-            color="info"
-          >
-            View Task Lists</v-btn
-          >
-        </span>
-        <span v-if="createActive">
-          <v-btn
-            class="mx-2 ma-1"
-            v-on:click="
-              $emit('update-options', !createActive);
-              createActive = !createActive;
-            "
-            color="info"
-            >Create A New Task List
-          </v-btn>
-        </span>
-        <span v-else>
-          <v-btn
-            class="mx-2 ma-1"
-            v-on:click="
-              $emit('update-options', !createActive);
-              createActive = !createActive;
-            "
-            outlined
-            color="info"
-          >
-            Create A New Task List
-          </v-btn>
-        </span>
+        <v-btn
+          class="mx-2 ma-1"
+          v-on:click="
+            $emit('update-options', false);
+            createActive = false;
+          "
+          color="info"
+          >View Task Lists
+        </v-btn>
+        <v-btn
+          class="mx-2 ma-1"
+          v-on:click="
+            $emit('update-options', true);
+            createActive = true;
+          "
+          color="info"
+          >Create A New Task List
+        </v-btn>
       </v-col>
     </v-row>
   </v-container>
