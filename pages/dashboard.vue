@@ -5,9 +5,9 @@
         <UserCalendar />
       </v-col>
       <v-col class="mr-auto">
-        <DashboardOptions v-bind.sync="createActive" />
-        <CreateATaskList />
-        <TaskLists />
+        <DashboardOptions @update-options="createActive=$event" />
+        <CreateATaskList v-if="createActive" />
+        <TaskLists v-if="!createActive" />
       </v-col>
     </v-row>
   </v-container>

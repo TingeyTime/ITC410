@@ -3,14 +3,14 @@
     <v-row>
       <v-col>
         <span v-if="!createActive">
-          <v-btn class="mx-2 ma-1" @click="toggleActive()" color="info"
+          <v-btn class="mx-2 ma-1" v-on:click="$emit('update-options', !createActive); createActive = !createActive" color="info"
             >View Task Lists
           </v-btn>
         </span>
         <span v-else>
           <v-btn
             class="mx-2 ma-1"
-            @click="toggleActive()"
+            v-on:click="$emit('update-options', !createActive); createActive = !createActive"
             outlined
             color="info"
           >
@@ -18,14 +18,14 @@
           >
         </span>
         <span v-if="createActive">
-          <v-btn class="mx-2 ma-1" @click="toggleActive()" color="info"
+          <v-btn class="mx-2 ma-1" v-on:click="$emit('update-options', !createActive); createActive = !createActive" color="info"
             >Create A New Task List
           </v-btn>
         </span>
         <span v-else>
           <v-btn
             class="mx-2 ma-1"
-            @click="toggleActive()"
+            v-on:click="$emit('update-options', !createActive); createActive = !createActive"
             outlined
             color="info"
           >
@@ -40,18 +40,18 @@
 <script>
 export default {
   Name: "DashboardOptions",
-  props: function () {
+  prop: function () {
     return {
       createActive: {
         type: Boolean,
-        required: true,
-      },
+        required: true
+      }
     };
   },
-  method: {
-    toggleActive: function () {
-      this.createActive = !this.createActive
-    },
-  },
+  // method: {
+  //   toggleActive: function () {
+  //     this.$emit('update-options', createActive)
+  //   },
+  // },
 };
 </script>
