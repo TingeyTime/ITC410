@@ -5,8 +5,9 @@
         <UserCalendar />
       </v-col>
       <v-col class="mr-auto">
-        <DashboardOptions />
+        <DashboardOptions v-bind.sync="createActive" />
         <CreateATaskList />
+        <TaskLists />
       </v-col>
     </v-row>
   </v-container>
@@ -14,15 +15,22 @@
 
 <script>
 import CreateATaskList from "@/components/CreateATaskList";
-import UserCalendar from "@/components/UserCalendar";
 import DashboardOptions from "@/components/DashboardOptions";
+import UserCalendar from "@/components/UserCalendar";
+import TaskLists from "@/components/TaskLists";
 
 export default {
   middleware: "auth",
   components: {
     CreateATaskList,
     UserCalendar,
-    DashboardOptions
+    DashboardOptions,
+    TaskLists
+  },
+  data: function() {
+      return {
+          createActive: false
+      }
   }
 };
 </script>

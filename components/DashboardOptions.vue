@@ -2,15 +2,36 @@
   <v-container>
     <v-row>
       <v-col>
-        <v-btn
-          class="ml-0 mr-2"
-          @click="displayLists"
-          variant="info"
-        >See Task Lists</v-btn>
-        <v-btn
-          @click="createNew"
-          variant="info"
-        >Create a New Task List</v-btn>
+        <span v-if="!createActive">
+          <v-btn class="mx-2 ma-1" @click="toggleActive()" color="info"
+            >View Task Lists
+          </v-btn>
+        </span>
+        <span v-else>
+          <v-btn
+            class="mx-2 ma-1"
+            @click="toggleActive()"
+            outlined
+            color="info"
+          >
+            View Task Lists</v-btn
+          >
+        </span>
+        <span v-if="createActive">
+          <v-btn class="mx-2 ma-1" @click="toggleActive()" color="info"
+            >Create A New Task List
+          </v-btn>
+        </span>
+        <span v-else>
+          <v-btn
+            class="mx-2 ma-1"
+            @click="toggleActive()"
+            outlined
+            color="info"
+          >
+            Create A New Task List
+          </v-btn>
+        </span>
       </v-col>
     </v-row>
   </v-container>
@@ -19,19 +40,18 @@
 <script>
 export default {
   Name: "DashboardOptions",
-  data: function () {
-      return {
-        displayLists: true,
-        createNew: false
-      }
-  },
-  methods: {
-      display: function () {
-
+  props: function () {
+    return {
+      createActive: {
+        type: Boolean,
+        required: true,
       },
-      create: function () {
-
-      }
-  }
+    };
+  },
+  method: {
+    toggleActive: function () {
+      this.createActive = !this.createActive
+    },
+  },
 };
 </script>
