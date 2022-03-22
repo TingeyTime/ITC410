@@ -30,9 +30,8 @@ module.exports = function (pool) {
                 res.enforcer.status(404).send()
             } else if (account.account_id !== req.user.id) {
                 res.enforcer.status(403).send()
-            } else {
-                res.enforcer.status(200).send(user_taskLists)
             }
+            res.enforcer.status(200).send(user_taskLists)
         },
 
         async updateTaskList (req, res) {

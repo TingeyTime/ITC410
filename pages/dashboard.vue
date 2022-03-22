@@ -6,7 +6,7 @@
       </v-col>
       <v-col class="mr-auto">
         <DashboardOptions @update-options="createActive=$event" />
-        <CreateATaskList v-if="createActive" />
+        <CreateATaskList @update-options="createActive=$event" v-if="createActive" />
         <TaskLists v-if="!createActive" />
       </v-col>
     </v-row>
@@ -20,7 +20,7 @@ import UserCalendar from "@/components/UserCalendar";
 import TaskLists from "@/components/TaskLists";
 
 export default {
-  middleware: "auth",
+  middleware: ["auth", "init"],
   components: {
     CreateATaskList,
     UserCalendar,

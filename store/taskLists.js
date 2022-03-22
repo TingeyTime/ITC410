@@ -1,10 +1,6 @@
 export const state = () => {
 	return {
-		taskLists: [
-			{
-				title: "Test 3"
-			},
-		]
+		taskLists: []
 	}
 }
 
@@ -15,23 +11,26 @@ export const mutations = {
 }
 
 export const actions = {
-	async createTaskList({ commit }, { title }) {
+	async createTaskList({ dispatch }, { title }) {
 		const res = await this.$axios.post('api/taskLists', {
 			title: title,
             completed: null
 		})
 		if (res.status === 201) {
-			await dispatch('getTaskLists')
+			await dispatch('load')
 			return 'success'
 		}
 		return 'failed'
 	},
 
-	async getTaskLists({ commit }) {
-		console.log('getting task lists...')
-		const res = await this.$axios.get(`api/taskLists`,)
-		if (res.status === 200) {
-			commit('setTaskLists', res.body)
-		}
-	}
+    async load ({ commit }) {
+        try {
+            const res = await this.$axios.get('api/taskLists')
+            if (res.status === 200) {
+                commit('setTaskLists', res.data)
+            }
+        } catch (e) {
+            commit('setTaskLists', null)
+        }
+    }
 }

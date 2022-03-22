@@ -33,6 +33,10 @@ export default {
       console.log("Attempt to create: ", this.taskList.title);
       const success = await this.$store
         .dispatch('taskLists/createTaskList', this.taskList)
+      if (success) {
+        this.taskList.title = ""
+        this.$emit('update-options', false)
+      }
     },
   },
 };

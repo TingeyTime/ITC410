@@ -78,7 +78,6 @@ export default {
               password: this.form.password,
             },
           });
-          this.$router.push("/Login");
         })
         .catch(() => {
           console.error("account creation failed");

@@ -55,9 +55,6 @@ export default {
           password: this.form.password
         }
       })
-        .then(() => {
-          this.$router.push("/");
-        })
         .catch(() => {
           console.error("login failed");
         });
