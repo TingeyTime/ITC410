@@ -1,43 +1,45 @@
 <template>
   <v-container class="rounded-lg grey darken-4">
-    <v-row>
-      <h2 class="mx-4 ma-4"> Task Lists </h2>
-      <v-spacer/>
-      <span class="mx-4 ma-4">
-          <v-btn color="secondaryLight">
-            ◀
-          </v-btn>
-          <v-btn color="secondaryLight">
-            ▶
-          </v-btn>
-          <v-btn color="caution">
-            Delete
-          </v-btn>
+    <v-row justify="space-around" class="ma-2">
+      <h2>Task Lists</h2>
+      <span>
+        <v-menu transition="slide-y-transition" bottom :offset-x="true">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn text v-bind="attrs" v-on="on">
+              List of Lists
+              <v-icon>mdi-chevron-down</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item v-for="(list, i) in taskLists" :key="i">
+              <v-list-item-action>
+                <v-btn text @click="currentList = list">
+                  {{ list.title }}
+                </v-btn>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </span>
     </v-row>
-    <v-row>
-    
+    <v-row justify="space-around" class="ma-2">
+      <SingleTaskList v-if="currentList != null" v-model="currentList" />
+      <div v-if="currentList == null">
+        <h3>Please choose a list...</h3>
+      </div>
     </v-row>
-    <!-- <h2>Task Lists</h2>
-    <div v-if="taskLists === []" >No Tasks... </div>
-    <v-carousel>
-    <v-carousel-item
-      v-for="list in taskLists"
-      :key="list.list_id"
-      class="mx-2 ma-4"
-    >
-    <span>{{ list.title }}</span>
-    <v-spacer />
-    <v-btn color="caution" @click="deleteList(list.list_id)">Delete</v-btn>
-    </v-carousel-item>
-    </v-carousel> -->
   </v-container>
 </template>
 
 <script>
+import SingleTaskList from "@/components/SingleTaskList";
+
 export default {
   Name: "TaskLists",
-  middleware: ['init.js'],
+  middleware: ["init.js"],
+  components: {
+    SingleTaskList,
+  },
   computed: {
     taskLists() {
       return this.$store.state.taskLists.taskLists
@@ -45,15 +47,20 @@ export default {
   },
   methods: {
     async deleteList(listId) {
-      console.log ('deleting ' + listId)
-      const success = await this.$store
-        .dispatch('taskLists/delete', listId)
-      if (success === 'success') {
-        console.log('delete successful')
+      console.log("deleting " + listId);
+      const success = await this.$store.dispatch("taskLists/delete", listId);
+      if (success === "success") {
+        console.log("delete successful");
       } else {
-        console.log('delete failed')
+        console.log("delete failed");
       }
-    }
-  }
+    },
+  },
 };
 </script>
+
+<style lang="scss" scoped>
+.v-btn.active .v-icon {
+  transform: rotate(-180deg);
+}
+</style>

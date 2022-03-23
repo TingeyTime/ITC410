@@ -18,8 +18,8 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      // { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Fredoka&display=swap'},
-      // { rel: 'stylesheet', href: "https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Fredoka&display=swap'},
+      { rel: 'icon', href: "https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },

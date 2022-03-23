@@ -1,6 +1,7 @@
 export const state = () => {
 	return {
-		taskLists: []
+		taskLists: [],
+		taskList: {}
 	}
 }
 

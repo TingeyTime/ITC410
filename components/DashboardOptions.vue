@@ -1,5 +1,8 @@
 <template>
-  <v-container>
+  <v-container
+    class="rounded-lg"
+    color="primary"
+  >
     <v-row>
       <v-col class="ma-0 mx-auto">
         <v-btn
