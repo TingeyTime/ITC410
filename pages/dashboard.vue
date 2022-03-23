@@ -1,5 +1,10 @@
 <template>
-  <v-container>
+  <v-parallax
+    dark
+    class="rounded-lg"
+    height="100%"
+    src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
+  >
     <v-row>
       <v-col class="mx-auto">
         <UserCalendar />
@@ -10,7 +15,7 @@
         <TaskLists v-if="!createActive" />
       </v-col>
     </v-row>
-  </v-container>
+  </v-parallax>
 </template>
 
 <script>

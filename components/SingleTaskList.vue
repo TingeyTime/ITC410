@@ -1,9 +1,6 @@
 <template>
     <v-container>
-        <v-row>
-            <v-col>
-            </v-col>
-        </v-row>
+        // Task Card
     </v-container>
 </template>
 

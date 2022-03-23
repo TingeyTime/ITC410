@@ -1,7 +1,10 @@
 <template>
-  <v-container class="rounded-lg grey darken-4">
+  <v-parallax
+  class="mx-0 ma-0"
+  src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"
+  >
     <v-row justify="center" align="center">
-      <h1>Simple Plan</h1>
+      <h1 >Simple Plan</h1>
     </v-row>
     <v-row justify="center" align="center">
       <v-col cols="11">
@@ -18,7 +21,7 @@
         </p>
       </v-col>
     </v-row>
-  </v-container>
+  </v-parallax>
 </template>
 
 <script>

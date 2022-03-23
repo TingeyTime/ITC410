@@ -1,8 +1,27 @@
 <template>
   <v-container class="rounded-lg grey darken-4">
-    <h2>Task Lists</h2>
+    <v-row>
+      <h2 class="mx-4 ma-4"> Task Lists </h2>
+      <v-spacer/>
+      <span class="mx-4 ma-4">
+          <v-btn color="secondaryLight">
+            ◀
+          </v-btn>
+          <v-btn color="secondaryLight">
+            ▶
+          </v-btn>
+          <v-btn color="caution">
+            Delete
+          </v-btn>
+      </span>
+    </v-row>
+    <v-row>
+    
+    </v-row>
+    <!-- <h2>Task Lists</h2>
     <div v-if="taskLists === []" >No Tasks... </div>
-    <div
+    <v-carousel>
+    <v-carousel-item
       v-for="list in taskLists"
       :key="list.list_id"
       class="mx-2 ma-4"
@@ -10,7 +29,8 @@
     <span>{{ list.title }}</span>
     <v-spacer />
     <v-btn color="caution" @click="deleteList(list.list_id)">Delete</v-btn>
-    </div>
+    </v-carousel-item>
+    </v-carousel> -->
   </v-container>
 </template>
 
