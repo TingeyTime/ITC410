@@ -60,7 +60,7 @@
         </v-list-item>
       </span>
     </v-navigation-drawer>
-    <v-app-bar clipped-left fixed app>
+    <v-app-bar color="Primary" clipped-left fixed app>
       <v-app-bar-nav-icon class="include" @click.stop="drawer = !drawer" />
       <router-link to="/" style="text-decoration: none; color: inherit">
         <v-toolbar-title>

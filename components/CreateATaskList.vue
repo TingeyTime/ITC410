@@ -9,10 +9,10 @@
         required
       >
       </v-text-field>
-      <v-btn color="error" class="mt-4" @click="taskList.title = ''">
+      <v-btn color="secondaryDark" class="mt-4" @click="taskList.title = ''">
         Reset
       </v-btn>
-      <v-btn color="primary" class="mt-4 mr-4" type="submit"> Create </v-btn>
+      <v-btn color="secondaryDark" class="mt-4 mr-4" type="submit"> Create </v-btn>
     </v-form>
   </v-container>
 </template>

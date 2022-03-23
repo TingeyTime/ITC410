@@ -3,13 +3,13 @@
     <h2>Task Lists</h2>
     <div v-if="taskLists === []" >No Tasks... </div>
     <div
-      v-for="(list, i) in taskLists"
-      :key="i"
+      v-for="list in taskLists"
+      :key="list.list_id"
       class="mx-2 ma-4"
     >
     <span>{{ list.title }}</span>
     <v-spacer />
-    <v-btn color="error" @click="deleteList(list.id)">Delete</v-btn>
+    <v-btn color="caution" @click="deleteList(list.list_id)">Delete</v-btn>
     </div>
   </v-container>
 </template>
@@ -24,8 +24,15 @@ export default {
     }
   },
   methods: {
-    async deleteList() {
-      //FIXME correct api to send tasklist ids
+    async deleteList(listId) {
+      console.log ('deleting ' + listId)
+      const success = await this.$store
+        .dispatch('taskLists/delete', listId)
+      if (success === 'success') {
+        console.log('delete successful')
+      } else {
+        console.log('delete failed')
+      }
     }
   }
 };

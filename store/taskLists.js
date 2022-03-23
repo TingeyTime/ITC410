@@ -32,5 +32,20 @@ export const actions = {
         } catch (e) {
             commit('setTaskLists', null)
         }
-    }
+    },
+
+	async delete ({ dispatch }, listId) {
+		try {
+			const res = await this.$axios.delete(`api/taskLists/${listId}`)
+			if (res.status === 204) {
+				// notify
+				await dispatch('load')
+				return 'success'
+			}
+		} catch (e) {
+			// do something
+			console.log('delete of ' + listId + ' failed.')
+			return 'failed'
+		}
+	}
 }
