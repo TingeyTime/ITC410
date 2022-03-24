@@ -12,7 +12,7 @@ export default {
         currentList: {
             type: Object,
             required: true,
-            defualt: {
+            default: {
                 list_id: "00000",
                 title: "Create a List!",
                 completed: null

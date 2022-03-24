@@ -13,7 +13,7 @@
           <v-list>
             <v-list-item v-for="(list, i) in taskLists" :key="i">
               <v-list-item-action>
-                <v-btn text @click="currentList = list">
+                <v-btn text @click="changeList(list)">
                   {{ list.title }}
                 </v-btn>
               </v-list-item-action>
@@ -23,7 +23,7 @@
       </span>
     </v-row>
     <v-row justify="space-around" class="ma-2">
-      <SingleTaskList v-if="currentList != null" v-model="currentList" />
+      <SingleTaskList v-if="currentList != null" :currentList="currentList"></SingleTaskList>
       <div v-if="currentList == null">
         <h3>Please choose a list...</h3>
       </div>
@@ -40,6 +40,11 @@ export default {
   components: {
     SingleTaskList,
   },
+  data() {
+    return {
+      currentList: null
+    }
+  },
   computed: {
     taskLists() {
       return this.$store.state.taskLists.taskLists
@@ -55,6 +60,9 @@ export default {
         console.log("delete failed");
       }
     },
+    changeList(list) {
+      this.currentList = list;
+    }
   },
 };
 </script>
