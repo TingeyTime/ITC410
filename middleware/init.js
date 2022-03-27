@@ -1,4 +1,4 @@
 export default async function init ({ store }) {
     await store.dispatch('taskLists/load')
-    console.log('loaded')
+    console.log('loaded Tasks Lists')
   }

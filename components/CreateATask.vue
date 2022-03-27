@@ -1,30 +1,36 @@
 <template>
-  <v-container>
-    <v-row justify="space-around" class="mx-2 ma-2">
-      <h2>{{ currentList.title }}</h2>
-      <v-btn @click.prevent="getTasks()">Get Tasks</v-btn>
-    </v-row>
-    <v-row class="mx-2 ma-2">
-      <div v-if="tasks">{{ tasks }}</div>
-    </v-row>
-    <v-row class="mx-2 ma-2">
-      <CreateATask :currentList="currentList"></CreateATask>
-    </v-row>
-  </v-container>
+  <v-card>
+    <v-card-title>Create a Task</v-card-title>
+    <v-form>
+      <v-container fluid>
+        <v-text-field
+          label="Title"
+          placeholder="Do laundry..."
+          v-model="newTask.title"
+          required
+        ></v-text-field>
+        <v-textarea
+          label="Description"
+          placeholder="Who, what, when, where, why"
+          v-model="newTask.description"
+          required
+        ></v-textarea>
+        <v-text-field
+          label="Duration"
+          v-model="newTask.duration"
+          single-line
+          type="number"
+        />
+      </v-container>
+      <v-btn color="error" @click.prevent="reset()">Reset</v-btn>
+      <v-btn color="success" @click.prevent="createTask()">Create Task</v-btn>
+    </v-form>
+  </v-card>
 </template>
 
 <script>
-import CreateATask from '@/components/CreateATask'
-
 export default {
-  name: "SingleTaskList",
-  async middleware({ store }) {
-    await store.dispatch("tasks/load", this.currentList);
-    console.log("loaded Tasks");
-  },
-  components: {
-    CreateATask
-  },
+  name: 'CreateATask',
   data() {
     return {
       newTask: {
@@ -43,11 +49,6 @@ export default {
         title: "Create a List!",
         completed: null,
       },
-    },
-  },
-  computed: {
-    tasks() {
-      return this.$store.state.tasks.tasks;
     },
   },
   methods: {
@@ -71,18 +72,6 @@ export default {
         this.newTask.duration = 0;
       } else {
         console.log("creation failed");
-      }
-    },
-    async getTasks() {
-      console.log("Getting tasks for", this.currentList);
-      const success = await this.$store.dispatch(
-        "tasks/load",
-        this.currentList
-      );
-      if (success === "success") {
-        console.log("loaded Tasks");
-      } else {
-        console.log("load tasks failed");
       }
     },
   },

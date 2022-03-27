@@ -15,24 +15,27 @@ export const actions = {
 		const res = await this.$axios.post(`api/taskLists/${listId}/tasks`, {
 			title: title,
             description: description,
-            duration: duration,
+            duration: Number(duration),
             completed: null
 		})
 		if (res.status === 201) {
-			await dispatch('load')
+			await dispatch('load', { list_id: listId })
 			return 'success'
 		}
 		return 'failed'
 	},
 
-    async load ({ commit }, listId) {
+    async load ({ commit }, { list_id }) {
         try {
-            const res = await this.$axios.get(`api/taskLists/${listId}/tasks`)
+			console.log("Getting tasks for", list_id);
+            const res = await this.$axios.get(`api/taskLists/${list_id}/tasks`)
             if (res.status === 200) {
                 commit('setTasks', res.data)
+				return 'success'
             }
         } catch (e) {
             commit('setTasks', null)
+			return 'failed'
         }
     },
 

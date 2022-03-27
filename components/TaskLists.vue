@@ -23,7 +23,10 @@
       </span>
     </v-row>
     <v-row justify="space-around" class="ma-2">
-      <SingleTaskList v-if="currentList != null" :currentList="currentList"></SingleTaskList>
+      <SingleTaskList
+        v-if="currentList != null"
+        :currentList="currentList"
+      ></SingleTaskList>
       <div v-if="currentList == null">
         <h3>Please choose a list...</h3>
       </div>
@@ -36,19 +39,23 @@ import SingleTaskList from "@/components/SingleTaskList";
 
 export default {
   Name: "TaskLists",
-  middleware: ["init.js"],
+  // middleware: ["init.js"],
+  async middleware({ store }) {
+    await store.dispatch("taskLists/load");
+    console.log("loaded Tasks Lists");
+  },
   components: {
     SingleTaskList,
   },
   data() {
     return {
-      currentList: null
-    }
+      currentList: null,
+    };
   },
   computed: {
     taskLists() {
-      return this.$store.state.taskLists.taskLists
-    }
+      return this.$store.state.taskLists.taskLists;
+    },
   },
   methods: {
     async deleteList(listId) {
@@ -62,12 +69,12 @@ export default {
     },
     changeList(list) {
       this.currentList = list;
-    }
+    },
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 .v-btn.active .v-icon {
   transform: rotate(-180deg);
 }

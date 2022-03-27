@@ -85,7 +85,7 @@ exports.getTasksInTaskList = async function (client, taskListId) {
     const { rows } = await client.query({
         name: 'get-tasks-in-task-list',
         text: `
-               SELECT task_id, title, duration, complete
+               SELECT task_id, title, description, duration, complete
                FROM tasks
                WHERE task_id IN
                    (SELECT task_id
