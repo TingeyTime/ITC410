@@ -7,14 +7,21 @@
     <v-row class="mx-2 ma-2">
       <div v-if="tasks">{{ tasks }}</div>
     </v-row>
-    <v-row class="mx-2 ma-2">
-      <CreateATask :currentList="currentList"></CreateATask>
+    <v-row>
+      <span v-if="!createNewTask"
+        ><v-btn @click="toggleNewTask()">New Task</v-btn></span
+      >
+      <CreateATask
+        @toggle-newTask="createNewTask = $event"
+        v-if="createNewTask"
+        :currentList="currentList"
+      ></CreateATask>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import CreateATask from '@/components/CreateATask'
+import CreateATask from "@/components/CreateATask";
 
 export default {
   name: "SingleTaskList",
@@ -23,15 +30,11 @@ export default {
     console.log("loaded Tasks");
   },
   components: {
-    CreateATask
+    CreateATask,
   },
   data() {
     return {
-      newTask: {
-        title: "",
-        description: "",
-        duration: 0,
-      },
+      createNewTask: false,
     };
   },
   props: {
@@ -51,27 +54,8 @@ export default {
     },
   },
   methods: {
-    reset() {
-      this.newTask.title = "";
-      this.newTask.description = "";
-      this.newTask.duration = 0;
-    },
-    async createTask() {
-      // Add verification.
-      const success = await this.$store.dispatch("tasks/createTask", {
-        listId: this.currentList.list_id,
-        title: this.newTask.title,
-        description: this.newTask.description,
-        duration: this.newTask.duration,
-      });
-      if (success === "success") {
-        console.log("new Task Created!");
-        this.newTask.title = "";
-        this.newTask.description = "";
-        this.newTask.duration = 0;
-      } else {
-        console.log("creation failed");
-      }
+    toggleNewTask() {
+      this.createNewTask = !this.createNewTask;
     },
     async getTasks() {
       console.log("Getting tasks for", this.currentList);

@@ -1,36 +1,37 @@
 <template>
-  <v-card>
-    <v-card-title>Create a Task</v-card-title>
+  <v-container class="rounded-lg grey darken-4">
+    <v-row justify="space-around">
+      <h2>Create a Task</h2>
+      <v-btn @click="toggleNewTask()">Close</v-btn>
+    </v-row>
     <v-form>
-      <v-container fluid>
-        <v-text-field
-          label="Title"
-          placeholder="Do laundry..."
-          v-model="newTask.title"
-          required
-        ></v-text-field>
-        <v-textarea
-          label="Description"
-          placeholder="Who, what, when, where, why"
-          v-model="newTask.description"
-          required
-        ></v-textarea>
-        <v-text-field
-          label="Duration"
-          v-model="newTask.duration"
-          single-line
-          type="number"
-        />
-      </v-container>
+      <v-text-field
+        label="Title"
+        placeholder="Do laundry..."
+        v-model="newTask.title"
+        required
+      ></v-text-field>
+      <v-textarea
+        label="Description"
+        placeholder="Who, what, when, where, why"
+        v-model="newTask.description"
+        required
+      ></v-textarea>
+      <v-text-field
+        label="Duration"
+        v-model="newTask.duration"
+        single-line
+        type="number"
+      />
       <v-btn color="error" @click.prevent="reset()">Reset</v-btn>
       <v-btn color="success" @click.prevent="createTask()">Create Task</v-btn>
     </v-form>
-  </v-card>
+  </v-container>
 </template>
 
 <script>
 export default {
-  name: 'CreateATask',
+  name: "CreateATask",
   data() {
     return {
       newTask: {
@@ -57,6 +58,10 @@ export default {
       this.newTask.description = "";
       this.newTask.duration = 0;
     },
+    toggleNewTask() {
+      this.reset();
+      this.$emit("toggle-newTask", false);
+    },
     async createTask() {
       // Add verification.
       const success = await this.$store.dispatch("tasks/createTask", {
@@ -70,6 +75,7 @@ export default {
         this.newTask.title = "";
         this.newTask.description = "";
         this.newTask.duration = 0;
+        this.$emit("toggle-newTask", false);
       } else {
         console.log("creation failed");
       }
