@@ -1,9 +1,29 @@
 <template>
-  <v-list two-line style="width: 100%;">
-    <v-list-item-group v-model="selected" multiple>
+  <v-list three-line flat style="width: 100%;">
+    <v-list-item-group multiple active-class="">
       <template v-for="(task, index) in tasks">
         <v-list-item :key="task.title">
+
           <template>
+            <v-list-item-action>
+              <v-checkbox :input-value="task.complete" @click="toggleCompleteTask(task)"></v-checkbox>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>
+                {{task.title}}
+              </v-list-item-title>
+              <v-list-item-subtitle>
+                {{task.description}}
+              </v-list-item-subtitle>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-btn color="caution" @click="deleteTask(task.task_id)">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+            </v-list-item-action>
+          </template>
+
+          <!-- <template>
             <v-list-item-content>
               <v-list-item-title v-text="task.title"></v-list-item-title>
 
@@ -18,15 +38,15 @@
                 v-text="task.duration + ' min'"
               ></v-list-item-action-text>
 
-              <v-icon v-if="!task.completed">
-                radio-button-unchecked
+              <v-icon v-if="!task.complete">
+                mdi-radio-button-unchecked
               </v-icon>
 
-              <v-icon v-else color="success"> task-alt </v-icon>
+              <v-icon v-else color="success"> mdi-task-alt </v-icon>
             </v-list-item-action>
-          </template>
-        </v-list-item>
+          </template> -->
 
+        </v-list-item>
         <v-divider v-if="index < task.length - 1" :key="index"></v-divider>
       </template>
     </v-list-item-group>
@@ -42,6 +62,9 @@ export default {
     };
   },
   props: {
+    listId: {
+      type: String
+    },
     tasks: {
       type: Array,
       required: true,
@@ -57,9 +80,40 @@ export default {
     },
   },
   methods: {
-    toggleColapse() {},
-    async complete() {},
-    async delete() {},
+    async toggleCompleteTask(task) {
+      console.log('toggle complete', task)
+      let currentTime = ""
+      if (task.complete == null ) {
+        currentTime = new Date().toISOString()
+      } else { currentTime = null }
+      const success = await this.$store.dispatch('tasks/updateTask',
+        {
+          listId: this.listId,
+          taskId: task.task_id,
+          title: task.title,
+          description: task.description,
+          duration: task.duration,
+          complete: currentTime
+        })
+      if (success === 'success') {
+        console.log('update complete to ', currentTime)
+      } else {
+        console.log('update failed')
+      }
+    },
+    async deleteTask(taskId) {
+      console.log('delete task', taskId)
+      const success = await this.$store.dispatch('tasks/delete',
+        {
+          taskId: taskId,
+          listId: this.listId
+        })
+      if (success === 'success'){
+        console.log('delete successful')
+      } else {
+        console.log('delete failure')
+      }
+    },
   },
 };
 </script>

@@ -4,7 +4,7 @@
       <h2>{{ currentList.title }}</h2>
     </v-row>
     <v-row class="mx-2 ma-2">
-          <Tasks :tasks="tasks"></Tasks>
+          <Tasks :tasks="tasks" :listId="currentList.list_id"></Tasks>
     </v-row>
     <v-row>
       <span v-if="!createNewTask"

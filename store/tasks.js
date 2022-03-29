@@ -25,6 +25,23 @@ export const actions = {
 		return 'failed'
 	},
 
+	async updateTask({ dispatch }, { listId, taskId, title, description, duration, complete }) {
+		console.log('updating task', taskId)
+		const res = await this.$axios.put(`api/tasks/${taskId}`, {
+			title: title,
+            description: description,
+            duration: Number(duration),
+            complete: complete
+		})
+		if (res.status === 200) {
+
+			await dispatch('load', { list_id: listId })
+			return 'success'
+		}
+		console.warn(res)
+		return 'failed'
+	},
+
     async load ({ commit }, { list_id }) {
         try {
 			console.log("Getting tasks for", list_id);
@@ -39,12 +56,12 @@ export const actions = {
         }
     },
 
-	async delete ({ dispatch }, taskId) {
+	async delete ({ dispatch }, { taskId, listId }) {
 		try {
 			const res = await this.$axios.delete(`api/tasks/${taskId}`)
 			if (res.status === 204) {
 				// notify
-				await dispatch('load')
+				await dispatch('load', { list_id: listId })
 				return 'success'
 			}
 		} catch (e) {
