@@ -70,6 +70,7 @@ export default {
     changeList(list) {
       this.currentList = list;
       this.$store.dispatch('tasks/load', list)
+      console.log('change task...')
     },
   },
 };

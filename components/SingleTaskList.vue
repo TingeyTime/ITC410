@@ -1,11 +1,10 @@
 <template>
   <v-container>
-    <v-row justify="space-around" class="mx-2 ma-2">
+    <v-row class="mx-2 ma-2">
       <h2>{{ currentList.title }}</h2>
-      <v-btn @click.prevent="getTasks()">Get Tasks</v-btn>
     </v-row>
     <v-row class="mx-2 ma-2">
-      <div v-if="tasks">{{ tasks }}</div>
+          <Tasks :tasks="tasks"></Tasks>
     </v-row>
     <v-row>
       <span v-if="!createNewTask"
@@ -22,6 +21,7 @@
 
 <script>
 import CreateATask from "@/components/CreateATask";
+import Tasks from "@/components/Tasks";
 
 export default {
   name: "SingleTaskList",
@@ -31,6 +31,7 @@ export default {
   },
   components: {
     CreateATask,
+    Tasks,
   },
   data() {
     return {
@@ -56,18 +57,6 @@ export default {
   methods: {
     toggleNewTask() {
       this.createNewTask = !this.createNewTask;
-    },
-    async getTasks() {
-      console.log("Getting tasks for", this.currentList);
-      const success = await this.$store.dispatch(
-        "tasks/load",
-        this.currentList
-      );
-      if (success === "success") {
-        console.log("loaded Tasks");
-      } else {
-        console.log("load tasks failed");
-      }
     },
   },
 };
