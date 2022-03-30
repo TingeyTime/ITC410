@@ -95,8 +95,8 @@ export default {
         },
         {
           icon: "mdi-draw",
-          title: "Temporary Journal",
-          to: "/temporaryJournal",
+          title: "Journal",
+          to: "/Journal",
         },
       ],
       items: [

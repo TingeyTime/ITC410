@@ -22,30 +22,6 @@
               </v-btn>
             </v-list-item-action>
           </template>
-
-          <!-- <template>
-            <v-list-item-content>
-              <v-list-item-title v-text="task.title"></v-list-item-title>
-
-              <v-list-item-subtitle
-                class="text--primary"
-                v-text="task.description"
-              ></v-list-item-subtitle>
-            </v-list-item-content>
-
-            <v-list-item-action>
-              <v-list-item-action-text
-                v-text="task.duration + ' min'"
-              ></v-list-item-action-text>
-
-              <v-icon v-if="!task.complete">
-                mdi-radio-button-unchecked
-              </v-icon>
-
-              <v-icon v-else color="success"> mdi-task-alt </v-icon>
-            </v-list-item-action>
-          </template> -->
-
         </v-list-item>
         <v-divider v-if="index < task.length - 1" :key="index"></v-divider>
       </template>
