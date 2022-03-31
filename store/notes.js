@@ -1,6 +1,6 @@
 export const state = () => {
 	return {
-		note: []
+		note: ""
 	}
 }
 
@@ -16,25 +16,36 @@ export const actions = {
         try {
 			console.log("Getting note");
             const res = await this.$axios.get(`api/notes`)
+            console.log(res)
             if (res.status === 200) {
-                commit('setnote', res.data)
+                commit('setNote', res.data)
 				return 'success'
             }
         } catch (e) {
-            commit('setnote', "")
+            commit('setNote', "")
 			return 'failed'
         }
     },
 
-    async updateNote ({ dispatch }, content) {
+    async updateNote ({ commit }, content) {
         try {
-            console.log ("Updating Note");
-            const res = await this.$axios.get(`api/notes`, content)
-            if (res.status === 200) {
-                commit('setnote', res.data)
+            console.log("Updating Note");
+            const res = await this.$axios.put(`api/notes`,
+                content,
+                {
+                    headers: {
+                        'Content-Type': 'text/plain'
+                    }
+                }
+            )
+            console.log(res.status)
+            console.log(content)
+            if (res.status === 200) {S
+                commit('setNote', res.data)
 				return 'success'
             }
         } catch (e) {
+            console.log(e)
 			return 'failed'
         }
     }
