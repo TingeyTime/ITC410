@@ -1,7 +1,8 @@
 <template>
   <v-container>
-    <v-row class="mx-2 ma-2">
+    <v-row class="mx-2 ma-2" justify="space-around">
       <h2>{{ currentList.title }}</h2>
+      <v-checkbox></v-checkbox>
     </v-row>
     <v-row class="mx-2 ma-2">
           <Tasks :tasks="tasks" :listId="currentList.list_id"></Tasks>

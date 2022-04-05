@@ -30,8 +30,9 @@ export const actions = {
     async updateNote ({ commit }, content) {
         try {
             console.log("Updating Note");
+            const userText = content ? content : " "
             const res = await this.$axios.put(`api/notes`,
-                content,
+                userText,
                 {
                     headers: {
                         'Content-Type': 'text/plain'
@@ -39,8 +40,8 @@ export const actions = {
                 }
             )
             console.log(res.status)
-            console.log(content)
-            if (res.status === 200) {S
+            console.log(userText)
+            if (res.status === 200) {
                 commit('setNote', res.data)
 				return 'success'
             }

@@ -3,7 +3,7 @@
     <v-row>
       <v-col>
         <v-card color="black">
-          <vue-editor v-model="content" @text-change="$emit('update-note');" />
+          <vue-editor :value="content" @text-change="$emit('update-note', $event);" />
         </v-card>
       </v-col>
     </v-row>
@@ -24,5 +24,10 @@ export default {
       required: true
     }
   },
+  computed: {
+    text() {
+      return this.content
+    }
+  }
 };
 </script>
