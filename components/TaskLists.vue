@@ -52,6 +52,9 @@ export default {
       currentList: null,
     };
   },
+  props: {
+    
+  },
   computed: {
     taskLists() {
       return this.$store.state.taskLists.taskLists;

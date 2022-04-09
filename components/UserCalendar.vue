@@ -6,7 +6,6 @@
           <v-calendar-daily
             interval-minutes="60"
             first-time="5"
-            hide-header=true
             interval-height="60"
             interval-width="60"
           >
