@@ -58,14 +58,6 @@ export default {
       type: Array,
     }
   },
-<<<<<<< HEAD
-  // computed: {
-  //   tasks() {
-  //     return this.$store.state.tasks.tasks;
-  //   },
-  // },
-=======
->>>>>>> tmp
   methods: {
     toggleNewTask() {
       this.createNewTask = !this.createNewTask;

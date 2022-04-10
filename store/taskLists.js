@@ -1,5 +1,3 @@
-import { debug } from "webpack"
-
 export const state = () => {
 	return {
 		taskLists: [],
