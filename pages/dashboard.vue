@@ -12,7 +12,6 @@
       <v-col class="mr-auto">
 
         <DashboardOptions @update-options="createActive = $event"></DashboardOptions>
-        
         <CreateATaskList
           @update-options="createActive = $event"
           @create-taskList="createTaskList($event)"
@@ -71,7 +70,6 @@
           </v-container>
         </span>
 
-        <!-- <TaskLists v-if="!createActive"></TaskLists> -->
       </v-col>
     </v-row>
   </v-parallax>
@@ -81,7 +79,6 @@
 import CreateATaskList from "@/components/CreateATaskList";
 import DashboardOptions from "@/components/DashboardOptions";
 import UserCalendar from "@/components/UserCalendar";
-// import TaskLists from "@/components/TaskLists";
 import SingleTaskList from "@/components/SingleTaskList";
 
 export default {
@@ -90,11 +87,10 @@ export default {
     CreateATaskList,
     UserCalendar,
     DashboardOptions,
-    // TaskLists,
     SingleTaskList
   },
-  data: function () {
-    return {
+  data: function() {
+      return {
       createActive: false,
       currentList: null,
       userTask: [],
@@ -113,7 +109,6 @@ export default {
     },
   },
   methods: {
-
     async createTaskList (newList) {
       console.log("Attempt to create: ", newList.title);
       const success = await this.$store.dispatch('taskLists/createTaskList', newList)
@@ -145,7 +140,6 @@ export default {
         console.log("delete failed");
       }
     },
-
     changeList(list) {
       this.loading = true;
       this.$store.dispatch("tasks/load", list);
@@ -154,11 +148,9 @@ export default {
       this.currentList = list;
       this.loading = false;
     },
-
     toggleNewTask() {
       this.createNewTask = !this.createNewTask;
     },
-
     async toggleCompleteTask(task) {
       console.log("toggle complete", task);
       let currentTime = "";
@@ -181,7 +173,6 @@ export default {
         console.log("update failed");
       }
     },
-
     async deleteTask(taskId) {
       console.log("delete task", taskId);
       const success = await this.$store.dispatch("tasks/delete", {

@@ -15,10 +15,13 @@
                 :input-value="task.complete"
                 @click="$emit('toggle-completeTask', task)"
               ></v-checkbox>
+<<<<<<< HEAD
               <!-- <v-checkbox
                 :input-value="task.complete"
                 @click="toggleCompleteTask(task)"
               ></v-checkbox> -->
+=======
+>>>>>>> tmp
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>
@@ -30,7 +33,10 @@
             </v-list-item-content>
             <v-list-item-action>
               <v-btn color="caution" @click="$emit('delete-task', task.task_id )">
+<<<<<<< HEAD
               <!-- <v-btn color="caution" @click="deleteTask(task.task_id)"> -->
+=======
+>>>>>>> tmp
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
             </v-list-item-action>
@@ -56,6 +62,7 @@ export default {
     },
     tasks: {
       type: Array,
+<<<<<<< HEAD
       required: true,
       default: [
         // {
@@ -104,5 +111,9 @@ export default {
   //     }
   //   },
   // },
+=======
+    },
+  },
+>>>>>>> tmp
 };
 </script>
