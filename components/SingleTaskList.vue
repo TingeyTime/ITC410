@@ -5,7 +5,12 @@
       <v-checkbox></v-checkbox>
     </v-row>
     <v-row class="mx-2 ma-2">
-          <Tasks :tasks="tasks" :listId="currentList.list_id"></Tasks>
+          <Tasks
+            :tasks="userTasks"
+            :listId="currentList.list_id"
+            @toggle-completeTask="$emit('toggle-completeTask', $event)"
+            @delete-task="$emit('delete-task', $event)"
+          ></Tasks>
     </v-row>
     <v-row>
       <span v-if="!createNewTask"
@@ -49,11 +54,9 @@ export default {
         completed: null,
       },
     },
-  },
-  computed: {
-    tasks() {
-      return this.$store.state.tasks.tasks;
-    },
+    userTasks: {
+      type: Array,
+    }
   },
   methods: {
     toggleNewTask() {

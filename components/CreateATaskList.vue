@@ -1,7 +1,7 @@
 <template>
   <v-container class="rounded-lg grey darken-4">
     <h2>Create a New Task List</h2>
-    <v-form ref="form" @submit.prevent="createTaskList()">
+    <v-form ref="form" @submit.prevent="$emit('create-taskList', taskList); taskList.title = '';">
       <v-text-field
         v-model="taskList.title"
         label="Title"
@@ -27,17 +27,6 @@ export default {
         title: "",
       },
     };
-  },
-  methods: {
-    async createTaskList () {
-      console.log("Attempt to create: ", this.taskList.title);
-      const success = await this.$store
-        .dispatch('taskLists/createTaskList', this.taskList)
-      if (success === 'success') {
-        this.taskList.title = ""
-        this.$emit('update-options', false)
-      }
-    },
-  },
+  }
 };
 </script>

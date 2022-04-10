@@ -21,7 +21,7 @@ const Events = require('./controllers/event')
 const Notes = require('./controllers/note')
 
 // Test Database Connection
-5
+
 const pool = new Pool({
       host: process.env.POSTGRES_HOST,
   database: process.env.POSTGRES_DB,
