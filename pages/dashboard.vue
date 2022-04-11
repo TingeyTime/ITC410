@@ -117,6 +117,7 @@ export default {
       );
       if (success === "success") {
         this.$emit("update-options", false);
+        window.location.reload();
       }
     },
 
@@ -147,16 +148,17 @@ export default {
       const success = await this.$store.dispatch("taskLists/delete", listId);
       if (success === "success") {
         console.log("delete successful");
+        window.location.reload();
       } else {
         console.log("delete failed");
       }
     },
-    changeList(list) {
+    async changeList(list) {
       this.loading = true;
-      this.$store.dispatch("tasks/load", list);
-      this.userTasks = this.tasks;
       console.log("change list...");
       this.currentList = list;
+      await this.$store.dispatch("tasks/load", this.currentList);
+      this.userTasks = this.tasks;
       this.loading = false;
     },
     toggleNewTask() {
