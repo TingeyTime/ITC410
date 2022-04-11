@@ -1,16 +1,20 @@
 <template>
   <v-container>
-    <v-row class="mx-2 ma-2" justify="space-around">
-      <h2>{{ currentList.title }}</h2>
-      <v-checkbox></v-checkbox>
-    </v-row>
     <v-row class="mx-2 ma-2">
-          <Tasks
-            :tasks="userTasks"
-            :listId="currentList.list_id"
-            @toggle-completeTask="$emit('toggle-completeTask', $event)"
-            @delete-task="$emit('delete-task', $event)"
-          ></Tasks>
+      <h2>{{ currentList.title }}</h2>
+      <v-spacer></v-spacer>
+      <v-checkbox
+        :input-value="currentList.completed"
+        @click="$emit('update-taskLists')"
+      ></v-checkbox>
+    </v-row>
+    <v-row class="mx-2 ma-2" v-if="userTasks != []">
+      <Tasks
+        :tasks="userTasks"
+        :listId="currentList.list_id"
+        @toggle-completeTask="$emit('toggle-completeTask', $event)"
+        @delete-task="$emit('delete-task', $event)"
+      ></Tasks>
     </v-row>
     <v-row>
       <span v-if="!createNewTask"
@@ -56,7 +60,7 @@ export default {
     },
     userTasks: {
       type: Array,
-    }
+    },
   },
   methods: {
     toggleNewTask() {

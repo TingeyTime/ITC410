@@ -1,26 +1,31 @@
 <template>
   <v-container class="rounded-lg grey darken-4">
-    <v-row justify="space-around">
+    <v-row justify="space-around" class="ma-2">
       <h2>Create a Task</h2>
       <v-btn @click="toggleNewTask()">Close</v-btn>
     </v-row>
     <v-form>
+      <div>Title</div>
       <v-text-field
         label="Title"
         placeholder="Do laundry..."
         v-model="newTask.title"
+        solo
         required
       ></v-text-field>
+      <div>Description</div>
       <v-textarea
         label="Description"
         placeholder="Who, what, when, where, why"
         v-model="newTask.description"
+        solo
         required
       ></v-textarea>
+      <div>Duration (in miuntes)</div>
       <v-text-field
-        label="Duration"
+        label="Duration (in minutes)"
         v-model="newTask.duration"
-        single-line
+        solo
         type="number"
       />
       <v-btn color="error" @click.prevent="reset()">Reset</v-btn>

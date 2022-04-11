@@ -3,7 +3,6 @@
     three-line
     flat
     style="width: 100%;"
-    v-if="task != []"
   >
     <v-list-item-group multiple active-class="">
       <template v-for="(task, index) in tasks">
@@ -23,6 +22,7 @@
               <v-list-item-subtitle>
                 {{task.description}}
               </v-list-item-subtitle>
+                {{task.duration}} mins
             </v-list-item-content>
             <v-list-item-action>
               <v-btn color="caution" @click="$emit('delete-task', task.task_id )">

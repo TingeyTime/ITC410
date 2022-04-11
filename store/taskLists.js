@@ -26,12 +26,12 @@ export const actions = {
 		return 'failed'
 	},
 
-	async updateList({ dispatch }, { title, list_id }, completed = null) {
+	async updateList({ dispatch }, { title, list_id, completed }) {
 		try {
 			const res = await this.$axios.put(`api/taskLists/${list_id}`,
 			{
 				title: title,
-				completed: completed
+				completed: completed ?? null
 			})
 			if (res.status === 200) {
 				// notify
@@ -40,7 +40,7 @@ export const actions = {
 			}
 		} catch (e) {
 			// do something
-			console.log('udpate of ' + listId + ' failed.')
+			console.log('update of ' + listId + ' failed.')
 			return 'failed'
 		}
 	},

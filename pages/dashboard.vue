@@ -10,8 +10,9 @@
         <UserCalendar />
       </v-col>
       <v-col class="mr-auto">
-
-        <DashboardOptions @update-options="createActive = $event"></DashboardOptions>
+        <DashboardOptions
+          @update-options="createActive = $event"
+        ></DashboardOptions>
         <CreateATaskList
           @update-options="createActive = $event"
           @create-taskList="createTaskList($event)"
@@ -19,7 +20,7 @@
         ></CreateATaskList>
 
         <span v-if="!createActive">
-          <v-container class="rounded-lg grey darken-4">
+          <v-container class="rounded-lg grey darken-4" v-if="loading != true">
             <v-row justify="space-around" class="ma-2">
               <h2>Task Lists</h2>
               <span>
@@ -31,31 +32,27 @@
                     </v-btn>
                   </template>
                   <v-list>
-                    <v-list-item v-for="(list, i) in taskLists" :key="i">
+                    <v-list-item v-for="(list, i) in userTaskLists" :key="i">
                       <v-list-item-action>
-                        <v-btn-toggle>
-                        <v-btn text @click="toggleCompleteList(list)">
-                          <v-icon v-if="list.complete == null">mdi-done-all</v-icon>
-                          <v-icon v-if="list.complete != null" color="success">mdi-done-all</v-icon>
-                        </v-btn>
-                        <v-btn text color="caution" @click="deleteList(list.list_id)">
-                          <v-icon>mdi-delete</v-icon>
-                        </v-btn>
-                        <v-btn text @click="changeList(list)">
-                          {{ list.title }}
-                        </v-btn>
-                        </v-btn-toggle>
+                        <span>
+                          <v-btn
+                            text
+                            color="caution"
+                            @click="deleteList(list.list_id)"
+                          >
+                            <v-icon>mdi-delete</v-icon>
+                          </v-btn>
+                          <v-btn text @click="changeList(list)">
+                            {{ list.title }}
+                          </v-btn>
+                        </span>
                       </v-list-item-action>
                     </v-list-item>
                   </v-list>
                 </v-menu>
               </span>
             </v-row>
-            <v-row
-              justify="space-around"
-              class="ma-2"
-              v-if="loading != true"
-            >
+            <v-row justify="space-around" class="ma-2">
               <SingleTaskList
                 v-if="currentList != null"
                 :currentList="currentList"
@@ -69,7 +66,6 @@
             </v-row>
           </v-container>
         </span>
-
       </v-col>
     </v-row>
   </v-parallax>
@@ -87,18 +83,16 @@ export default {
     CreateATaskList,
     UserCalendar,
     DashboardOptions,
-    SingleTaskList
+    SingleTaskList,
   },
-  data: function() {
-      return {
+  data: function () {
+    return {
       createActive: false,
       currentList: null,
-      userTask: [],
-      loading: true
+      userTasks: [],
+      userTaskLists: [],
+      loading: true,
     };
-  },
-  fetch() {
-    this.$store.dispatch("taskLists/load");
   },
   computed: {
     tasks() {
@@ -108,16 +102,25 @@ export default {
       return this.$store.state.taskLists.taskLists;
     },
   },
+  fetch() {
+    this.$store.dispatch("taskLists/load");
+    this.userTaskLists = this.taskLists;
+    this.loading = false;
+    return;
+  },
   methods: {
-    async createTaskList (newList) {
+    async createTaskList(newList) {
       console.log("Attempt to create: ", newList.title);
-      const success = await this.$store.dispatch('taskLists/createTaskList', newList)
-      if (success === 'success') {
-        this.$emit('update-options', false)
+      const success = await this.$store.dispatch(
+        "taskLists/createTaskList",
+        newList
+      );
+      if (success === "success") {
+        this.$emit("update-options", false);
       }
     },
 
-    async toggleCompleteList (list) {
+    async toggleCompleteList(list) {
       console.log("attempt to update: ", list.title);
       let currentTime = "";
       if (list.completed == null) {
@@ -125,9 +128,17 @@ export default {
       } else {
         currentTime = null;
       }
-      const success = await this.$store.dispatch('taskLists/updateList', list, currentTime)
-      if (success === 'success') {
-        this.$emit('update-taskLists')
+      const success = await this.$store.dispatch(
+        "taskLists/updateList",
+        {
+          list_id: list.list_id,
+          title: list.title, 
+          completed: currentTime
+        }
+      );
+      if (success === "success") {
+        this.$emit("update-taskLists");
+        this.userTaskLists = this.taskLists
       }
     },
 
@@ -143,7 +154,7 @@ export default {
     changeList(list) {
       this.loading = true;
       this.$store.dispatch("tasks/load", list);
-      this.userTasks = this.tasks
+      this.userTasks = this.tasks;
       console.log("change list...");
       this.currentList = list;
       this.loading = false;
