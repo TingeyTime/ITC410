@@ -28,6 +28,7 @@
           <nuxt-link to="/SignUp">Sign up now</nuxt-link>
           <br />
           <nuxt-link to="/">Back to homepage</nuxt-link>
+          <nuxt-link :to="'www.google.com'" target="_blank">Google</nuxt-link>
         </v-card-text>
       </v-card>
     </v-col>

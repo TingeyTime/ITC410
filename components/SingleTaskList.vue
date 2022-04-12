@@ -21,7 +21,7 @@
         ><v-btn @click="toggleNewTask()">New Task</v-btn></span
       >
       <CreateATask
-        @toggle-newTask="createNewTask = $event"
+        @create-task="$emit('create-task', $event); createNewTask = false;"
         v-if="createNewTask"
         :currentList="currentList"
       ></CreateATask>

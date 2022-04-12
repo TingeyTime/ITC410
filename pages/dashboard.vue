@@ -57,6 +57,7 @@
                 v-if="currentList != null"
                 :currentList="currentList"
                 :userTasks="userTasks"
+                @create-task="createNewTask($event)"
                 @toggle-completeTask="toggleCompleteTask($event)"
                 @delete-task="deleteTask($event)"
               ></SingleTaskList>
@@ -109,7 +110,15 @@ export default {
     return;
   },
   methods: {
+    updatePage() {
+      this.loading = true;
+      console.log('updating page');
+      this.userTaskLists = this.taskLists;
+      this.userTasks = this.tasks;
+      this.loading = false;
+    },
     async createTaskList(newList) {
+      this.loading = true;
       console.log("Attempt to create: ", newList.title);
       const success = await this.$store.dispatch(
         "taskLists/createTaskList",
@@ -117,11 +126,13 @@ export default {
       );
       if (success === "success") {
         this.$emit("update-options", false);
-        window.location.reload();
+        this.updatePage()
       }
+      this.loading = false;
     },
 
     async toggleCompleteList(list) {
+      this.loading = true;
       console.log("attempt to update: ", list.title);
       let currentTime = "";
       if (list.completed == null) {
@@ -138,9 +149,9 @@ export default {
         }
       );
       if (success === "success") {
-        this.$emit("update-taskLists");
         this.userTaskLists = this.taskLists
       }
+      this.loading = false;
     },
 
     async deleteList(listId) {
@@ -152,6 +163,7 @@ export default {
       } else {
         console.log("delete failed");
       }
+      this.updatePage()
     },
     async changeList(list) {
       this.loading = true;
@@ -161,10 +173,18 @@ export default {
       this.userTasks = this.tasks;
       this.loading = false;
     },
+    async createNewTask(newTask) {
+      this.loading = true;
+      console.log(newTask)
+      await this.$store.dispatch("tasks/createTask", newTask);
+      this.userTasks = this.tasks;
+      this.loading = false;
+    },
     toggleNewTask() {
       this.createNewTask = !this.createNewTask;
     },
     async toggleCompleteTask(task) {
+      this.loading = true;
       console.log("toggle complete", task);
       let currentTime = "";
       if (task.complete == null) {
@@ -182,9 +202,11 @@ export default {
       });
       if (success === "success") {
         console.log("update complete to ", currentTime);
+        this.userTasks = this.tasks
       } else {
         console.log("update failed");
       }
+      this.loading = false;
     },
     async deleteTask(taskId) {
       console.log("delete task", taskId);

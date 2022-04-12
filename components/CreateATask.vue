@@ -68,22 +68,28 @@ export default {
       this.$emit("toggle-newTask", false);
     },
     async createTask() {
-      // Add verification.
-      const success = await this.$store.dispatch("tasks/createTask", {
+      this.$emit("create-task",
+      {
         listId: this.currentList.list_id,
         title: this.newTask.title,
         description: this.newTask.description,
         duration: this.newTask.duration,
-      });
-      if (success === "success") {
-        console.log("new Task Created!");
-        this.newTask.title = "";
-        this.newTask.description = "";
-        this.newTask.duration = 0;
-        this.$emit("toggle-newTask", false);
-      } else {
-        console.log("creation failed");
-      }
+      })
+      // const success = await this.$store.dispatch("tasks/createTask", {
+      //   listId: this.currentList.list_id,
+      //   title: this.newTask.title,
+      //   description: this.newTask.description,
+      //   duration: this.newTask.duration,
+      // });
+      // if (success === "success") {
+      //   console.log("new Task Created!");
+      //   this.newTask.title = "";
+      //   this.newTask.description = "";
+      //   this.newTask.duration = 0;
+      //   this.$emit("toggle-newTask", false);
+      // } else {
+      //   console.log("creation failed");
+      // }
     },
   },
 };
